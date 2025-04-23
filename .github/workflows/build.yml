@@ -99,12 +99,12 @@ jobs:
       # 下载并安装构建依赖
       - name: Fetch build dependencies
         run: |
-          gradle -I gradle/support/fetchDependencies.gradle
+          gradle -I gradle/support/fetchDependencies.gradle --parallel --max-workers=8
 
       # 构建 Ghidra
       - name: Build Ghidra
         run: |
-          gradle buildGhidra --parallel --max-workers=4
+          gradle buildGhidra --parallel --max-workers=8
 
       # 保存构建结果
       - name: Upload build artifacts
