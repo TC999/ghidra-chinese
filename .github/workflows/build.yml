@@ -58,7 +58,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ghidra-build
+          name: ghidra-linux-build
           path: build/dist/
 
   Windows:
@@ -110,5 +110,5 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ghidra-build
+          name: ghidra-windows-build
           path: build/dist/
