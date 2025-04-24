@@ -133,8 +133,6 @@ export DISPLAY=:99
 - **Gradle 本地化问题**: 非英文系统需设置 `LC_MESSAGES=en_US.UTF-8`。
 - **Python 环境**: 建议使用虚拟环境解决 `pip` 访问问题。
 
-[相关链接]: 各工具和许可证的官方文档链接（略）
-
 [java]: https://dev.java
 [cpp]: https://isocpp.org
 [sleigh]: https://htmlpreview.github.io/?https://github.com/NationalSecurityAgency/ghidra/blob/stable/GhidraDocs/languages/index.html
