@@ -57,13 +57,13 @@ import resources.Icons;
  */
 class EditPluginPathDialog extends DialogComponentProvider {
 
-	static final String ADD_DIR_BUTTON_TEXT = "Add Dir ...";
-	static final String ADD_JAR_BUTTON_TEXT = "Add Jar ...";
+	static final String ADD_DIR_BUTTON_TEXT = "添加文件夹...";
+	static final String ADD_JAR_BUTTON_TEXT = "添加 Jar...";
 	private final static Color STATUS_MESSAGE_COLOR = Messages.NORMAL;
 	final static String EMPTY_STATUS = " ";
 
 	private ExtensionFileFilter JAR_FILTER =
-		new ExtensionFileFilter(new String[] { "jar", "zip" }, "Plugin Jar Files");
+		new ExtensionFileFilter(new String[] { "jar", "zip" }, "插件 Jar 文件");
 
 	// codes used when handling actions
 	private final static byte UP = (byte) 0;
@@ -117,7 +117,7 @@ class EditPluginPathDialog extends DialogComponentProvider {
 
 		// construct the bottom error message panel
 		JPanel statusMessagePanel = new JPanel();
-		statusMessage = new GDLabel("Ready to set User Plugin Paths");
+		statusMessage = new GDLabel("准备设置用户插件路径...");
 		statusMessage.setName("statusLabel");
 
 		statusMessage.setForeground(STATUS_MESSAGE_COLOR);
@@ -200,8 +200,8 @@ class EditPluginPathDialog extends DialogComponentProvider {
 		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 		fileChooser.setFileSelectionMode(GhidraFileChooserMode.FILES_ONLY);
 		fileChooser.setFileFilter(JAR_FILTER);
-		fileChooser.setApproveButtonToolTipText("Choose Plugin Jar File");
-		fileChooser.setApproveButtonText("Add Jar File");
+		fileChooser.setApproveButtonToolTipText("选择插件 Jar 文件");
+		fileChooser.setApproveButtonText("添加 Jar 文件");
 
 		fileChooser.setLastDirectoryPreference(Preferences.LAST_PATH_DIRECTORY);
 
@@ -215,7 +215,7 @@ class EditPluginPathDialog extends DialogComponentProvider {
 					setApplyEnabled(true);
 				}
 				else {
-					setStatusMessage(dirPath + " is already in the list.");
+					setStatusMessage(dirPath + " 已在列表中。");
 				}
 			}
 			catch (IOException e) {
@@ -234,8 +234,8 @@ class EditPluginPathDialog extends DialogComponentProvider {
 		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 		fileChooser.setFileSelectionMode(GhidraFileChooserMode.DIRECTORIES_ONLY);
 		fileChooser.setFileFilter(GhidraFileFilter.ALL);
-		fileChooser.setApproveButtonToolTipText("Choose Directory with Plugin class Files");
-		fileChooser.setApproveButtonText("Add Directory");
+		fileChooser.setApproveButtonToolTipText("选择包含插件类文件的目录"); // 原文：Choose Directory with Plugin class Files
+		fileChooser.setApproveButtonText("添加文件夹");
 
 		File dir = fileChooser.getSelectedFile();
 		if (dir != null) {
@@ -247,12 +247,12 @@ class EditPluginPathDialog extends DialogComponentProvider {
 					setApplyEnabled(true);
 				}
 				else {
-					setStatusMessage(dirPath + " is already in the list.");
+					setStatusMessage(dirPath + " 已在列表中。");
 				}
 			}
 			catch (IOException e) {
 				setStatusMessage(e.getMessage());
-				Msg.error(this, "Unexpected Exception: " + e.getMessage(), e);
+				Msg.error(this, "意外异常：" + e.getMessage(), e);
 			}
 		}
 		fileChooser.dispose();
@@ -282,7 +282,7 @@ class EditPluginPathDialog extends DialogComponentProvider {
 		addJarButton.addActionListener(e -> addJarCallback());
 		JButton addDirButton = new GButton(ADD_DIR_BUTTON_TEXT);
 		addDirButton.addActionListener(e -> addDirCallback());
-		removeButton = new GButton("Remove");
+		removeButton = new GButton("移除");
 		removeButton.addActionListener(e -> handleSelection(REMOVE));
 		Dimension d = addJarButton.getPreferredSize();
 		addDirButton.setPreferredSize(d);
@@ -335,14 +335,14 @@ class EditPluginPathDialog extends DialogComponentProvider {
 		pluginPathListPanel.add(scrollListPanel, BorderLayout.CENTER);
 		pluginPathListPanel.add(listButtonPanel, BorderLayout.EAST);
 
-		pluginPathListPanel.setBorder(new TitledBorder("User Plugin Paths"));
+		pluginPathListPanel.setBorder(new TitledBorder("用户插件路径"));
 
 		// set tooltips after adding all components to get around swing
 		// tooltip text problem where the text is obscured by a component
 		// added after tooltip has been added
 		//
-		upButton.setToolTipText("Changes the order of search for plugins");
-		downButton.setToolTipText("Changes the order of search for plugins");
+		upButton.setToolTipText("更改插件搜索顺序");
+		downButton.setToolTipText("更改插件搜索顺序");
 
 		pluginPathListPanel.validate();
 		return pluginPathListPanel;
@@ -368,17 +368,17 @@ class EditPluginPathDialog extends DialogComponentProvider {
 		errorMsg = null;
 		// save the new values
 		if (Preferences.store()) {
-			setStatusMessage("Saved plugin paths successfully!");
+			setStatusMessage("保存插件路径成功！");
 			// indicate to user all changes have been applied
 			setApplyEnabled(false);
 
-			Msg.showInfo(getClass(), rootPanel, "Restart Ghidra",
-				"You must restart Ghidra in order\n" + "for path changes to take effect.");
+			Msg.showInfo(getClass(), rootPanel, "重启 Ghidra",
+				"为了使路径更改生效，您必须重新启动 Ghidra。");
 		}
 		else {
 			setStatusMessage("");
-			Msg.showError(this, rootPanel, "Error Saving Plugin Paths",
-				"Failed to update user preferences (see log for details)");
+			Msg.showError(this, rootPanel, "保存插件路径出错",
+				"未能更新用户首选项（详情请参阅日志）");
 		}
 	}
 
