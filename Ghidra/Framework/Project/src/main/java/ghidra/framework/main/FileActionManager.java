@@ -72,21 +72,21 @@ class FileActionManager {
 	 * creates all the menu items for the File menu
 	 */
 	private void createActions() {
-		new ActionBuilder("New Project", plugin.getName())
-				.menuPath(ToolConstants.MENU_FILE, "New Project...")
+		new ActionBuilder("新建项目", plugin.getName())
+				.menuPath(ToolConstants.MENU_FILE, "新建项目...")
 				.menuGroup("AProject")
 				.keyBinding("ctrl N")
 				.onAction(c -> newProject())
 				.buildAndInstall(tool);
 
-		new ActionBuilder("Open Project", plugin.getName())
-				.menuPath(ToolConstants.MENU_FILE, "Open Project...")
+		new ActionBuilder("打开项目", plugin.getName())
+				.menuPath(ToolConstants.MENU_FILE, "打开项目...")
 				.menuGroup("AProject")
 				.keyBinding("ctrl O")
 				.onAction(c -> openProject())
 				.buildAndInstall(tool);
 
-		saveAction = new DockingAction("Save Project", plugin.getName()) {
+		saveAction = new DockingAction("保存项目", plugin.getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				saveProject();
@@ -97,10 +97,10 @@ class FileActionManager {
 		saveAction.setKeyBindingData(
 			new KeyBindingData(KeyStroke.getKeyStroke(SAVE_ACCELERATOR, ActionEvent.CTRL_MASK)));
 		saveAction.setMenuBarData(
-			new MenuData(new String[] { ToolConstants.MENU_FILE, "Save Project" }, "BProject"));
+			new MenuData(new String[] { ToolConstants.MENU_FILE, "保存项目" }, "BProject"));
 		tool.addAction(saveAction);
 
-		closeProjectAction = new DockingAction("Close Project", plugin.getName()) {
+		closeProjectAction = new DockingAction("关闭项目", plugin.getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				closeProject(false); // not exiting
@@ -110,11 +110,11 @@ class FileActionManager {
 		closeProjectAction.setKeyBindingData(
 			new KeyBindingData(KeyStroke.getKeyStroke(CLOSE_ACCELERATOR, ActionEvent.CTRL_MASK)));
 		closeProjectAction.setMenuBarData(
-			new MenuData(new String[] { ToolConstants.MENU_FILE, "Close Project" }, "BProject"));
+			new MenuData(new String[] { ToolConstants.MENU_FILE, "关闭项目" }, "BProject"));
 		tool.addAction(closeProjectAction);
 
-		new ActionBuilder("Delete Project", plugin.getName())
-				.menuPath(ToolConstants.MENU_FILE, "Delete Project...")
+		new ActionBuilder("删除项目", plugin.getName())
+				.menuPath(ToolConstants.MENU_FILE, "删除项目...")
 				.menuGroup("CProject")
 				.onAction(c -> deleteProject())
 				.buildAndInstall(tool);
@@ -185,8 +185,8 @@ class FileActionManager {
 			return tool.getProjectManager().createProject(locator, repository, true);
 		}
 		catch (Exception e) {
-			Msg.showError(this, tool.getToolFrame(), "Create Project Failed",
-				"Failed to create new project '" + locator.getName() + "': " + e.getMessage(), e);
+			Msg.showError(this, tool.getToolFrame(), "创建项目出错",
+				"创建项目出错 '" + locator.getName() + "': " + e.getMessage(), e);
 		}
 		return null;
 	}
@@ -236,7 +236,7 @@ class FileActionManager {
 	 */
 	final boolean openProject(ProjectLocator projectLocator) {
 		OpenTaskRunnable openRunnable = new OpenTaskRunnable(projectLocator);
-		TaskLauncher.launchModal("Opening Project", () -> Swing.runNow(openRunnable));
+		TaskLauncher.launchModal("打开项目中", () -> Swing.runNow(openRunnable));
 		return openRunnable.getResult();
 	}
 
@@ -260,27 +260,26 @@ class FileActionManager {
 			tool.setActiveProject(project);
 			openProjectAndNotify(project);
 			firingProjectOpened = false;
-			Msg.info(this, "Opened project: " + projectLocator.getName());
+			Msg.info(this, "已打开项目：" + projectLocator.getName());
 		}
 		catch (NotFoundException nfe) {
-			String msg = "Project not found for " + projectLocator;
-			Msg.showInfo(getClass(), tool.getToolFrame(), "Error Opening Project", msg);
+			String msg = "未找到项目：" + projectLocator;
+			Msg.showInfo(getClass(), tool.getToolFrame(), "打开项目出错", msg);
 			Msg.error(this, msg);
 		}
 		catch (NotOwnerException e) {
-			Msg.showError(this, null, "Not Project Owner", "Cannot open project " + projectLocator +
+			Msg.showError(this, null, "不是项目所有者", "不能打开项目 " + projectLocator +
 				"\n" + e.getMessage() +
-				"\n \nEach user must create their own project. If needed, another user's project may be viewed\n" +
-				"and files copied, using the View Other action from your own open project.  Alternatively, \n" +
-				"creating a \"Shared Project\" will allow a group of users to use a shared server-based repository.");
-			Msg.error(this,  "Cannot open project: " + e.getMessage());
+				"\n \n每个用户必须创建自己的项目，如有需要，可以通过在自己打开的项目中使用“查看其他”操作查看\n"+
+				"其他用户的项目并复制文件，或者创建“共享项目”以允许一组用户使用基于服务器的共享仓库。\n");
+			Msg.error(this,  "不能打开项目: " + e.getMessage());
 		}
 		catch (LockException e) {
-			Msg.showInfo(this, null, "Open Project Failed", e.getMessage());
+			Msg.showInfo(this, null, "打开项目失败", e.getMessage());
 		}
 		catch (Exception e) {
-			Msg.showError(this, null, "Open Project Failed",
-				"Error opening project: " + projectLocator, e);
+			Msg.showError(this, null, "打开项目失败",
+				"打开项目出错: " + projectLocator, e);
 		}
 		finally {
 			// update our list of recent projects
@@ -307,17 +306,17 @@ class FileActionManager {
 					files.get(lastIndex).getDomainObject(this, false, false, null);
 			}
 			catch (Throwable t) {
-				Msg.error(this, "Failed to aqcuire domain object instance", t);
+				Msg.error(this, "未能获取域对象实例", t);
 				locked = false;
 				break;
 			}
 			if (!domainObjects[lastIndex].lock(null)) {
-				String title = "Exit Ghidra";
+				String title = "退出 Ghidra";
 				StringBuffer buf = new StringBuffer();
 				DomainObject d = domainObjects[lastIndex];
-				buf.append("The File " + files.get(lastIndex).getPathname() +
-					" is currently being modified by the\n");
-				buf.append("the following actions:\n \n");
+				buf.append("文件 " + files.get(lastIndex).getPathname() +
+					" 当前正在被修改，由\n");
+				buf.append("以下操作：\n \n");
 				TransactionInfo t = d.getCurrentTransactionInfo();
 				List<String> list = t.getOpenSubTransactions();
 				for (String element : list) {
@@ -325,15 +324,13 @@ class FileActionManager {
 					buf.append(element);
 				}
 				buf.append("\n \n");
-				buf.append(
-					"You may exit Ghidra, but the above action(s) will be aborted and all\n");
-				buf.append("changes made by those actions (and all changes made since those\n");
-				buf.append("actions started) will be lost!  You will still have the option of \n");
-				buf.append("saving any changes made before those actions began.\n \n");
-				buf.append("Do you want to abort the action(s) and exit Ghidra?");
+				buf.append("您可以退出 Ghidra，但上述操作将被中止，且由这些操作所做的所有更改\n");
+				buf.append("（以及自这些操作开始以来所做的所有更改）都将丢失！\n");
+				buf.append("您仍然可以选择保存在这些操作开始之前所做的任何更改。");
+				buf.append("您是否要中止操作并退出 Ghidra？");
 
 				int result = OptionDialog.showOptionDialog(tool.getToolFrame(), title,
-					buf.toString(), "Exit Ghidra", OptionDialog.WARNING_MESSAGE);
+					buf.toString(), "退出 Ghidra", OptionDialog.WARNING_MESSAGE);
 
 				if (result == OptionDialog.CANCEL_OPTION) {
 					locked = false;
@@ -402,7 +399,7 @@ class FileActionManager {
 		if (!isExiting) {
 			// update the gui now that active project is closed
 			tool.setActiveProject(null);
-			Msg.info(this, "Closed project: " + name);
+			Msg.info(this, "已关闭项目：" + name);
 
 			// update the list of project views to include the "active"
 			// project that is no longer active
@@ -506,13 +503,13 @@ class FileActionManager {
 		}
 
 		doSaveProject(project);
-		Msg.info(this, "Saved project: " + project.getName());
+		Msg.info(this, "已保存项目：" + project.getName());
 	}
 
 	private boolean allowDelete(Project activeProject) {
 		if (activeProject != null) {
-			Msg.showWarn(getClass(), tool.getToolFrame(), "Cannot Delete Active Project",
-				"You must close your project to delete it.");
+			Msg.showWarn(getClass(), tool.getToolFrame(), "无法删除激活项目",
+				"您必须关闭后再删除。");
 			return false;
 		}
 		return true;
@@ -532,8 +529,8 @@ class FileActionManager {
 		}
 		ProjectManager pm = plugin.getProjectManager();
 		if (!pm.projectExists(projectLocator)) {
-			Msg.showInfo(getClass(), tool.getToolFrame(), "Project Does Not Exist",
-				"Project " + projectLocator.getName() + " was not found.");
+			Msg.showInfo(getClass(), tool.getToolFrame(), "项目不存在",
+				"项目 " + projectLocator.getName() + " 未找到。");
 			return;
 		}
 		// confirm delete before continuing
@@ -541,7 +538,7 @@ class FileActionManager {
 
 		// give a special confirm message if user is about to
 		// remove the active project
-		StringBuffer confirmMsg = new StringBuffer("Project: ");
+		StringBuffer confirmMsg = new StringBuffer("项目：");
 		confirmMsg.append(projectLocator.toString());
 		confirmMsg.append(" ?\n");
 		boolean isActiveProject =
@@ -554,7 +551,7 @@ class FileActionManager {
 		}
 
 		confirmMsg.append(" \n");
-		confirmMsg.append("WARNING: Delete CANNOT be undone!");
+		confirmMsg.append("警告：删除不可撤销！");
 
 		if (!plugin.confirmDelete(confirmMsg.toString())) {
 			return;
@@ -563,12 +560,12 @@ class FileActionManager {
 		String projectName = projectLocator.getName();
 		try {
 			if (!pm.deleteProject(projectLocator)) {
-				Msg.showInfo(getClass(), tool.getToolFrame(), "Error Deleting Project",
-					"All files from project " + projectName + " were not deleted.");
+				Msg.showInfo(getClass(), tool.getToolFrame(), "删除项目出错",
+					"所有项目文件 " + projectName + " 将不被删除。");
 			}
 		}
 		catch (Exception e) {
-			Msg.error(this, "Error deleting project: " + projectName + ", " + e.getMessage(), e);
+			Msg.error(this, "删除项目出错：" + projectName + ", " + e.getMessage(), e);
 			return;
 		}
 
@@ -585,7 +582,7 @@ class FileActionManager {
 		// update our list of recent projects
 		plugin.rebuildRecentMenus();
 
-		Msg.info(this, "Deleted project: " + projectName);
+		Msg.info(this, "已删除项目：" + projectName);
 	}
 
 	private boolean isOpenProjectView(ProjectLocator projectLocator) {
@@ -630,8 +627,7 @@ class FileActionManager {
 		}
 
 		StringBuffer sb = new StringBuffer();
-		sb.append("The following files are Read-Only and cannot be\n" +
-			" saved 'As Is.' You must do a manual 'Save As' for these\n" + " files: \n \n");
+	    sb.append("以下文件为只读，无法直接保存“原样”。\n" + "您必须为这些文件手动执行“另存为”操作：\n \n");
 
 		for (DomainObject obj : list) {
 			sb.append(obj.getDomainFile().getPathname());
