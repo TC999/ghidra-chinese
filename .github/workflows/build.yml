@@ -30,7 +30,7 @@ jobs:
       - name: Set up Python 3
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x' # 支持 3.9 到 3.13 的 Python 版本
+          python-version: '3.9' # 支持 3.9 到 3.13 的 Python 版本
 
       # 安装 Gradle
       - name: Set up Gradle
@@ -81,7 +81,7 @@ jobs:
       - name: Set up Python 3
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x' # 支持 3.9 到 3.13 的 Python 版本
+          python-version: '3.9' # 支持 3.9 到 3.13 的 Python 版本
 
       # 安装 Gradle
       - name: Set up Gradle
