@@ -635,11 +635,10 @@ class FileActionManager {
 		}
 		// note: put the extra space in or else OptionDialog will not show
 		// the new line char
-		sb.append(" \nChoose 'Cancel' to cancel Close Project, or \n");
-		sb.append("'Lose Changes' to continue.");
+		sb.append("\n选择“取消”以取消关闭项目，或选择“放弃更改”以继续。");
 
-		if (OptionDialog.showOptionDialog(tool.getToolFrame(), "Read-Only Files", sb.toString(),
-			"Lose Changes", OptionDialog.QUESTION_MESSAGE) == OptionDialog.OPTION_ONE) {
+		if (OptionDialog.showOptionDialog(tool.getToolFrame(), "只读文件", sb.toString(),
+			"丢弃更改", OptionDialog.QUESTION_MESSAGE) == OptionDialog.OPTION_ONE) {
 			return true; // Lose changes, so close the project
 		}
 		return false;
