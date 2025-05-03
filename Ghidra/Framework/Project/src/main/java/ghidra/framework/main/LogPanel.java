@@ -71,7 +71,7 @@ public class LogPanel extends JPanel implements LogListener {
 
 		button.setPreferredSize(new Dimension(24, 24));
 		button.setFocusable(false);
-		button.setToolTipText("Show Console (Refresh Open Console)");
+		button.setToolTipText("显示日志 (刷新当前)");
 		button.addActionListener(e -> {
 			FrontEndTool tool = (FrontEndTool) plugin.getTool();
 			tool.showGhidraUserLogFile();
