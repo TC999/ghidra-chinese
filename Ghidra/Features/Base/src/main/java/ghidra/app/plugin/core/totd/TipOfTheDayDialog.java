@@ -44,13 +44,13 @@ class TipOfTheDayDialog extends ReusableDialogComponentProvider {
 	private List<String> tips;
 
 	TipOfTheDayDialog(TipOfTheDayPlugin plugin, List<String> tips) {
-		super("Tip of the Day", false, false, true, false);
+		super("每日提示", false, false, true, false);
 
 		this.plugin = plugin;
 		this.tips = tips;
 
 		if (tips.isEmpty()) {
-			tips.add("Could not find any tips!");
+			tips.add("未找到提示！");
 		}
 
 		Icon tipIcon = new GIcon("icon.plugin.totd.provider");
@@ -68,18 +68,18 @@ class TipOfTheDayDialog extends ReusableDialogComponentProvider {
 		tipScroll.setBorder(BorderFactory.createEmptyBorder());
 		tipScroll.setPreferredSize(tipArea.getPreferredSize());
 
-		showTipsCheckbox = new GCheckBox("Show Tips on Startup?");
+		showTipsCheckbox = new GCheckBox("启动时显示");
 		showTipsCheckbox.setSelected(true); // before adding the listener to prevent project save
 		showTipsCheckbox.addItemListener(e -> showTipsChanged());
 
-		nextTipButton = new JButton("Next Tip");
+		nextTipButton = new JButton("下一条");
 		nextTipButton.addActionListener(e -> {
 			incrementTipIndex();
 			loadNextTip();
 		});
 		addButton(nextTipButton);
 
-		closeButton = new JButton("Close");
+		closeButton = new JButton("关闭");
 		closeButton.addActionListener(e -> close());
 		addButton(closeButton);
 
@@ -89,7 +89,7 @@ class TipOfTheDayDialog extends ReusableDialogComponentProvider {
 				BorderFactory.createLineBorder(Colors.BORDER));
 		panel.setBorder(panelBorder);
 
-		JLabel label = new GLabel("Did you know...", tipIcon, SwingConstants.LEFT);
+		JLabel label = new GLabel("您知道吗...", tipIcon, SwingConstants.LEFT);
 		label.setBackground(Colors.BACKGROUND);
 		label.setOpaque(true);
 		Gui.registerFont(label, FONT_LABEL_ID);
