@@ -91,7 +91,7 @@ class ProjectActionManager {
 		String owner = plugin.getName();
 
 		// create the listeners for the menuitems
-		openProjectViewAction = new DockingAction("View Project", owner) {
+		openProjectViewAction = new DockingAction("查看项目", owner) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				openProjectView();
@@ -100,11 +100,11 @@ class ProjectActionManager {
 		openProjectViewAction.setEnabled(false);
 
 		openProjectViewAction.setMenuBarData(
-			new MenuData(new String[] { ToolConstants.MENU_PROJECT, "View Project..." }, "AView"));
+			new MenuData(new String[] { ToolConstants.MENU_PROJECT, "查看项目..." }, "AView"));
 		openProjectViewAction.getMenuBarData().setMenuSubGroup("1");
 		tool.addAction(openProjectViewAction);
 
-		openRepositoryViewAction = new DockingAction("View Repository", owner) {
+		openRepositoryViewAction = new DockingAction("查看仓库", owner) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				openRepositoryView();
@@ -113,11 +113,11 @@ class ProjectActionManager {
 		openRepositoryViewAction.setEnabled(false);
 
 		openRepositoryViewAction.setMenuBarData(new MenuData(
-			new String[] { ToolConstants.MENU_PROJECT, "View Repository..." }, "AView"));
+			new String[] { ToolConstants.MENU_PROJECT, "查看仓库..." }, "AView"));
 		openRepositoryViewAction.getMenuBarData().setMenuSubGroup("2");
 		tool.addAction(openRepositoryViewAction);
 
-		addWSAction = new DockingAction("Add Workspace", owner) {
+		addWSAction = new DockingAction("添加工作区", owner) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				plugin.getWorkspacePanel().addWorkspace();
@@ -126,10 +126,10 @@ class ProjectActionManager {
 		addWSAction.setEnabled(false);
 
 		addWSAction.setMenuBarData(new MenuData(
-			new String[] { ToolConstants.MENU_PROJECT, "Workspace", "Add..." }, "zProject"));
+			new String[] { ToolConstants.MENU_PROJECT, "Workspace", "添加..." }, "zProject"));
 		tool.addAction(addWSAction);
 
-		renameWSAction = new DockingAction("Rename Workspace", owner) {
+		renameWSAction = new DockingAction("重命名工作区", owner) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				plugin.getWorkspacePanel().renameWorkspace();
@@ -138,10 +138,10 @@ class ProjectActionManager {
 		renameWSAction.setEnabled(false);
 
 		renameWSAction.setMenuBarData(new MenuData(
-			new String[] { ToolConstants.MENU_PROJECT, "Workspace", "Rename..." }, "zProject"));
+			new String[] { ToolConstants.MENU_PROJECT, "Workspace", "重命名..." }, "zProject"));
 		tool.addAction(renameWSAction);
 
-		removeWSAction = new DockingAction("Delete Workspace", owner) {
+		removeWSAction = new DockingAction("删除工作区", owner) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				plugin.getWorkspacePanel().removeWorkspace();
@@ -150,12 +150,12 @@ class ProjectActionManager {
 		removeWSAction.setEnabled(false);
 
 		removeWSAction.setMenuBarData(new MenuData(
-			new String[] { ToolConstants.MENU_PROJECT, "Workspace", "Delete..." }, "zProject"));
+			new String[] { ToolConstants.MENU_PROJECT, "Workspace", "删除..." }, "zProject"));
 		tool.addAction(removeWSAction);
 
 		tool.setMenuGroup(new String[] { ToolConstants.MENU_PROJECT, "Workspace" }, "zProject");
 
-		editAccessAction = new DockingAction("Edit Project Access List", owner) {
+		editAccessAction = new DockingAction("编辑项目访问列表", owner) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				editProjectAccess();
@@ -163,9 +163,9 @@ class ProjectActionManager {
 		};
 
 		editAccessAction.setMenuBarData(
-			new MenuData(new String[] { "Project", "Edit Project Access List..." }, "zzProject"));
+			new MenuData(new String[] { "Project", "编辑项目访问列表..." }, "zzProject"));
 
-		viewAccessAction = new DockingAction("View Project Access List", owner) {
+		viewAccessAction = new DockingAction("编辑项目访问列表", owner) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				viewProjectAccess();
@@ -173,9 +173,9 @@ class ProjectActionManager {
 		};
 
 		viewAccessAction.setMenuBarData(
-			new MenuData(new String[] { "Project", "View Project Access List..." }, "zzProject"));
+			new MenuData(new String[] { "Project", "编辑项目访问列表..." }, "zzProject"));
 
-		setPasswordAction = new DockingAction("Change Password", owner) {
+		setPasswordAction = new DockingAction("更改密码", owner) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				changePassword();
@@ -183,9 +183,9 @@ class ProjectActionManager {
 		};
 
 		setPasswordAction.setMenuBarData(
-			new MenuData(new String[] { "Project", "Change Password..." }, "zzProject"));
+			new MenuData(new String[] { "Project", "更改密码..." }, "zzProject"));
 
-		viewInfoAction = new DockingAction("View Project Info", owner) {
+		viewInfoAction = new DockingAction("查看项目信息", owner) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				showProjectInfo();
@@ -194,14 +194,14 @@ class ProjectActionManager {
 		viewInfoAction.setEnabled(false);
 
 		viewInfoAction.setMenuBarData(
-			new MenuData(new String[] { "Project", "View Project Info..." }, "zzzProject"));
+			new MenuData(new String[] { "Project", "查看项目信息..." }, "zzzProject"));
 		tool.addAction(viewInfoAction);
 	}
 
 	private void createSwitchWorkspaceAction() {
 		String owner = plugin.getName();
 
-		switchWSAction = new DockingAction("Switch Workspace", owner) {
+		switchWSAction = new DockingAction("切换工作区", owner) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				ToolManager toolManager = activeProject.getToolManager();
@@ -227,7 +227,7 @@ class ProjectActionManager {
 		switchWSAction.setEnabled(false);
 
 		switchWSAction.setMenuBarData(new MenuData(
-			new String[] { ToolConstants.MENU_PROJECT, "Workspace", "Switch..." }, "zProject"));
+			new String[] { ToolConstants.MENU_PROJECT, "Workspace", "切换..." }, "zProject"));
 		tool.addAction(switchWSAction);
 	}
 
@@ -246,7 +246,7 @@ class ProjectActionManager {
 			return;
 		}
 
-		tool.setMenuGroup(new String[] { ToolConstants.MENU_PROJECT, "Close View" }, "AView", "4");
+		tool.setMenuGroup(new String[] { ToolConstants.MENU_PROJECT, "关闭查看" }, "AView", "4");
 
 		ProjectLocator[] projectViews = pdp.getProjectViews();
 		for (ProjectLocator view : projectViews) {
@@ -265,13 +265,13 @@ class ProjectActionManager {
 					}
 				};
 			action.setMenuBarData(new MenuData(
-				new String[] { ToolConstants.MENU_PROJECT, "Close View", CLOSE_ALL_OPEN_VIEWS },
+				new String[] { ToolConstants.MENU_PROJECT, "关闭查看", CLOSE_ALL_OPEN_VIEWS },
 				"AView"));
 			openViewsList.add(new ViewInfo(action, null));
 			tool.addAction(action);
 		}
 		else if (projectViews.length == 0) {
-			DockingAction action = new DockingAction("Close View", plugin.getName()) {
+			DockingAction action = new DockingAction("关闭查看", plugin.getName()) {
 				@Override
 				public void actionPerformed(ActionContext context) {
 					// do nothing - place holder menu item only
@@ -280,7 +280,7 @@ class ProjectActionManager {
 			action.setEnabled(false);
 
 			action.setMenuBarData(
-				new MenuData(new String[] { ToolConstants.MENU_PROJECT, "Close View" }, "AView"));
+				new MenuData(new String[] { ToolConstants.MENU_PROJECT, "关闭查看" }, "AView"));
 			action.getMenuBarData().setMenuSubGroup("4");
 			openViewsList.add(new ViewInfo(action, null));
 			tool.addAction(action);
@@ -306,7 +306,7 @@ class ProjectActionManager {
 		// don't include the active project in the list of views 
 		URL[] recentViews = plugin.getRecentViewedProjects();
 
-		tool.setMenuGroup(new String[] { ToolConstants.MENU_PROJECT, "View Recent" }, "AView", "3");
+		tool.setMenuGroup(new String[] { ToolConstants.MENU_PROJECT, "最近查看" }, "AView", "3");
 
 		// the project manager maintains the order of the projects
 		// with the most recent being first in the list
@@ -319,7 +319,7 @@ class ProjectActionManager {
 
 		// disable the menu if no recent project views
 		if (reopenViewsList.size() == 0) {
-			DockingAction action = new DockingAction("View Recent", plugin.getName(), false) {
+			DockingAction action = new DockingAction("最近查看", plugin.getName(), false) {
 				@Override
 				public void actionPerformed(ActionContext context) {
 					// no-op; disabled action placeholder
@@ -327,7 +327,7 @@ class ProjectActionManager {
 			};
 			action.setEnabled(false);
 			action.setMenuBarData(
-				new MenuData(new String[] { ToolConstants.MENU_PROJECT, "View Recent" }, "AView"));
+				new MenuData(new String[] { ToolConstants.MENU_PROJECT, "最近查看" }, "AView"));
 			action.getMenuBarData().setMenuSubGroup("3");
 			reopenViewsList.add(new ViewInfo(action, null));
 			tool.addAction(action);
@@ -528,7 +528,7 @@ class ProjectActionManager {
 
 	private void openRepositoryView() {
 		if (repositoryChooser == null) {
-			repositoryChooser = new RepositoryChooser("View Server Repository");
+			repositoryChooser = new RepositoryChooser("查看远程仓库");
 			repositoryChooser.setHelpLocation(
 				new HelpLocation("FrontEndPlugin", "View_Repository"));
 		}
