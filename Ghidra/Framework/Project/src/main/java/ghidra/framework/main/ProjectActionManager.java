@@ -557,8 +557,8 @@ class ProjectActionManager {
 	private void openView(URL view) {
 		// don't allow opening the active project as a read-only view
 		if (activeProject != null && activeProject.getProjectLocator().getURL().equals(view)) {
-			Msg.showError(getClass(), tool.getToolFrame(), "Error Opening as Read-Only",
-				"Cannot open active project as Read-Only view!");
+			Msg.showError(getClass(), tool.getToolFrame(), "打开为只读时出错",
+				"无法以只读视图打开活动项目！");
 			return;
 		}
 
@@ -568,8 +568,8 @@ class ProjectActionManager {
 		catch (IOException e) {
 			ProjectManager projectManager = tool.getProjectManager();
 			projectManager.forgetViewedProject(view);
-			Msg.showError(getClass(), tool.getToolFrame(), "Error Adding View",
-				"Failed to view project/repository: " + e.getMessage(), e);
+			Msg.showError(getClass(), tool.getToolFrame(), "添加视图出错",
+				"查看项目/仓库时出错：" + e.getMessage(), e);
 		}
 	}
 
@@ -582,7 +582,7 @@ class ProjectActionManager {
 			tool.showDialog(dialog);
 		}
 		catch (IOException e) {
-			ClientUtil.handleException(repository, e, "Edit Project Access List",
+			ClientUtil.handleException(repository, e, "编辑项目访问列表",
 				tool.getToolFrame());
 		}
 	}
@@ -596,7 +596,7 @@ class ProjectActionManager {
 			tool.showDialog(dialog);
 		}
 		catch (IOException e) {
-			ClientUtil.handleException(repository, e, "View Project Access List",
+			ClientUtil.handleException(repository, e, "查看项目访问列表",
 				tool.getToolFrame());
 		}
 	}
@@ -614,15 +614,14 @@ class ProjectActionManager {
 			ServerInfo info = repository.getServerInfo();
 
 			if (OptionDialog.OPTION_ONE != OptionDialog.showOptionDialog(tool.getToolFrame(),
-				"Confirm Password Change",
-				"You are about to change your repository server password for:\n" + info +
-					"\n \nThis password is used when connecting to project\n" +
-					"repositories associated with this server",
-				"Continue", OptionDialog.WARNING_MESSAGE)) {
+				"确认修改密码",
+				"您即将更改以下仓库服务器的密码：\n" + info +
+				    "\n \n此密码用于连接与此服务器关联的项目仓库。\n",
+				"继续", OptionDialog.WARNING_MESSAGE)) {
 				return;
 			}
 
-			dlg = new PasswordChangeDialog("Change Password", "Repository Server",
+			dlg = new PasswordChangeDialog("修改密码", "仓库服务器",
 				repository.getServerInfo().getServerName(), repository.getServer().getUser());
 			tool.showDialog(dlg);
 			pwd = dlg.getPassword();
@@ -630,12 +629,12 @@ class ProjectActionManager {
 				repository.getServer()
 						.setPassword(
 							HashUtilities.getSaltedHash(HashUtilities.SHA256_ALGORITHM, pwd));
-				Msg.showInfo(getClass(), tool.getToolFrame(), "Password Changed",
-					"Password was changed successfully");
+				Msg.showInfo(getClass(), tool.getToolFrame(), "密码已修改",
+					"密码修改成功");
 			}
 		}
 		catch (IOException e) {
-			ClientUtil.handleException(repository, e, "Password Change", tool.getToolFrame());
+			ClientUtil.handleException(repository, e, "密码已修改", tool.getToolFrame());
 		}
 		finally {
 			if (pwd != null) {
