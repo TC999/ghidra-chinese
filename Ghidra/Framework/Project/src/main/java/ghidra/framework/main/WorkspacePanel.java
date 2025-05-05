@@ -35,7 +35,7 @@ import help.HelpService;
 
 class WorkspacePanel extends JPanel implements WorkspaceChangeListener {
 	private final static long serialVersionUID = 1L;
-	private final static String RUNNING_TOOLS_TITLE = "Running Tools";
+	private final static String RUNNING_TOOLS_TITLE = "运行工具";
 	private final static Border ACTIVE_WORKSPACE_BORDER =
 		BorderFactory.createTitledBorder(RUNNING_TOOLS_TITLE);
 	private final static String NO_ACTIVE_WORKSPACE = "INACTIVE";
@@ -145,7 +145,7 @@ class WorkspacePanel extends JPanel implements WorkspaceChangeListener {
 	@Override
 	public void workspaceSetActive(Workspace ws) {
 		if (ws == null) {
-			throw new IllegalArgumentException("Active Workspace cannot be null");
+			throw new IllegalArgumentException("激活工作区不能为空");
 		}
 		workspaceSetActive(ws, ws.getName());
 	}
@@ -265,7 +265,7 @@ class WorkspacePanel extends JPanel implements WorkspaceChangeListener {
 	 */
 	void addWorkspace() {
 		// query the user for the name of the workspace
-		InputDialog nameDialog = new InputDialog("Create New Workspace", "Workspace Name",
+		InputDialog nameDialog = new InputDialog("新建工作区", "工作区名",
 			ToolManager.DEFAULT_WORKSPACE_NAME);
 		plugin.getTool().showDialog(nameDialog);
 		if (nameDialog.isCanceled()) {
@@ -278,8 +278,8 @@ class WorkspacePanel extends JPanel implements WorkspaceChangeListener {
 			tm.createWorkspace(workspaceName);
 		}
 		catch (DuplicateNameException e) {
-			String msg = "Workspace named: " + workspaceName + " already exists.";
-			Msg.showError(getClass(), plugin.getTool().getToolFrame(), "Workspace Name Exists",
+			String msg = "工作区 " + workspaceName + "已存在。";
+			Msg.showError(getClass(), plugin.getTool().getToolFrame(), "工作区名称已存在。",
 				msg);
 		}
 	}
@@ -320,7 +320,7 @@ class WorkspacePanel extends JPanel implements WorkspaceChangeListener {
 		}
 
 		String workspaceName = activeWorkspace.getName();
-		if (!plugin.confirmDelete("Workspace: " + workspaceName)) {
+		if (!plugin.confirmDelete("工作区：" + workspaceName)) {
 			return; // user canceled
 		}
 
@@ -341,7 +341,7 @@ class WorkspacePanel extends JPanel implements WorkspaceChangeListener {
 			// query the user for the name of the workspace
 			String workspaceName = activeWorkspace.getName();
 			InputDialog nameDialog =
-				new InputDialog("Rename Workspace", "Workspace Name", workspaceName);
+				new InputDialog("重命名工作区", "工作区名称", workspaceName);
 			plugin.getTool().showDialog(nameDialog);
 			if (nameDialog.isCanceled()) {
 				return;
@@ -361,8 +361,8 @@ class WorkspacePanel extends JPanel implements WorkspaceChangeListener {
 				}
 				catch (DuplicateNameException e) {
 					Msg.showError(getClass(), plugin.getTool().getToolFrame(),
-						"Error Renaming Workspace",
-						"Workspace named: " + newName + " already exists.");
+						"重命名工作区出错",
+						"工作区 " + newName + " 已存在。");
 				}
 			}
 		}
