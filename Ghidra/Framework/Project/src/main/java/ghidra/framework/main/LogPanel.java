@@ -57,7 +57,7 @@ public class LogPanel extends JPanel implements LogListener {
 		panel.setBorder(BorderFactory.createEmptyBorder(8, 4, 4, 2));
 		button = new EmptyBorderButton(new GIcon("icon.console"));
 		label = new GDLabel();
-		label.setName("Details");
+		label.setName("详情");
 		panel.add(label, BorderLayout.CENTER);
 
 		JPanel eastPanel = new JPanel(new HorizontalLayout(0));

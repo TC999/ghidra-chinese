@@ -141,7 +141,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 	 */
 	public FrontEndTool(ProjectManager pm) {
 		super(null, pm, null, null /*tool template*/, false, false, false);
-		setToolName("Project Window");
+		setToolName("项目窗口");
 
 		listeners = WeakDataStructureFactory.createCopyOnWriteWeakSet();
 
@@ -231,7 +231,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 			return sax.build(is).getRootElement();
 		}
 		catch (IOException | JDOMException e) {
-			Msg.showError(this, null, "Error", "Error reading front end configuration", e);
+			Msg.showError(this, null, "错误", "读取前端配置时出错", e);
 		}
 		return null;
 	}
@@ -260,7 +260,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 			xmlOut.output(doc, os);
 		}
 		catch (IOException e) {
-			Msg.showError(this, null, "Error", "Error saving front end configuration", e);
+			Msg.showError(this, null, "错误", "保存前端配置时出错", e);
 		}
 	}
 
@@ -309,7 +309,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 			addPlugins(classNames);
 		}
 		catch (PluginException e) {
-			Msg.showError(this, getToolFrame(), "Plugin Error", "Error restoring front-end plugins",
+			Msg.showError(this, getToolFrame(), "插件错误", "恢复前端插件时出错",
 				e);
 		}
 	}
@@ -322,7 +322,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 		}
 		catch (PluginException e) {
 			// should not happen
-			Msg.showError(this, getToolFrame(), "Can't Create Project Window", e.getMessage(), e);
+			Msg.showError(this, getToolFrame(), "无法创建项目窗口", e.getMessage(), e);
 		}
 		compProvider = plugin.getFrontEndProvider();
 
@@ -343,23 +343,20 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 			new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "Front_End_Tool_Options");
 
 		options.registerOption(DEFAULT_TOOL_LAUNCH_MODE, DefaultLaunchMode.DEFAULT, help,
-			"Indicates if a new or already running tool should be used during default launch.");
+			"表示在默认启动时应使用新工具还是已运行的工具");
 		options.registerOption(AUTOMATICALLY_SAVE_TOOLS, true, help,
-			"When enabled tools will be saved when they are closed");
+			"启用后工具关闭时将被保存。");
 		options.registerOption(USE_ALERT_ANIMATION_OPTION_NAME, true, help,
-			"Signals that user notifications should be animated.  This makes notifications more " +
-				"distinguishable.");
+			"表示用户通知应设置为动画效果。这使得通知更容易被识别。");
 		options.registerOption(SHOW_TOOLTIPS_OPTION_NAME, true, help,
-			"Controls the display of tooltip popup windows.");
+			"控制工具提示弹出窗口的显示。");
 		options.registerOption(ENABLE_COMPRESSED_DATABUFFER_OUTPUT, false, help,
-			"When enabled data buffers sent to Ghidra Server are compressed (see server " +
-				"configuration for other direction)");
-
-		options.registerOption(BLINKING_CURSORS_OPTION_NAME, true, help, "This controls whether" +
-			" text cursors blink when focused");
-
+		    "启用后，发送到 Ghidra 服务器的数据缓冲区将被压缩" +
+			"（有关另一方向的配置，请参阅服务器配置）。");
+		options.registerOption(BLINKING_CURSORS_OPTION_NAME, true, help, 
+		    "此选项控制文本光标在聚焦时是否闪烁。");
 		options.registerOption(RESTORE_PREVIOUS_PROJECT_NAME, true, help,
-			"Restore the previous project when Ghidra starts.");
+			"在 Ghidra 启动时恢复上一个项目。");
 
 		defaultLaunchMode = options.getEnum(DEFAULT_TOOL_LAUNCH_MODE, defaultLaunchMode);
 
@@ -475,9 +472,9 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 			return true;
 		}
 
-		if (OptionDialog.showYesNoDialog(tool.getToolFrame(), "Lost Connection to Server",
-			"The connection to the Ghidra Server has been lost.\n" +
-				"Do you want to reconnect now?") == OptionDialog.OPTION_ONE) {
+		if (OptionDialog.showYesNoDialog(tool.getToolFrame(), "与服务器的连接已丢失。",
+			"与 Ghidra 服务器的连接已丢失。\n" +
+				"您要重新连接吗？") == OptionDialog.OPTION_ONE) {
 			try {
 				repository.connect();
 				return true;
@@ -487,7 +484,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 				return false;
 			}
 			catch (IOException e) {
-				ClientUtil.handleException(repository, e, "Repository Connection",
+				ClientUtil.handleException(repository, e, "仓库连接",
 					tool.getToolFrame());
 				return false;
 			}
@@ -535,9 +532,9 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 		if (changedList.size() > 0) {
 			ChangedFilesDialog dialog = new ChangedFilesDialog(tool, changedList);
-			dialog.setCancelToolTipText("Cancel Check In");
+			dialog.setCancelToolTipText("取消检查");
 			if (!dialog.showDialog()) {// blocks until the user hits Save or Cancel
-				Msg.info(this, "Checkin canceled");
+				Msg.info(this, "检查已取消");
 				return;
 			}
 			for (int i = 0; i < changedList.size(); i++) {
@@ -551,7 +548,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 			tool.execute(new CheckInTask(tool, list, parent));
 		}
 		else {
-			Msg.showError(this, tool.getToolFrame(), "Checkin Failed", "Unable to checkin file(s)");
+			Msg.showError(this, tool.getToolFrame(), "检查失败", "无法检查文件");
 		}
 	}
 
@@ -602,9 +599,9 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 		}
 		if (changedList.size() > 0) {
 			ChangedFilesDialog dialog = new ChangedFilesDialog(tool, changedList);
-			dialog.setCancelToolTipText("Cancel Merge");
+			dialog.setCancelToolTipText("取消合并");
 			if (!dialog.showDialog()) {// blocks until the user hits Save or Cancel
-				Msg.info(this, "Merge canceled");
+				Msg.info(this, "合并已取消");
 				return;
 			}
 			for (int i = 0; i < changedList.size(); i++) {
@@ -618,7 +615,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 			execute(new MergeTask(tool, list, taskListener));
 		}
 		else {
-			Msg.showError(this, tool.getToolFrame(), "Update Failed", "Unable to update file(s)");
+			Msg.showError(this, tool.getToolFrame(), "更新失败", "无法更新文件");
 		}
 
 	}
@@ -643,7 +640,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 		JFrame rootFrame = winMgr.getRootFrame();
 		Component glassPane = rootFrame.getGlassPane();
 		if (!(glassPane instanceof GGlassPane)) {
-			Msg.debug(this, "Found root frame without a GhidraGlassPane registered!");
+			Msg.debug(this, "发现根框架未注册 GhidraGlassPane！");
 			return;
 		}
 		GGlassPane dockingGlassPane = (GGlassPane) glassPane;
@@ -652,7 +649,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 	private void addManageExtensionsAction() {
 
-		DockingAction installExtensionsAction = new DockingAction("Extensions", "Project Window") {
+		DockingAction installExtensionsAction = new DockingAction("扩展", "项目窗口") {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				showExtensions();
@@ -664,7 +661,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 			}
 		};
 		MenuData menuData = new MenuData(
-			new String[] { ToolConstants.MENU_FILE, "Install Extensions" }, null, CONFIGURE_GROUP);
+			new String[] { ToolConstants.MENU_FILE, "安装扩展" }, null, CONFIGURE_GROUP);
 		menuData.setMenuSubGroup(CONFIGURE_GROUP + 2);
 		installExtensionsAction.setMenuBarData(menuData);
 
@@ -676,7 +673,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 	private void addManagePluginsAction() {
 
-		configureToolAction = new DockingAction("Configure Tool", "Project Window") {
+		configureToolAction = new DockingAction("配置工具", "项目窗口") {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				showConfig(false, false);
@@ -748,7 +745,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 			restorePluginsFromXml(elem);
 		}
 		catch (PluginException e) {
-			Msg.showError(this, getToolFrame(), "Error Restoring Front-end Plugins", e.getMessage(),
+			Msg.showError(this, getToolFrame(), "恢复前端插件时出错", e.getMessage(),
 				e);
 		}
 		winMgr.restoreFromXML(tc.getToolElement());
@@ -764,14 +761,14 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 		addHelpActions();
 
 		// our log file action
-		DockingAction action = new DockingAction("Show Log", ToolConstants.TOOL_OWNER) {
+		DockingAction action = new DockingAction("显示日志", ToolConstants.TOOL_OWNER) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				showGhidraUserLogFile();
 			}
 		};
 		action.setMenuBarData(
-			new MenuData(new String[] { ToolConstants.MENU_HELP, "Show Log" }, null, "BBB"));
+			new MenuData(new String[] { ToolConstants.MENU_HELP, "显示日志" }, null, "BBB"));
 
 		action.setEnabled(true);
 		addAction(action);
@@ -838,7 +835,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 			help.showHelp(url);
 		}
 		catch (MalformedURLException e) {
-			Msg.debug(this, "Unable to show the What's New help page", e);
+			Msg.debug(this, "无法显示“新功能”帮助页面", e);
 		}
 	}
 
@@ -888,7 +885,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 		private FileWatcher watcher;
 
 		LogComponentProvider(PluginTool tool, File logFile) {
-			super("Ghidra User Log", false, false, false, false);
+			super("Ghidra 用户日志", false, false, false, false);
 
 			this.logFile = logFile;
 
@@ -946,7 +943,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 				eventListener.send(loadEvt);
 			}
 			catch (IOException e) {
-				Msg.error(this, "Exception reading log file", e);
+				Msg.error(this, "读取日志文件时发生异常", e);
 			}
 
 			return panel;
@@ -987,21 +984,21 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 					DomainFile df = list.get(i);
 					currentName = df.getName();
-					monitor.setMessage("Initiating Merging for " + currentName);
+					monitor.setMessage("正在启动合并：" + currentName);
 
 					df.merge(true, monitor);
 				}
 			}
 			catch (VersionException e) {
-				Msg.showError(this, tool.getToolFrame(), "Error During Merge Process",
-					"Versioned file was created with newer version of Ghidra: " + currentName);
+				Msg.showError(this, tool.getToolFrame(), "合并过程中发生错误",
+					"版本文件是使用较新版本的 Ghidra 创建的：" + currentName);
 			}
 			catch (CancelledException e) {
 				wasCanceled = true;
-				Msg.info(this, "Merge Process was canceled");
+				Msg.info(this, "合并进程被取消");
 			}
 			catch (IOException e) {
-				ClientUtil.handleException(getProject().getRepository(), e, "Merge Process",
+				ClientUtil.handleException(getProject().getRepository(), e, "合并进程",
 					tool.getToolFrame());
 			}
 			notifyTaskListener();
