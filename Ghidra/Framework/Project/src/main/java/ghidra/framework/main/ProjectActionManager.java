@@ -654,10 +654,10 @@ class ProjectActionManager {
 		private final String urlPath;
 
 		private RecentViewPluginAction(String urlPath) {
-			super("View " + urlPath, plugin.getName(), false);
+			super("查看 " + urlPath, plugin.getName(), false);
 			this.urlPath = urlPath;
 			setMenuBarData(new MenuData(
-				new String[] { ToolConstants.MENU_PROJECT, "View Recent", urlPath }, "AView"));
+				new String[] { ToolConstants.MENU_PROJECT, "最近查看", urlPath }, "AView"));
 			setHelpLocation(new HelpLocation(plugin.getName(), "View_Recent"));
 		}
 
@@ -672,10 +672,10 @@ class ProjectActionManager {
 		private final String urlPath;
 
 		private CloseViewPluginAction(String urlPath) {
-			super("Close View " + urlPath, plugin.getName(), false);
+			super("关闭视图 " + urlPath, plugin.getName(), false);
 			this.urlPath = urlPath;
 			setMenuBarData(new MenuData(
-				new String[] { ToolConstants.MENU_PROJECT, "Close View", urlPath }, "AView"));
+				new String[] { ToolConstants.MENU_PROJECT, "关闭视图", urlPath }, "AView"));
 			setHelpLocation(new HelpLocation(plugin.getName(), "Close_View"));
 		}
 
