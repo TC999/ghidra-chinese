@@ -115,7 +115,7 @@ import mdemangler.typeinfo.*;
  * but a user trying to find the table wouldn't be expected to pass in a parentage of {A}, as A
  * is the owner.  We expect the finder to still appropriately return the correct table.
  */
-public class MsftVxtManager extends VxtManager {
+public class MsVxtManager extends VxtManager {
 
 	private Program program;
 	private Map<String, Address> vxtAddressByMangled;
@@ -149,7 +149,7 @@ public class MsftVxtManager extends VxtManager {
 	 * @param ctm the class type manager
 	 * @param program the program
 	 */
-	public MsftVxtManager(ClassTypeManager ctm, Program program) {
+	public MsVxtManager(ClassTypeManager ctm, Program program) {
 		super(ctm);
 		this.program = program;
 		vxtAddressByMangled = new HashMap<>();
@@ -552,7 +552,7 @@ public class MsftVxtManager extends VxtManager {
 
 			case VFT:
 				ProgramVirtualFunctionTable vft = new ProgramVirtualFunctionTable(owner, parentage,
-					program, address, ctm.getDefaultVftTableElementSize(), mangled);
+					program, address, ctm.getDefaultVfTableElementSize(), mangled);
 				if (node.getVFTable() != null) {
 					Msg.warn(this, "VFT already exists at node for " + mangled);
 					return false;
