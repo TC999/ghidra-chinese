@@ -68,7 +68,7 @@ import ghidra.util.task.*;
 	status = PluginStatus.RELEASED,
 	packageName = CorePluginPackage.NAME,
 	category = PluginCategoryNames.COMMON,
-	shortDescription = "Import External Files (NEW)",
+	shortDescription = "导入外部文件（新）",
 	description = ImporterPlugin.IMPORTER_PLUGIN_DESC,
 	servicesProvided = { FileImporterService.class },
 	eventsConsumed = { ProgramActivatedPluginEvent.class }
@@ -336,7 +336,7 @@ public class ImporterPlugin extends Plugin
 				doSingleImportAction(getFolderFromContext(context));
 			}
 		};
-		importAction.setMenuBarData(new MenuData(new String[] { "&File", title + "..." }, null,
+		importAction.setMenuBarData(new MenuData(new String[] { "&文件", title + "..." }, null,
 			IMPORT_MENU_GROUP, MenuData.NO_MNEMONIC, "1"));
 		importAction.setKeyBindingData(new KeyBindingData(KeyEvent.VK_I, 0));
 		importAction.setDescription(IMPORTER_PLUGIN_DESC);
@@ -359,7 +359,7 @@ public class ImporterPlugin extends Plugin
 				return tool.getProject() != null;
 			}
 		};
-		batchImportAction.setMenuBarData(new MenuData(new String[] { "&File", title + "..." }, null,
+		batchImportAction.setMenuBarData(new MenuData(new String[] { "&文件", title + "..." }, null,
 			IMPORT_MENU_GROUP, MenuData.NO_MNEMONIC, "2"));
 		batchImportAction.setDescription(IMPORTER_PLUGIN_DESC);
 		batchImportAction.setHelpLocation(new HelpLocation("ImporterPlugin", title));
@@ -420,7 +420,7 @@ public class ImporterPlugin extends Plugin
 	}
 
 	private void setupLoadLibrariesAction() {
-		String title = "Load Libraries";
+		String title = "加载库";
 
 		loadLibrariesAction = new DockingAction(title, this.getName()) {
 			@Override

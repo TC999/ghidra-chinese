@@ -151,7 +151,7 @@ public class LoadPdbDialog extends DialogComponentProvider {
 	 * @param program the ghidra {@link Program} that is loading the Pdb
 	 */
 	public LoadPdbDialog(Program program) {
-		super("Load PDB for " + program.getName(), true, true, true, true);
+		super("加载 PDB： " + program.getName(), true, true, true, true);
 		setRememberSize(false);
 
 		this.program = program;
@@ -260,7 +260,7 @@ public class LoadPdbDialog extends DialogComponentProvider {
 		boolean isSearchable = getCurrentSymbolFileInfo() != null;
 		loadPdbButton.setEnabled(hasLocation);
 		configButton.setIcon(hasGoodService ? null : MATCH_BAD_ICON);
-		configButton.setToolTipText(hasGoodService ? null : "Missing configuration");
+		configButton.setToolTipText(hasGoodService ? null : "配置丢失");
 		symbolFilePanel.setEnablement(hasGoodService, isSearchable);
 	}
 
@@ -287,7 +287,7 @@ public class LoadPdbDialog extends DialogComponentProvider {
 		if (allowUntrusted) {
 			findOptions.add(FindOption.ALLOW_UNTRUSTED);
 		}
-		executeMonitoredRunnable("Search for PDBs", true, true, 0, monitor -> {
+		executeMonitoredRunnable("搜索 PDB", true, true, 0, monitor -> {
 			try {
 				searchCanceled = false;
 				List<SymbolFileLocation> results =
@@ -315,7 +315,7 @@ public class LoadPdbDialog extends DialogComponentProvider {
 		buildPdbLocationPanel();
 		buildProgramPdbPanel();
 		buildParserOptionsPanel();
-		setHelpLocation(new HelpLocation(PdbPlugin.PDB_PLUGIN_HELP_TOPIC, "Load PDB File"));
+		setHelpLocation(new HelpLocation(PdbPlugin.PDB_PLUGIN_HELP_TOPIC, "加载 PDB 文件"));
 
 		addStatusTextSupplier(() -> lastSearchOptions != null && advancedToggleButton.isSelected()
 				? WellKnownSymbolServerLocation.getWarningsFor(knownSymbolServers,
@@ -336,7 +336,7 @@ public class LoadPdbDialog extends DialogComponentProvider {
 	private void buildSymbolFilePanel() {
 		// panel will be added in layoutAdvanced()
 		symbolFilePanel = new SymbolFilePanel(this::searchForPdbs);
-		symbolFilePanel.getAccessibleContext().setAccessibleName("Symbol File");
+		symbolFilePanel.getAccessibleContext().setAccessibleName("符号文件");
 		symbolFilePanel.getTable()
 				.getSelectionModel()
 				.addListSelectionListener(e -> updateSelectedRow());
@@ -372,15 +372,15 @@ public class LoadPdbDialog extends DialogComponentProvider {
 		programNameTextField = new BetterNonEditableTextField(20);
 		programNameTextField.setEditable(false);
 		programNameTextField.setText(program.getName());
-		programNameTextField.getAccessibleContext().setAccessibleName("Program Name");
-		pdbPathTextField = new BetterNonEditableTextField(20, "Missing", Colors.ERROR);
+		programNameTextField.getAccessibleContext().setAccessibleName("程序名称");
+		pdbPathTextField = new BetterNonEditableTextField(20, "丢失", Colors.ERROR);
 		pdbPathTextField.setEditable(false);
 		pdbPathTextField.setText(programSymbolFileInfo.getPath());
 		pdbPathTextField.getDocument().addDocumentListener(docListener);
-		pdbPathTextField.getAccessibleContext().setAccessibleName("PDB Path");
+		pdbPathTextField.getAccessibleContext().setAccessibleName("PDB 路径");
 		overridePdbPathCheckBox = new GCheckBox();
 		overridePdbPathCheckBox.setVisible(false);
-		overridePdbPathCheckBox.setToolTipText("Override PDB name (when searching).");
+		overridePdbPathCheckBox.setToolTipText("覆盖 PDB 名称（在搜索时）。");
 		overridePdbPathCheckBox.addItemListener(e -> {
 			pdbPathTextField.setEditable(overridePdbPathCheckBox.isSelected());
 			if (overridePdbPathCheckBox.isSelected()) {
@@ -390,12 +390,12 @@ public class LoadPdbDialog extends DialogComponentProvider {
 				pdbPathTextField.setText(programSymbolFileInfo.getPath());
 			}
 		});
-		overridePdbPathCheckBox.getAccessibleContext().setAccessibleName("Override PDB Path");
+		overridePdbPathCheckBox.getAccessibleContext().setAccessibleName("覆盖 PDB 路径");
 		DockingWindowManager.getHelpService()
 				.registerHelp(overridePdbPathCheckBox, new HelpLocation(
 					PdbPlugin.PDB_PLUGIN_HELP_TOPIC, SymbolFilePanel.SEARCH_OPTIONS_HELP_ANCHOR));
 
-		pdbUniqueIdTextField = new BetterNonEditableTextField(36, "Missing", Colors.ERROR);
+		pdbUniqueIdTextField = new BetterNonEditableTextField(36, "丢失", Colors.ERROR);
 		pdbUniqueIdTextField.setEditable(false);
 		pdbUniqueIdTextField.setText(programSymbolFileInfo.getUniqifierString());
 		pdbUniqueIdTextField.setToolTipText("<html>PDB GUID - 32 hexadecimal characters:<br>" +
@@ -405,7 +405,7 @@ public class LoadPdbDialog extends DialogComponentProvider {
 		pdbUniqueIdTextField.getAccessibleContext().setAccessibleName("PDB Unique ID");
 		overridePdbUniqueIdCheckBox = new GCheckBox();
 		overridePdbUniqueIdCheckBox.setVisible(false);
-		overridePdbUniqueIdCheckBox.setToolTipText("Override PDB Unique ID (when searching).");
+		overridePdbUniqueIdCheckBox.setToolTipText("覆盖 PDB 唯一标识符（在搜索时）。");
 		overridePdbUniqueIdCheckBox.addItemListener(e -> {
 			pdbUniqueIdTextField.setEditable(overridePdbUniqueIdCheckBox.isSelected());
 			if (overridePdbUniqueIdCheckBox.isSelected()) {
@@ -416,7 +416,7 @@ public class LoadPdbDialog extends DialogComponentProvider {
 			}
 		});
 		overridePdbUniqueIdCheckBox.getAccessibleContext()
-				.setAccessibleName("Override PDB Unique ID");
+				.setAccessibleName("覆盖 PDB 唯一标识符");
 		DockingWindowManager.getHelpService()
 				.registerHelp(overridePdbUniqueIdCheckBox, new HelpLocation(
 					PdbPlugin.PDB_PLUGIN_HELP_TOPIC, SymbolFilePanel.SEARCH_OPTIONS_HELP_ANCHOR));
@@ -446,15 +446,15 @@ public class LoadPdbDialog extends DialogComponentProvider {
 					PdbPlugin.PDB_PLUGIN_HELP_TOPIC, SymbolFilePanel.SEARCH_OPTIONS_HELP_ANCHOR));
 
 		programPdbPanel = new JPanel(new PairLayout(5, 5));
-		programPdbPanel.setBorder(BorderFactory.createTitledBorder("Program PDB Information"));
-		programPdbPanel.add(new GLabel("Program:", SwingConstants.RIGHT));
+		programPdbPanel.setBorder(BorderFactory.createTitledBorder("程序 PDB 信息"));
+		programPdbPanel.add(new GLabel("程序：", SwingConstants.RIGHT));
 		programPdbPanel.add(programNameTextField);
 
 		programPdbPanel.add(
-			join(null, new GLabel("PDB Name:", SwingConstants.RIGHT), overridePdbPathCheckBox));
+			join(null, new GLabel("PDB 名：", SwingConstants.RIGHT), overridePdbPathCheckBox));
 		programPdbPanel.add(pdbPathTextField);
 
-		programPdbPanel.add(join(null, new GLabel("PDB Unique ID:", SwingConstants.RIGHT),
+		programPdbPanel.add(join(null, new GLabel("PDB 唯一标识符：", SwingConstants.RIGHT),
 			overridePdbUniqueIdCheckBox));
 		programPdbPanel.add(pdbUniqueIdTextField);
 
@@ -462,26 +462,26 @@ public class LoadPdbDialog extends DialogComponentProvider {
 			join(null, new GLabel("PDB Age:", SwingConstants.RIGHT), overridePdbAgeCheckBox));
 		programPdbPanel.add(join(pdbAgeTextField, new JPanel(), null));
 
-		programPdbPanel.getAccessibleContext().setAccessibleName("Program PDB");
+		programPdbPanel.getAccessibleContext().setAccessibleName("程序 PDB");
 		return programPdbPanel;
 	}
 
 	private JPanel buildPdbLocationPanel() {
-		pdbLocationTextField = new HintTextField("Browse [...] for PDB file or use 'Advanced'");
+		pdbLocationTextField = new HintTextField("浏览 [...] 选择PDB文件或使用\"高级\"选项");
 		pdbLocationTextField.setEditable(false);
-		pdbLocationTextField.getAccessibleContext().setAccessibleName("PDB Location");
+		pdbLocationTextField.getAccessibleContext().setAccessibleName("PDB 位置");
 
 		choosePdbLocationButton = new BrowseButton();
 		choosePdbLocationButton.addActionListener(e -> choosePdbFile());
-		choosePdbLocationButton.getAccessibleContext().setAccessibleName("Choose PDB Location");
+		choosePdbLocationButton.getAccessibleContext().setAccessibleName("C下载 PDB 位置");
 		exactMatchIconLabel = new GIconLabel(Icons.EMPTY_ICON);
 		exactMatchIconLabel.getAccessibleContext().setAccessibleName("Exact Match");
 		pdbLocationPanel = new JPanel(new PairLayout(5, 5));
-		pdbLocationPanel.setBorder(BorderFactory.createTitledBorder("PDB Location"));
-		pdbLocationPanel.add(new GLabel("PDB Location:", SwingConstants.RIGHT));
+		pdbLocationPanel.setBorder(BorderFactory.createTitledBorder("PDB 位置"));
+		pdbLocationPanel.add(new GLabel("PDB 位置：", SwingConstants.RIGHT));
 		pdbLocationPanel
 				.add(join(exactMatchIconLabel, pdbLocationTextField, choosePdbLocationButton));
-		pdbLocationPanel.getAccessibleContext().setAccessibleName("PDB Location");
+		pdbLocationPanel.getAccessibleContext().setAccessibleName("PDB 位置");
 		return pdbLocationPanel;
 	}
 
@@ -578,7 +578,7 @@ public class LoadPdbDialog extends DialogComponentProvider {
 		addCancelButton();
 		setDefaultButton(cancelButton);
 
-		configButton = new JButton("Config...");
+		configButton = new JButton("配置...");
 		configButton.addActionListener(e -> {
 			if (ConfigPdbDialog.showSymbolServerConfig()) {
 				updateSymbolServerServiceInstanceFromPreferences();
@@ -587,10 +587,10 @@ public class LoadPdbDialog extends DialogComponentProvider {
 				searchForPdbs(false);
 			}
 		});
-		configButton.getAccessibleContext().setAccessibleName("Configuration");
+		configButton.getAccessibleContext().setAccessibleName("配置");
 		addButton(configButton);
 
-		advancedToggleButton = new JToggleButton("Advanced >>");
+		advancedToggleButton = new JToggleButton("高级 >>");
 		advancedToggleButton.addActionListener(e -> toggleAdvancedSearch());
 		advancedToggleButton.getAccessibleContext().setAccessibleName("Advanced Toggle");
 		buttonPanel.add(advancedToggleButton);
@@ -607,7 +607,7 @@ public class LoadPdbDialog extends DialogComponentProvider {
 			return;
 		}
 		catch (CancelledException | IOCancelledException ce) {
-			setStatusText("Operation cancelled");
+			setStatusText("操作已取消");
 			monitor.clearCancelled();
 		}
 		catch (IOException ioe) {
@@ -629,7 +629,7 @@ public class LoadPdbDialog extends DialogComponentProvider {
 	private StatusText getFoundCountInfo() {
 		if (advancedToggleButton.isSelected()) {
 			if (searchCanceled) {
-				return new StatusText("Search canceled", MessageType.INFO, false);
+				return new StatusText("搜索已取消", MessageType.INFO, false);
 			}
 			if (lastSearchOptions != null) {
 				int foundCount = symbolFilePanel.getTableModel().getModelData().size();
