@@ -109,7 +109,7 @@ class SymbolFilePanel extends JPanel {
 	}
 
 	private void build() {
-		setBorder(BorderFactory.createTitledBorder("PDB Search"));
+		setBorder(BorderFactory.createTitledBorder("PDB 搜索"));
 		add(buildButtonPanel(), BorderLayout.NORTH);
 		buildTable();	// don't add it yet
 		add(buildWelcomePanel(), BorderLayout.CENTER);
@@ -149,23 +149,23 @@ class SymbolFilePanel extends JPanel {
 	}
 
 	private JPanel buildButtonPanel() {
-		searchLocalButton = new JButton("Search");
-		searchLocalButton.setToolTipText("Search trusted symbol servers only.");
-		searchAllButton = new JButton("Search All");
-		searchAllButton.setToolTipText("Search trusted and untrusted symbol servers.");
+		searchLocalButton = new JButton("搜索");
+		searchLocalButton.setToolTipText("仅搜索受信任的符号服务器。");
+		searchAllButton = new JButton("搜索全部");
+		searchAllButton.setToolTipText("搜索所有符号服务器，包括不受信任的。");
 
-		ignorePdbUid = new GCheckBox("Ignore GUID/ID");
+		ignorePdbUid = new GCheckBox("忽略 GUID/ID");
 		ignorePdbUid.setToolTipText(
 			"Find any PDB with same name (local locations only).  Age ignored also.");
 		ignorePdbUid.addChangeListener(l -> updateSearchOptionEnablement());
 
-		ignorePdbAge = new GCheckBox("Ignore Age");
+		ignorePdbAge = new GCheckBox("忽略 Age");
 		ignorePdbAge.setToolTipText("Find PDB with any age value (local locations only).");
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
-		panel.add(new GLabel("Search Options:"));
+		panel.add(new GLabel("搜索选项："));
 		panel.add(Box.createHorizontalStrut(10));
 		panel.add(ignorePdbAge);
 		panel.add(Box.createHorizontalStrut(10));
