@@ -1,5 +1,7 @@
 <img src="Ghidra/Features/Base/src/main/resources/images/GHIDRA_3.png" width="400">
 
+这是 Ghidra 的社区汉化版，原版请访问[NationalSecurityAgency/ghidra](https://github.com/NationalSecurityAgency/ghidra)
+
 # Ghidra 软件逆向工程框架
 Ghidra 是由[美国国家安全局][nsa]研究部门创建和维护的软件逆向工程（SRE）框架。该框架包含一套功能齐全的高端软件分析工具，使用户能够分析多种平台（包括 Windows、macOS 和 Linux）上的编译代码。其功能涵盖反汇编、汇编、反编译、图形化分析和脚本编写，以及数百项其他特性。Ghidra 支持广泛的处理器指令集和可执行格式，并可在用户交互模式和自动化模式下运行。用户还可使用 Java 或 Python 开发自己的 Ghidra 扩展组件和/或脚本。
 
@@ -35,10 +37,10 @@ Ghidra 是由[美国国家安全局][nsa]研究部门创建和维护的软件逆
   - C++ ATL
 
 ##### 下载并解压源代码：
-[从 GitHub 下载][master]
+[从 GitHub 下载][chinese]
 ```
-unzip ghidra-master
-cd ghidra-master
+unzip ghidra-chinese
+cd ghidra-chinese
 ```
 **注意：** 您也可以克隆 GitHub 仓库代替下载压缩包：`git clone https://github.com/TC999/ghidra-chinese.git`
 
@@ -55,6 +57,8 @@ gradle buildGhidra
 压缩的开发构建文件将位于 `build/dist/` 目录。
 
 更详细的构建说明请参阅[开发者指南][devguide]。构建问题可查看[已知问题][known-issues]获取解决方案。
+
+此外，汉化作者 tc999 编写了一个 [GitHub 工作流](.github/workflows/build.yml)自动编译
 
 ## 开发
 
@@ -101,7 +105,7 @@ Eclipse 完成项目构建后，可通过预置的 **Ghidra** 运行配置启动
 [vs]: https://visualstudio.microsoft.com/vs/community/
 [vcbuildtools]: https://visualstudio.microsoft.com/visual-cpp-build-tools/
 [eclipse]: https://www.eclipse.org/downloads/packages/
-[master]: https://github.com/NationalSecurityAgency/ghidra/archive/refs/heads/master.zip
+[chinese]: https://github.com/tc999/ghidra-chinese/archive/refs/heads/chinese.zip
 [security]: https://github.com/NationalSecurityAgency/ghidra/security/advisories
 [ghidradev]: GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/README.md
 [pyghidra]: Ghidra/Features/PyGhidra/README.md
