@@ -629,7 +629,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 		}
 		catch (PluginException e) {
 			hasErrors = true;
-			Msg.showError(this, getToolFrame(), "Error Restoring Plugins", e.getMessage(), e);
+			Msg.showError(this, getToolFrame(), "恢复插件出错", e.getMessage(), e);
 		}
 
 		winMgr.restoreWindowDataFromXml(root);
@@ -659,7 +659,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 
 	public void setIconURL(ToolIconURL newIconURL) {
 		if (newIconURL == null) {
-			throw new NullPointerException("iconURL cannot be null.");
+			throw new NullPointerException("iconURL 不能为空。");
 		}
 		setConfigChanged(true);
 		if (newIconURL.equals(iconURL)) {
@@ -1106,12 +1106,12 @@ public abstract class PluginTool extends AbstractDockingTool {
 
 	protected void addExportToolAction() {
 		String menuGroup = "工具";
-		String exportPullright = "Export";
+		String exportPullright = "导出";
 		setMenuGroup(new String[] { ToolConstants.MENU_FILE, exportPullright }, menuGroup);
 
 		int subGroup = 1;
 		DockingAction exportToolAction =
-			new DockingAction("Export Tool", ToolConstants.TOOL_OWNER) {
+			new DockingAction("导出工具", ToolConstants.TOOL_OWNER) {
 
 				@Override
 				public void actionPerformed(ActionContext context) {
@@ -1119,7 +1119,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 				}
 			};
 		MenuData menuData = new MenuData(
-			new String[] { ToolConstants.MENU_FILE, exportPullright, "Export Tool..." });
+			new String[] { ToolConstants.MENU_FILE, exportPullright, "导出工具..." });
 		menuData.setMenuSubGroup(Integer.toString(subGroup++));
 		exportToolAction.setMenuBarData(menuData);
 		exportToolAction
@@ -1127,7 +1127,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 		addAction(exportToolAction);
 
 		DockingAction exportDefautToolAction =
-			new DockingAction("Export Default Tool", ToolConstants.TOOL_OWNER) {
+			new DockingAction("导出默认工具", ToolConstants.TOOL_OWNER) {
 
 				@Override
 				public void actionPerformed(ActionContext e) {
@@ -1135,7 +1135,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 				}
 			};
 		menuData = new MenuData(
-			new String[] { ToolConstants.MENU_FILE, exportPullright, "Export Default Tool..." });
+			new String[] { ToolConstants.MENU_FILE, exportPullright, "导出默认工具..." });
 		menuData.setMenuSubGroup(Integer.toString(subGroup++));
 		exportDefautToolAction.setMenuBarData(menuData);
 		exportDefautToolAction.setHelpLocation(
