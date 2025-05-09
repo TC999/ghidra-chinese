@@ -126,7 +126,7 @@ class ProjectActionManager {
 		addWSAction.setEnabled(false);
 
 		addWSAction.setMenuBarData(new MenuData(
-			new String[] { ToolConstants.MENU_PROJECT, "Workspace", "添加..." }, "zProject"));
+			new String[] { ToolConstants.MENU_PROJECT, "工作区", "添加..." }, "zProject"));
 		tool.addAction(addWSAction);
 
 		renameWSAction = new DockingAction("重命名工作区", owner) {
@@ -138,7 +138,7 @@ class ProjectActionManager {
 		renameWSAction.setEnabled(false);
 
 		renameWSAction.setMenuBarData(new MenuData(
-			new String[] { ToolConstants.MENU_PROJECT, "Workspace", "重命名..." }, "zProject"));
+			new String[] { ToolConstants.MENU_PROJECT, "工作区", "重命名..." }, "zProject"));
 		tool.addAction(renameWSAction);
 
 		removeWSAction = new DockingAction("删除工作区", owner) {
@@ -150,10 +150,10 @@ class ProjectActionManager {
 		removeWSAction.setEnabled(false);
 
 		removeWSAction.setMenuBarData(new MenuData(
-			new String[] { ToolConstants.MENU_PROJECT, "Workspace", "删除..." }, "zProject"));
+			new String[] { ToolConstants.MENU_PROJECT, "工作区", "删除..." }, "zProject"));
 		tool.addAction(removeWSAction);
 
-		tool.setMenuGroup(new String[] { ToolConstants.MENU_PROJECT, "Workspace" }, "zProject");
+		tool.setMenuGroup(new String[] { ToolConstants.MENU_PROJECT, "工作区" }, "zProject");
 
 		editAccessAction = new DockingAction("编辑项目访问列表", owner) {
 			@Override
@@ -163,7 +163,7 @@ class ProjectActionManager {
 		};
 
 		editAccessAction.setMenuBarData(
-			new MenuData(new String[] { "Project", "编辑项目访问列表..." }, "zzProject"));
+			new MenuData(new String[] { "项目", "编辑项目访问列表..." }, "zzProject"));
 
 		viewAccessAction = new DockingAction("编辑项目访问列表", owner) {
 			@Override
@@ -173,7 +173,7 @@ class ProjectActionManager {
 		};
 
 		viewAccessAction.setMenuBarData(
-			new MenuData(new String[] { "Project", "编辑项目访问列表..." }, "zzProject"));
+			new MenuData(new String[] { "项目", "编辑项目访问列表..." }, "zzProject"));
 
 		setPasswordAction = new DockingAction("更改密码", owner) {
 			@Override
@@ -183,7 +183,7 @@ class ProjectActionManager {
 		};
 
 		setPasswordAction.setMenuBarData(
-			new MenuData(new String[] { "Project", "更改密码..." }, "zzProject"));
+			new MenuData(new String[] { "项目", "更改密码..." }, "zzProject"));
 
 		viewInfoAction = new DockingAction("查看项目信息", owner) {
 			@Override
@@ -194,7 +194,7 @@ class ProjectActionManager {
 		viewInfoAction.setEnabled(false);
 
 		viewInfoAction.setMenuBarData(
-			new MenuData(new String[] { "Project", "查看项目信息..." }, "zzzProject"));
+			new MenuData(new String[] { "项目", "查看项目信息..." }, "zzzProject"));
 		tool.addAction(viewInfoAction);
 	}
 
@@ -207,7 +207,7 @@ class ProjectActionManager {
 				ToolManager toolManager = activeProject.getToolManager();
 				Workspace[] workspaces = toolManager.getWorkspaces();
 				if (workspaces.length <= 1) {
-					Msg.info("FrontEnd", "Unable to switch workspace, only 1 exists.");
+					Msg.info("FrontEnd", "无法切换工作区，因为只有一个！");
 					return;//can't switch, there is only 1
 				}
 				Workspace activeWorkspace = plugin.getWorkspacePanel().getActiveWorkspace();
@@ -227,7 +227,7 @@ class ProjectActionManager {
 		switchWSAction.setEnabled(false);
 
 		switchWSAction.setMenuBarData(new MenuData(
-			new String[] { ToolConstants.MENU_PROJECT, "Workspace", "切换..." }, "zProject"));
+			new String[] { ToolConstants.MENU_PROJECT, "工作区", "切换..." }, "zProject"));
 		tool.addAction(switchWSAction);
 	}
 
@@ -519,7 +519,7 @@ class ProjectActionManager {
 
 		GhidraFileChooser fileChooser = plugin.createFileChooser(LAST_VIEWED_PROJECT_DIRECTORY);
 		ProjectLocator projectView =
-			plugin.chooseProject(fileChooser, "Select", LAST_VIEWED_PROJECT_DIRECTORY);
+			plugin.chooseProject(fileChooser, "选择", LAST_VIEWED_PROJECT_DIRECTORY);
 		if (projectView != null) {
 			openView(projectView.getURL());
 		}
