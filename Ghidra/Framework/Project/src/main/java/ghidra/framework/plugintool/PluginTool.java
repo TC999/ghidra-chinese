@@ -228,7 +228,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 		Icon homeIcon = ApplicationInformationDisplayFactory.getHomeIcon();
 		if (homeIcon == null) {
 			Msg.debug(this,
-				"If you would like a button to show the Front End, then set the home icon");
+				"如果您希望有一个按钮显示前端，请设置主页图标。");
 			return;
 		}
 
@@ -253,8 +253,8 @@ public abstract class PluginTool extends AbstractDockingTool {
 			}, PluginException.class);
 		}
 		catch (PluginException e) {
-			Msg.showError(this, null, "Error Adding Utility Plugins",
-				"Unexpected exception adding application utility plugins", e);
+			Msg.showError(this, null, "添加实用插件出错",  
+			    "添加应用程序实用插件时发生意外异常", e);
 		}
 	}
 
@@ -275,8 +275,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 	private void initOptions() {
 		ToolOptions toolOptions = optionsMgr.getOptions(ToolConstants.TOOL_OPTIONS);
 		toolOptions.registerOption(DOCKING_WINDOWS_ON_TOP, false, null,
-			"Determines whether a docked window will always be shown on " +
-				"top of its parent window.");
+		    "确定停靠窗口是否始终显示在其父窗口的顶部。");
 
 		// we must call this before the init work below to make sure that the options object
 		// we use has been created
@@ -444,7 +443,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 
 	public ToolTemplate getToolTemplate(boolean includeConfigState) {
 		throw new UnsupportedOperationException(
-			"You cannot create templates for generic tools: " + getClass().getName());
+			"您无法为通用工具创建模板：" + getClass().getName());
 	}
 
 	public ToolTemplate saveToolToToolTemplate() {
@@ -455,12 +454,12 @@ public abstract class PluginTool extends AbstractDockingTool {
 
 	public Element saveWindowingDataToXml() {
 		throw new UnsupportedOperationException(
-			"You cannot persist generic tools: " + getClass().getName());
+			"您无法持久化通用工具：" + getClass().getName());
 	}
 
 	public void restoreWindowingDataFromXml(Element element) {
 		throw new UnsupportedOperationException(
-			"You cannot persist generic tools: " + getClass().getName());
+			"您无法持久化通用工具：" + getClass().getName());
 	}
 
 	public boolean acceptDomainFiles(DomainFile[] data) {
@@ -1013,7 +1012,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 		exitAction.setHelpLocation(
 			new HelpLocation(ToolConstants.FRONT_END_HELP_TOPIC, exitAction.getName()));
 		exitAction.setMenuBarData(new MenuData(
-			new String[] { ToolConstants.MENU_FILE, "E&xit Ghidra" }, null, "Window_Z"));
+			new String[] { ToolConstants.MENU_FILE, "退出 Ghidra" }, null, "Window_Z"));
 
 		if (Platform.CURRENT_PLATFORM.getOperatingSystem() != OperatingSystem.MAC_OS_X) {
 			// Only install keybinding on non-OSX systems, as OSX handles the Command-Q
@@ -1039,7 +1038,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 		optionsAction.setAddToAllWindows(true);
 		optionsAction.setHelpLocation(
 			new HelpLocation(ToolConstants.FRONT_END_HELP_TOPIC, "工具选项"));
-		MenuData menuData = new MenuData(new String[] { ToolConstants.MENU_EDIT, "&Tool Options" },
+		MenuData menuData = new MenuData(new String[] { ToolConstants.MENU_EDIT, "&工具选项" },
 			null, ToolConstants.TOOL_OPTIONS_MENU_GROUP);
 		menuData.setMenuSubGroup(ToolConstants.TOOL_OPTIONS_MENU_GROUP);
 		optionsAction.setMenuBarData(menuData);
@@ -1256,9 +1255,8 @@ public abstract class PluginTool extends AbstractDockingTool {
 			return true;
 		}
 
-		int result = OptionDialog.showYesNoDialog(getToolFrame(), "Tool Busy Executing Task",
-			"The tool is busy performing a background task.\n If you continue the" +
-				" task may be terminated and some work may be lost!\n\nContinue anyway?");
+		int result = OptionDialog.showYesNoDialog(getToolFrame(), "工具忙于执行任务",
+		  "该工具正在执行后台任务。\n如果继续，任务可能会被终止，并且某些工作可能会丢失！\n\n是否继续？");
 		if (result != OptionDialog.YES_OPTION) {
 			return false;
 		}
@@ -1291,10 +1289,8 @@ public abstract class PluginTool extends AbstractDockingTool {
 		}
 		else if (hasConfigChanged()) {
 			int result = OptionDialog.showOptionDialog(getToolFrame(), SAVE_DIALOG_TITLE,
-				"This tool has changed.  There are/were multiple instances of this tool\n" +
-					"running and Ghidra cannot determine if this tool instance should\n" +
-					"automatically be saved.  Do you want to save the configuration of this tool\n" +
-					"instance?",
+			    "此工具已更改。该工具曾在多个实例运行，Ghidra 无法确定是否应自动保存此工具实例。\n" + 
+			      "您是否要保存此工具实例的配置？",
 				"保存", "另存为...", "不保存", OptionDialog.WARNING_MESSAGE);
 			if (result == OptionDialog.CANCEL_OPTION) {
 				return false;
@@ -1327,9 +1323,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 		if (taskMgr.hasTasksForDomainObject(domainObject)) {
 			String name = domainObject.getName();
 			Msg.showInfo(getClass(), getToolFrame(), "关闭 " + name + " 失败",
-				"The tool is currently working in the background on " + name +
-					".\nPlease stop the background processing first.");
-
+			"该工具当前正在后台处理" + name + "任务。\n请先停止后台处理。");
 			return false;
 		}
 		return pluginMgr.canCloseDomainObject(domainObject);
@@ -1657,7 +1651,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 			if (exceptionClass.isInstance(th)) {
 				throw exceptionClass.cast(th);
 			}
-			throw new RuntimeException("Unexpected exception type " + th.getClass(), th);
+			throw new RuntimeException("异常类型 " + th.getClass(), th);
 		}
 	}
 
