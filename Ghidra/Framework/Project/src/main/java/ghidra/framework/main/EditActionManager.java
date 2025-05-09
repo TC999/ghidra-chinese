@@ -38,7 +38,7 @@ class EditActionManager {
 	 * PKCS Private Key/Certificate File Filter
 	 */
 	public static final GhidraFileFilter CERTIFICATE_FILE_FILTER =
-		new ExtensionFileFilter(ApplicationKeyManagerUtils.PKCS_FILE_EXTENSIONS, "PKCS Key File");
+		new ExtensionFileFilter(ApplicationKeyManagerUtils.PKCS_FILE_EXTENSIONS, "PKCS 密钥文件");
 
 	private FrontEndPlugin plugin;
 	private FrontEndTool tool;
@@ -59,7 +59,7 @@ class EditActionManager {
 
 		// window.addSeparator(Ghidra.MENU_FILE);
 
-		editPluginPathAction = new DockingAction("Edit Plugin Path", plugin.getName()) {
+		editPluginPathAction = new DockingAction("编辑插件路径", plugin.getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				editPluginPath();
@@ -69,9 +69,9 @@ class EditActionManager {
 		editPluginPathAction.setEnabled(true);
 
 		editPluginPathAction.setMenuBarData(new MenuData(new String[] { ToolConstants.MENU_EDIT,
-			"Plugin Path..." }, "GEdit"));
+			"插件路径..." }, "GEdit"));
 
-		editCertPathAction = new DockingAction("Set PKI Certificate", plugin.getName()) {
+		editCertPathAction = new DockingAction("设置 PKI 证书", plugin.getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				editCertPath();
@@ -81,9 +81,9 @@ class EditActionManager {
 		editCertPathAction.setEnabled(true);
 
 		editCertPathAction.setMenuBarData(new MenuData(new String[] { ToolConstants.MENU_EDIT,
-			"Set PKI Certificate..." }, "PKI"));
+			"设置 PKI 证书..." }, "PKI"));
 
-		clearCertPathAction = new DockingAction("Clear PKI Certificate", plugin.getName()) {
+		clearCertPathAction = new DockingAction("清除 PKI 证书", plugin.getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				clearCertPath();
@@ -93,7 +93,7 @@ class EditActionManager {
 		clearCertPathAction.setEnabled(ApplicationKeyManagerFactory.getKeyStore() != null);
 
 		clearCertPathAction.setMenuBarData(new MenuData(new String[] { ToolConstants.MENU_EDIT,
-			"Clear PKI Certificate..." }, "PKI"));
+			"清除 PKI 证书..." }, "PKI"));
 
 		clearCertPathAction.setHelpLocation(new HelpLocation("FrontEndPlugin",
 			"Set_PKI_Certificate"));
@@ -120,7 +120,7 @@ class EditActionManager {
 		}
 
 		if (OptionDialog.YES_OPTION != OptionDialog.showYesNoDialog(tool.getToolFrame(),
-			"Clear PKI Certificate", "Clear PKI certificate setting?\n(" + path + ")")) {
+			"清除 PKI 证书", "清除 PKI 证书设置？\n(" + path + ")")) {
 			return;
 		}
 
@@ -174,8 +174,8 @@ class EditActionManager {
 	private GhidraFileChooser createCertFileChooser() {
 
 		GhidraFileChooser fileChooser = new GhidraFileChooser(tool.getToolFrame());
-		fileChooser.setTitle("Select Certificate (req'd for PKI authentication only)");
-		fileChooser.setApproveButtonText("Set Certificate");
+		fileChooser.setTitle("选择证书（仅限于PKI认证）");
+		fileChooser.setApproveButtonText("设置证书");
 		fileChooser.setFileFilter(CERTIFICATE_FILE_FILTER);
 		fileChooser.setFileSelectionMode(GhidraFileChooserMode.FILES_ONLY);
 		fileChooser.setHelpLocation(new HelpLocation(plugin.getName(), "Set_PKI_Certificate"));
