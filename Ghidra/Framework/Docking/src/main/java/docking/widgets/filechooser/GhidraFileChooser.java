@@ -124,8 +124,8 @@ public class GhidraFileChooser extends ReusableDialogComponentProvider implement
 	/** Instruction to display both files and directories. */
 	public static final int FILES_AND_DIRECTORIES = 2;
 
-	final static File MY_COMPUTER = new File("My Computer");
-	final static File RECENT = new File("Recent");
+	final static File MY_COMPUTER = new File("此电脑");
+	final static File RECENT = new File("最近");
 
 	private static final int MAX_RECENT = 10;
 
@@ -290,49 +290,49 @@ public class GhidraFileChooser extends ReusableDialogComponentProvider implement
 		main.add(currentPathPanel, BorderLayout.NORTH);
 		main.add(shortCutPanel, BorderLayout.WEST);
 		main.add(directoryPanel, BorderLayout.CENTER);
-		main.getAccessibleContext().setAccessibleName("Ghidra File Chooser");
+		main.getAccessibleContext().setAccessibleName("Ghidra 文件选择器");
 		return main;
 	}
 
 	private JPanel buildShortCutPanel() {
-		myComputerButton = new FileChooserToggleButton("My Computer") {
+		myComputerButton = new FileChooserToggleButton("此电脑") {
 			@Override
 			File getFile() {
 				return MY_COMPUTER;
 			}
 		};
 		myComputerButton.setName("MY_COMPUTER_BUTTON");
-		myComputerButton.getAccessibleContext().setAccessibleName("My Computer");
+		myComputerButton.getAccessibleContext().setAccessibleName("此电脑");
 		myComputerButton.setIcon(ICON_MY_COMPUTER);
 		myComputerButton.addActionListener(e -> updateMyComputer());
 		myComputerButton.setForeground(FOREROUND_COLOR);
 
-		desktopButton = new FileChooserToggleButton("Desktop") {
+		desktopButton = new FileChooserToggleButton("桌面") {
 			@Override
 			File getFile() {
 				return fileChooserModel.getDesktopDirectory();
 			}
 		};
 		desktopButton.setName("DESKTOP_BUTTON");
-		desktopButton.getAccessibleContext().setAccessibleName("Desktop");
+		desktopButton.getAccessibleContext().setAccessibleName("桌面");
 		desktopButton.setIcon(ICON_DESKTOP);
 		desktopButton.addActionListener(e -> updateDesktop());
 		desktopButton.setForeground(FOREROUND_COLOR);
 		desktopButton.setEnabled(fileChooserModel.getDesktopDirectory() != null);
 
-		homeButton = new FileChooserToggleButton("Home") {
+		homeButton = new FileChooserToggleButton("主页") {
 			@Override
 			File getFile() {
 				return fileChooserModel.getHomeDirectory();
 			}
 		};
 		homeButton.setName("HOME_BUTTON");
-		homeButton.getAccessibleContext().setAccessibleName("Home");
+		homeButton.getAccessibleContext().setAccessibleName("主页");
 		homeButton.setIcon(ICON_HOME);
 		homeButton.addActionListener(e -> updateHome());
 		homeButton.setForeground(FOREROUND_COLOR);
 
-		downloadsButton = new FileChooserToggleButton("Downloads") {
+		downloadsButton = new FileChooserToggleButton("下载") {
 			@Override
 			File getFile() {
 				return fileChooserModel.getDownloadsDirectory();
@@ -343,14 +343,14 @@ public class GhidraFileChooser extends ReusableDialogComponentProvider implement
 		downloadsButton.addActionListener(e -> updateDownloads());
 		downloadsButton.setForeground(FOREROUND_COLOR);
 
-		recentButton = new FileChooserToggleButton("Recent") {
+		recentButton = new FileChooserToggleButton("最近") {
 			@Override
 			File getFile() {
 				return RECENT;
 			}
 		};
 		recentButton.setName("RECENT_BUTTON");
-		recentButton.getAccessibleContext().setAccessibleName("Recent");
+		recentButton.getAccessibleContext().setAccessibleName("最近");
 		recentButton.setIcon(ICON_RECENT);
 		recentButton.addActionListener(e -> updateRecent());
 		recentButton.setForeground(FOREROUND_COLOR);
@@ -363,7 +363,7 @@ public class GhidraFileChooser extends ReusableDialogComponentProvider implement
 		shortCutButtonGroup.add(recentButton);
 
 		JPanel shortCutPanel = new JPanel(new GridLayout(0, 1));
-		shortCutPanel.getAccessibleContext().setAccessibleName("Short Cut");
+		shortCutPanel.getAccessibleContext().setAccessibleName("快捷方式");
 		DockingUtils.setTransparent(shortCutPanel);
 		shortCutPanel.add(myComputerButton);
 		shortCutPanel.add(desktopButton);
@@ -375,12 +375,12 @@ public class GhidraFileChooser extends ReusableDialogComponentProvider implement
 		panel.setBorder(BorderFactory.createLoweredBevelBorder());
 		panel.setBackground(SHORTCUT_BACKGROUND_COLOR);
 		panel.add(shortCutPanel, BorderLayout.NORTH);
-		panel.getAccessibleContext().setAccessibleName("Short Cut");
+		panel.getAccessibleContext().setAccessibleName("快捷方式");
 		return panel;
 	}
 
 	private JPanel buildFileNamePanel() {
-		JLabel filenameLabel = new GDLabel("File name:");
+		JLabel filenameLabel = new GDLabel("文件名：");
 		FileDropDownSelectionDataModel model = new FileDropDownSelectionDataModel(this);
 		filenameTextField = new DropDownSelectionTextField<>(model);
 		filenameTextField.setMatchingWindowHeight(200);
@@ -417,12 +417,12 @@ public class GhidraFileChooser extends ReusableDialogComponentProvider implement
 
 		filenameTextField.setName("filenameTextField");
 
-		JLabel filterLabel = new GLabel("Type:");
-		filterLabel.getAccessibleContext().setAccessibleName("Filter");
+		JLabel filterLabel = new GLabel("类型：");
+		filterLabel.getAccessibleContext().setAccessibleName("筛选");
 		filterCombo = new GComboBox<>();
 		filterCombo.setRenderer(GListCellRenderer.createDefaultTextRenderer(
 			fileFilter -> fileFilter != null ? fileFilter.getDescription() : ""));
-		filterCombo.getAccessibleContext().setAccessibleName("Filter");
+		filterCombo.getAccessibleContext().setAccessibleName("筛选");
 		filterModel = (DefaultComboBoxModel<GhidraFileFilter>) filterCombo.getModel();
 		addFileFilter(GhidraFileFilter.ALL);
 		filterCombo.addItemListener(e -> rescanCurrentDirectory());
@@ -505,7 +505,7 @@ public class GhidraFileChooser extends ReusableDialogComponentProvider implement
 
 		// have the Escape key clear any edits to the field
 		KeyStroke escapeKs = KeyBindingUtils.parseKeyStroke("Escape");
-		Action escapeAction = new AbstractAction("Reset Path") {
+		Action escapeAction = new AbstractAction("重设路径") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
@@ -527,7 +527,7 @@ public class GhidraFileChooser extends ReusableDialogComponentProvider implement
 
 		// update Enter to allow the user to pick the selected language
 		KeyStroke enterKs = KeyBindingUtils.parseKeyStroke("Enter");
-		Action enterAction = new AbstractAction("Choose File") {
+		Action enterAction = new AbstractAction("选择文件") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
@@ -630,20 +630,20 @@ public class GhidraFileChooser extends ReusableDialogComponentProvider implement
 
 		newFolderButton = new EmptyBorderButton(ICON_NEW_FOLDER);
 		newFolderButton.setName("NEW_BUTTON");
-		newFolderButton.getAccessibleContext().setAccessibleName("New Folder");
-		newFolderButton.setToolTipText("Create new folder");
+		newFolderButton.getAccessibleContext().setAccessibleName("新建文件夹");
+		newFolderButton.setToolTipText("新建文件夹");
 		newFolderButton.addActionListener(e -> createNewFolder());
 
 		refreshButton = new EmptyBorderButton(Icons.REFRESH_ICON);
 		refreshButton.setName("REFRESH_BUTTON");
-		refreshButton.getAccessibleContext().setAccessibleName("Refresh");
+		refreshButton.getAccessibleContext().setAccessibleName("刷新");
 		refreshButton.setToolTipText("Rescan current directory");
 		refreshButton.addActionListener(e -> rescanCurrentDirectory());
 
 		detailsButton = new EmptyBorderToggleButton(ICON_DETAILS);
 		detailsButton.setName("DETAILS_BUTTON");
-		detailsButton.getAccessibleContext().setAccessibleName("Details");
-		detailsButton.setToolTipText("Show details");
+		detailsButton.getAccessibleContext().setAccessibleName("详细");
+		detailsButton.setToolTipText("显示详细");
 		detailsButton.addActionListener(e -> {
 			cancelEdits();
 			doSetShowDetails(!showDetails);
@@ -651,8 +651,8 @@ public class GhidraFileChooser extends ReusableDialogComponentProvider implement
 
 		optionsButton = new EmptyBorderButton(ICON_OPTIONS);
 		optionsButton.setName("OPTIONS_BUTTON");
-		optionsButton.getAccessibleContext().setAccessibleName("Options");
-		optionsButton.setToolTipText("File Chooser Options");
+		optionsButton.getAccessibleContext().setAccessibleName("选项");
+		optionsButton.setToolTipText("文件选择选项");
 		optionsButton.addActionListener(e -> {
 			DockingWindowManager.showDialog(parent, optionsDialog);
 			loadOptions();
