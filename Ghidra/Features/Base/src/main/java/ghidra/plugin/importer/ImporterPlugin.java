@@ -329,7 +329,7 @@ public class ImporterPlugin extends Plugin
 	}
 
 	private void setupImportAction() {
-		String title = "Import File";
+		String title = "导入文件";
 		importAction = new DockingAction(title, this.getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
@@ -346,7 +346,7 @@ public class ImporterPlugin extends Plugin
 	}
 
 	private void setupBatchImportAction() {
-		String title = "Batch Import";
+		String title = "导入多项";
 		batchImportAction = new DockingAction(title, this.getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
@@ -368,7 +368,7 @@ public class ImporterPlugin extends Plugin
 	}
 
 	private void setupImportSelectionAction() {
-		String title = "Extract and Import";
+		String title = "提取并导入";
 		importSelectionAction = new DockingAction(title, this.getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
@@ -399,7 +399,7 @@ public class ImporterPlugin extends Plugin
 	}
 
 	private void setupAddToProgramAction() {
-		String title = "Add To Program";
+		String title = "添加至程序";
 
 		addToProgramAction = new DockingAction(title, this.getName()) {
 			@Override
@@ -407,7 +407,7 @@ public class ImporterPlugin extends Plugin
 				doAddToProgram();
 			}
 		};
-		addToProgramAction.setMenuBarData(new MenuData(new String[] { "&File", title + "..." },
+		addToProgramAction.setMenuBarData(new MenuData(new String[] { "文件", title + "..." },
 			null, IMPORT_MENU_GROUP, MenuData.NO_MNEMONIC, "zz"));
 		addToProgramAction.setDescription(IMPORTER_PLUGIN_DESC);
 		addToProgramAction.setEnabled(false);
@@ -428,7 +428,7 @@ public class ImporterPlugin extends Plugin
 				doLoadLibraries();
 			}
 		};
-		loadLibrariesAction.setMenuBarData(new MenuData(new String[] { "&File", title + "..." },
+		loadLibrariesAction.setMenuBarData(new MenuData(new String[] { "&文件", title + "..." },
 			null, IMPORT_MENU_GROUP, MenuData.NO_MNEMONIC, "zzz"));
 		loadLibrariesAction.setDescription(IMPORTER_PLUGIN_DESC);
 		loadLibrariesAction.setEnabled(false);

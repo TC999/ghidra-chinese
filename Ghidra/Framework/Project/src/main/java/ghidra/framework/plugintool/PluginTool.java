@@ -1003,7 +1003,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 	}
 
 	protected void addExitAction() {
-		DockingAction exitAction = new DockingAction("Exit Ghidra", ToolConstants.TOOL_OWNER) {
+		DockingAction exitAction = new DockingAction("退出 Ghidra", ToolConstants.TOOL_OWNER) {
 
 			@Override
 			public void actionPerformed(ActionContext context) {
@@ -1028,7 +1028,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 	}
 
 	protected void addOptionsAction() {
-		DockingAction optionsAction = new DockingAction("Edit Options", ToolConstants.TOOL_OWNER) {
+		DockingAction optionsAction = new DockingAction("编辑选项", ToolConstants.TOOL_OWNER) {
 
 			@Override
 			public void actionPerformed(ActionContext context) {
@@ -1038,7 +1038,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 		};
 		optionsAction.setAddToAllWindows(true);
 		optionsAction.setHelpLocation(
-			new HelpLocation(ToolConstants.FRONT_END_HELP_TOPIC, "Tool Options"));
+			new HelpLocation(ToolConstants.FRONT_END_HELP_TOPIC, "工具选项"));
 		MenuData menuData = new MenuData(new String[] { ToolConstants.MENU_EDIT, "&Tool Options" },
 			null, ToolConstants.TOOL_OPTIONS_MENU_GROUP);
 		menuData.setMenuSubGroup(ToolConstants.TOOL_OPTIONS_MENU_GROUP);
@@ -1050,7 +1050,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 
 	protected void addSaveToolAction() {
 
-		DockingAction saveAction = new DockingAction("Save Tool", ToolConstants.TOOL_OWNER) {
+		DockingAction saveAction = new DockingAction("保存工具", ToolConstants.TOOL_OWNER) {
 
 			@Override
 			public void actionPerformed(ActionContext context) {
@@ -1058,13 +1058,13 @@ public abstract class PluginTool extends AbstractDockingTool {
 			}
 		};
 		MenuData menuData =
-			new MenuData(new String[] { ToolConstants.MENU_FILE, "Save Tool" }, null, "Tool");
+			new MenuData(new String[] { ToolConstants.MENU_FILE, "保存工具" }, null, "工具");
 		menuData.setMenuSubGroup("1Tool");
 		saveAction.setMenuBarData(menuData);
 		saveAction.setEnabled(true);
-		saveAction.setHelpLocation(new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "Save Tool"));
+		saveAction.setHelpLocation(new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "保存工具"));
 
-		DockingAction saveAsAction = new DockingAction("Save Tool As", ToolConstants.TOOL_OWNER) {
+		DockingAction saveAsAction = new DockingAction("保存工具为", ToolConstants.TOOL_OWNER) {
 
 			@Override
 			public void actionPerformed(ActionContext context) {
@@ -1072,7 +1072,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 			}
 		};
 		menuData =
-			new MenuData(new String[] { ToolConstants.MENU_FILE, "Save Tool As..." }, null, "Tool");
+			new MenuData(new String[] { ToolConstants.MENU_FILE, "保存工具为..." }, null, "工具");
 		menuData.setMenuSubGroup("2Tool");
 		saveAsAction.setMenuBarData(menuData);
 
@@ -1106,7 +1106,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 	}
 
 	protected void addExportToolAction() {
-		String menuGroup = "Tool";
+		String menuGroup = "工具";
 		String exportPullright = "Export";
 		setMenuGroup(new String[] { ToolConstants.MENU_FILE, exportPullright }, menuGroup);
 
@@ -1146,16 +1146,16 @@ public abstract class PluginTool extends AbstractDockingTool {
 	}
 
 	protected void addHelpActions() {
-		new ActionBuilder("About Ghidra", ToolConstants.TOOL_OWNER)
-				.menuPath(ToolConstants.MENU_HELP, "&About Ghidra")
+		new ActionBuilder("关于 Ghidra", ToolConstants.TOOL_OWNER)
+				.menuPath(ToolConstants.MENU_HELP, "&关于 Ghidra")
 				.menuGroup("ZZA")
 				.helpLocation(new HelpLocation(ToolConstants.ABOUT_HELP_TOPIC, "About_Ghidra"))
 				.inWindow(ActionBuilder.When.ALWAYS)
 				.onAction(c -> DockingWindowManager.showDialog(new AboutDialog()))
 				.buildAndInstall(this);
 
-		new ActionBuilder("User Agreement", ToolConstants.TOOL_OWNER)
-				.menuPath(ToolConstants.MENU_HELP, "&User Agreement")
+		new ActionBuilder("用户协议", ToolConstants.TOOL_OWNER)
+				.menuPath(ToolConstants.MENU_HELP, "&用户协议")
 				.menuGroup(ToolConstants.HELP_CONTENTS_MENU_GROUP)
 				.helpLocation(new HelpLocation(ToolConstants.ABOUT_HELP_TOPIC, "User_Agreement"))
 				.inWindow(ActionBuilder.When.ALWAYS)
@@ -1165,19 +1165,19 @@ public abstract class PluginTool extends AbstractDockingTool {
 
 		final ErrorReporter reporter = ErrLogDialog.getErrorReporter();
 		if (reporter != null) {
-			new ActionBuilder("Report Bug", ToolConstants.TOOL_OWNER)
-					.menuPath(ToolConstants.MENU_HELP, "&Report Bug...")
+			new ActionBuilder("反馈 Bug", ToolConstants.TOOL_OWNER)
+					.menuPath(ToolConstants.MENU_HELP, "&反馈 Bug...")
 					.menuGroup("BBB")
 					.helpLocation(new HelpLocation("ErrorReporting", "Report_Bug"))
 					.inWindow(ActionBuilder.When.ALWAYS)
-					.onAction(c -> reporter.report(getToolFrame(), "User Bug Report", null))
+					.onAction(c -> reporter.report(getToolFrame(), "用户 Bug 报告", null))
 					.buildAndInstall(this);
 		}
 
 		HelpService help = Help.getHelpService();
 
-		new ActionBuilder("Contents", ToolConstants.TOOL_OWNER)
-				.menuPath(ToolConstants.MENU_HELP, "&Contents")
+		new ActionBuilder("内容", ToolConstants.TOOL_OWNER)
+				.menuPath(ToolConstants.MENU_HELP, "&内容")
 				.menuGroup(ToolConstants.HELP_CONTENTS_MENU_GROUP)
 				.helpLocation(new HelpLocation("Misc", "Welcome_to_Ghidra_Help"))
 				.inWindow(ActionBuilder.When.ALWAYS)
@@ -1263,7 +1263,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 			return false;
 		}
 
-		Task task = new Task("Stopping Tasks", true, false, true) {
+		Task task = new Task("停止任务中", true, false, true) {
 			@Override
 			public void run(TaskMonitor monitor) throws CancelledException {
 				taskMgr.stop(monitor);
@@ -1295,7 +1295,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 					"running and Ghidra cannot determine if this tool instance should\n" +
 					"automatically be saved.  Do you want to save the configuration of this tool\n" +
 					"instance?",
-				"Save", "Save As...", "Don't Save", OptionDialog.WARNING_MESSAGE);
+				"保存", "另存为...", "不保存", OptionDialog.WARNING_MESSAGE);
 			if (result == OptionDialog.CANCEL_OPTION) {
 				return false;
 			}
@@ -1326,7 +1326,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 	public boolean canCloseDomainObject(DomainObject domainObject) {
 		if (taskMgr.hasTasksForDomainObject(domainObject)) {
 			String name = domainObject.getName();
-			Msg.showInfo(getClass(), getToolFrame(), "Close " + name + " Failed",
+			Msg.showInfo(getClass(), getToolFrame(), "关闭 " + name + " 失败",
 				"The tool is currently working in the background on " + name +
 					".\nPlease stop the background processing first.");
 

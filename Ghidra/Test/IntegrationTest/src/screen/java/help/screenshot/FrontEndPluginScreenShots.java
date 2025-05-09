@@ -396,7 +396,7 @@ public class FrontEndPluginScreenShots extends GhidraScreenShotGenerator {
 		Msg.info(FrontEndService.class, "This is a log message...");// something nice in the status area
 
 		setToolSize(500, 550);
-		showMenuBarMenu("File", "Reopen");
+		showMenuBarMenu("文件", "重新打开");
 		captureComponent(tool.getToolFrame());
 	}
 

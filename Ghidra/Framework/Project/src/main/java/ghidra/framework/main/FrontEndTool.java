@@ -666,7 +666,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 		installExtensionsAction.setMenuBarData(menuData);
 
 		installExtensionsAction
-				.setHelpLocation(new HelpLocation(GenericHelpTopics.FRONT_END, "Extensions"));
+				.setHelpLocation(new HelpLocation(GenericHelpTopics.FRONT_END, "扩展"));
 		installExtensionsAction.setEnabled(true);
 		addAction(installExtensionsAction);
 	}
@@ -678,7 +678,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 			public void actionPerformed(ActionContext context) {
 				showConfig(false, false);
 				manageDialog.setHelpLocation(
-					new HelpLocation(GenericHelpTopics.FRONT_END, "Configure"));
+					new HelpLocation(GenericHelpTopics.FRONT_END, "配置"));
 			}
 
 			@Override
@@ -687,13 +687,13 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 			}
 		};
 
-		MenuData menuData = new MenuData(new String[] { ToolConstants.MENU_FILE, "Configure" },
+		MenuData menuData = new MenuData(new String[] { ToolConstants.MENU_FILE, "配置" },
 			null, CONFIGURE_GROUP);
 		menuData.setMenuSubGroup(CONFIGURE_GROUP + 1);
 		configureToolAction.setMenuBarData(menuData);
 
 		configureToolAction
-				.setHelpLocation(new HelpLocation(GenericHelpTopics.FRONT_END, "Configure"));
+				.setHelpLocation(new HelpLocation(GenericHelpTopics.FRONT_END, "配置"));
 		configureToolAction.setEnabled(true);
 		addAction(configureToolAction);
 	}
