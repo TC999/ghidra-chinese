@@ -676,9 +676,9 @@ class FileActionManager {
 			this.projectLocator = projectLocator;
 // ACTIONS - auto generated
 			setMenuBarData(new MenuData(
-				new String[] { ToolConstants.MENU_FILE, "Reopen", filename }, null, "AProject"));
+				new String[] { ToolConstants.MENU_FILE, "重新打开", filename }, null, "AProject"));
 
-			tool.setMenuGroup(new String[] { ToolConstants.MENU_FILE, "Reopen" }, "AProject");
+			tool.setMenuGroup(new String[] { ToolConstants.MENU_FILE, "重新打开" }, "AProject");
 			setEnabled(true);
 			setHelpLocation(new HelpLocation(plugin.getName(), "Reopen_Project"));
 		}
