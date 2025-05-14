@@ -57,8 +57,8 @@ public class VersionExceptionHandler {
 	private static void showNeedExclusiveCheckoutDialog(final Component parent, String filename,
 			String contentType, String actionName) {
 
-		Msg.showError(VersionExceptionHandler.class, parent, actionName + " Failed!",
-			"Unable to " + actionName + " " + contentType + ": " + filename + "\n \n" +
+		Msg.showError(VersionExceptionHandler.class, parent, actionName + " 失败！",
+			"无法 " + actionName + " " + contentType + ": " + filename + "\n \n" +
 				"An upgrade of the " + contentType +
 				" data is required, however, you must have an exclusive checkout\n" +
 				"to upgrade a shared file!\n \n" +
@@ -71,10 +71,10 @@ public class VersionExceptionHandler {
 		final String detailMessage =
 			ve.getDetailMessage() == null ? "" : "\n" + ve.getDetailMessage();
 
-		String title = "Upgrade " + contentType + " Data? " + filename;
-		String message = "The " + contentType + " file you are attempting to " + actionName +
-			" is an older version." + detailMessage + "\n \n" + "Would you like to Upgrade it now?";
-		return OptionDialog.showOptionDialog(parent, title, message, "Upgrade",
+		String title = "升级 " + contentType + " 数据？" + filename;
+		String message = "此 " + contentType + " 文件曾 " + actionName +
+			" 于旧版本。" + detailMessage + "\n \n" + "您要升级它吗？";
+		return OptionDialog.showOptionDialog(parent, title, message, "升级",
 			OptionDialog.QUESTION_MESSAGE);
 	}
 
