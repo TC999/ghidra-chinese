@@ -18,6 +18,7 @@ package docking;
 import java.awt.*;
 import java.awt.dnd.*;
 import java.awt.event.*;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -25,6 +26,7 @@ import docking.action.DockingActionIf;
 import ghidra.util.CascadedDropTarget;
 import ghidra.util.HelpLocation;
 import help.HelpService;
+import util.CollectionUtils;
 
 /**
  * Wrapper class for user components. Adds the title, local toolbar and provides the drag target
@@ -150,6 +152,10 @@ public class DockableComponent extends JPanel implements ContainerListener {
 			return;
 		}
 
+		if (!e.isPopupTrigger()) {
+			return;
+		}
+
 		Component component = e.getComponent();
 		if (component == null) {
 			return; // not sure this can happen
@@ -162,12 +168,13 @@ public class DockableComponent extends JPanel implements ContainerListener {
 		}
 
 		Point point = e.getPoint();
-		boolean withinBounds = bounds.contains(point);
-		if (e.isPopupTrigger() && withinBounds) {
-			PopupMenuContext popupContext = new PopupMenuContext(e);
-			actionMgr.showPopupMenu(placeholder, popupContext);
-			e.consume();
+		if (!bounds.contains(point)) {
+			return;
 		}
+
+		e.consume();
+		PopupMenuContext popupContext = new PopupMenuContext(e);
+		actionMgr.showPopupMenu(placeholder, popupContext);
 	}
 
 	@Override
@@ -329,28 +336,44 @@ public class DockableComponent extends JPanel implements ContainerListener {
 		}
 
 		if (comp.isFocusable()) {
-			installPopupListenerFirst(comp);
+			installPopupListener(comp);
 		}
 	}
 
 	/**
-	 * Remove and re-add all mouse listeners so our popup listener can go first.  This allows our
+	 * Remove, reorder and re-add all mouse listeners so Java listeners go last.  This allows our
 	 * popup listener to consume the event, preventing Java UI listeners from changing the table 
 	 * selection when the user is performing a Ctrl-Mouse click on the Mac.
 	 * 
 	 * @param comp the component
 	 */
-	private void installPopupListenerFirst(Component comp) {
-		comp.removeMouseListener(popupListener);
-		MouseListener[] listeners = comp.getMouseListeners();
+	private void installPopupListener(Component comp) {
+
+		// remove and add the listeners according to the sorted order so that will be installed as
+		// they are ordered in the list
+		List<MouseListener> listeners = createOrderedListeners(comp);
 		for (MouseListener l : listeners) {
 			comp.removeMouseListener(l);
-		}
-
-		comp.addMouseListener(popupListener);
-		for (MouseListener l : listeners) {
 			comp.addMouseListener(l);
 		}
+	}
+
+	private List<MouseListener> createOrderedListeners(Component comp) {
+
+		// Get the current listeners, add the popup mouse listener for this class, then move any 
+		// Java listeners to the back of the list by removing them and re-adding them.
+		MouseListener[] listeners = comp.getMouseListeners();
+		List<MouseListener> orderedListeners = CollectionUtils.asList(listeners);
+		orderedListeners.add(popupListener);
+		for (MouseListener l : listeners) {
+			String name = l.getClass().getName();
+			if (name.startsWith("javax.") || name.startsWith("sun.")) {
+				orderedListeners.remove(l);
+				orderedListeners.add(l);
+			}
+		}
+
+		return orderedListeners;
 	}
 
 	private void deinitializeComponents(Component comp) {
