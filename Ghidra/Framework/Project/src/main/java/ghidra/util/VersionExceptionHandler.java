@@ -81,12 +81,11 @@ public class VersionExceptionHandler {
 	private static int showWarningDialog(final Component parent, String filename,
 			String contentType, String actionName) {
 
-		String title = "Upgrade Shared " + contentType + " Data? " + filename;
-		String message = "This " + contentType +
-			" file is shared with other users.  If you upgrade this file,\n" +
-			"other users will not be able to read the new version until they upgrade to \n" +
-			"a compatible version of Ghidra. Do you want to continue?";
-		return OptionDialog.showOptionDialog(parent, title, message, "Upgrade",
+		String title = "升级共享 " + contentType + " 数据？" + filename;
+		String message = "此 " + contentType +
+			" 同其他用户共享。如果您升级此文件，\n" +
+			"其他用户在未升级到兼容版本的Ghidra之前将无法读取新版本。您确定要继续吗？";
+		return OptionDialog.showOptionDialog(parent, title, message, "升级",
 			OptionDialog.WARNING_MESSAGE);
 	}
 
@@ -110,7 +109,7 @@ public class VersionExceptionHandler {
 			upgradeMsg = " (data upgrade is possible)";
 		}
 
-		Msg.showError(VersionExceptionHandler.class, parent, actionName + " Failed!",
+		Msg.showError(VersionExceptionHandler.class, parent, actionName + " 失败！",
 			"Unable to " + actionName + " " + contentType + ": " + filename + "\n \n" +
 				"File was created with a" + versionType + " version of Ghidra" + upgradeMsg);
 	}
