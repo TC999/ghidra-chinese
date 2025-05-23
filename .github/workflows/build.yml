@@ -73,7 +73,7 @@ jobs:
     steps:
       # 检出代码
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # 设置 JDK 21
       - name: Set up JDK 21
