@@ -58,11 +58,9 @@ import ghidra.util.task.TaskLauncher;
 	status = PluginStatus.RELEASED,
 	packageName = CorePluginPackage.NAME,
 	category = PluginCategoryNames.COMMON,
-	shortDescription = "Manage open programs",
-	description = "This plugin provides actions for opening and closing programs.  It also " +
-			"provides a service to allow plugins to open/close programs.  This plugin is " +
-			"responsible for sending out plugin events to notify all other programs when a " +
-			"program is opened or close.",
+	shortDescription = "管理打开的程序",
+	description = "此插件提供打开和关闭程序的操作。它还提供一个服务，允许插件打开/关闭程序。" +
+	    "此插件负责发送插件事件，以通知所有其他程序何时打开或关闭程序。",
 	servicesProvided = { ProgramManager.class },
 	eventsConsumed = {
 		OpenProgramPluginEvent.class, CloseProgramPluginEvent.class,
@@ -78,8 +76,8 @@ import ghidra.util.task.TaskLauncher;
 //@formatter:on
 public class ProgramManagerPlugin extends Plugin implements ProgramManager, OptionsChangeListener {
 	private final static String CACHE_DURATION_OPTION =
-		"Program Cache.Program Cache Time (minutes)";
-	private final static String CACHE_SIZE_OPTION = "Program Cache.Program Cache Size";
+		"程序缓存.程序缓存时间（分钟）";
+	private final static String CACHE_SIZE_OPTION = "程序缓存.程序缓存大小";
 	private static final int DEFAULT_PROGRAM_CACHE_CAPACITY = 50;
 	private static final int DEFAULT_PROGRAM_CACHE_DURATION = 30; // in minutes
 
@@ -121,10 +119,10 @@ public class ProgramManagerPlugin extends Plugin implements ProgramManager, Opti
 		HelpLocation helpLocation =
 			new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "Program_Cache_Duration");
 		options.registerOption(CACHE_DURATION_OPTION, DEFAULT_PROGRAM_CACHE_DURATION, helpLocation,
-			"Sets the time (in minutes) cached programs are kept around before closing");
+			"设置缓存程序关闭前的保留时间（分钟）。");
 		helpLocation = new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "Program_Cache_Size");
 		options.registerOption(CACHE_SIZE_OPTION, DEFAULT_PROGRAM_CACHE_CAPACITY, helpLocation,
-			"Sets the maximum number of programs to be cached");
+			"设置要缓存的程序的最大数量");
 
 		int duration = options.getInt(CACHE_DURATION_OPTION, DEFAULT_PROGRAM_CACHE_DURATION);
 		int capacity = options.getInt(CACHE_SIZE_OPTION, DEFAULT_PROGRAM_CACHE_CAPACITY);
@@ -202,7 +200,7 @@ public class ProgramManagerPlugin extends Plugin implements ProgramManager, Opti
 			return doOpenProgramSwing(locator, state);
 		});
 		if (program != null) {
-			Msg.info(this, "Opened program in " + tool.getName() + " tool: " + locator);
+			Msg.info(this, "打开程序于 " + tool.getName() + " 工具: " + locator);
 		}
 		return program;
 	}
@@ -247,8 +245,8 @@ public class ProgramManagerPlugin extends Plugin implements ProgramManager, Opti
 		}
 
 		if (loc == null) {
-			Msg.showError(this, null, "Navigation Failed",
-				"Referenced label/function not found: " + trimmedRef);
+			Msg.showError(this, null, "导航失败",
+				"未找到引用的标签/函数: " + trimmedRef);
 			return false;
 		}
 
@@ -481,7 +479,7 @@ public class ProgramManagerPlugin extends Plugin implements ProgramManager, Opti
 
 	private void showProgram(Program p, ProgramLocator locator, final int state) {
 		if (p == null || p.isClosed()) {
-			throw new AssertException("Opened program required");
+			throw new AssertException("需要打开程序");
 		}
 
 		Runnable r = () -> {
@@ -522,7 +520,7 @@ public class ProgramManagerPlugin extends Plugin implements ProgramManager, Opti
 		int subMenuGroup = 1;
 
 		DockingAction openAction =
-			new ActionBuilder("Open File", getName()).menuPath(ToolConstants.MENU_FILE, "&Open...")
+			new ActionBuilder("打开文件", getName()).menuPath(ToolConstants.MENU_FILE, "打开...")
 					.menuGroup(OPEN_GROUP, Integer.toString(subMenuGroup++))
 					.keyBinding("ctrl O")
 					.onAction(c -> open())
@@ -530,8 +528,8 @@ public class ProgramManagerPlugin extends Plugin implements ProgramManager, Opti
 		openAction.addToWindowWhen(ProgramActionContext.class);
 
 		tool.addAction(new CloseProgramAction(this, OPEN_GROUP, subMenuGroup++));
-		new ActionBuilder("Close Others", getName())
-				.menuPath(ToolConstants.MENU_FILE, "Close &Others")
+		new ActionBuilder("关闭其他", getName())
+				.menuPath(ToolConstants.MENU_FILE, "关闭其他")
 				.menuGroup(OPEN_GROUP, Integer.toString(subMenuGroup++))
 				.enabled(false)
 				.withContext(ProgramActionContext.class)
@@ -540,8 +538,8 @@ public class ProgramManagerPlugin extends Plugin implements ProgramManager, Opti
 				.onAction(c -> closeOtherPrograms(false))
 				.buildAndInstall(tool);
 
-		DockingAction closeAllAction = new ActionBuilder("Close All", getName())
-				.menuPath(ToolConstants.MENU_FILE, "Close &All")
+		DockingAction closeAllAction = new ActionBuilder("关闭所有", getName())
+				.menuPath(ToolConstants.MENU_FILE, "关闭所有")
 				.menuGroup(OPEN_GROUP, Integer.toString(subMenuGroup++))
 				.enabledWhen(c -> !programMgr.isEmpty())
 				.onAction(c -> closeAllPrograms(false))
@@ -551,9 +549,9 @@ public class ProgramManagerPlugin extends Plugin implements ProgramManager, Opti
 		tool.addAction(new SaveProgramAction(this, SAVE_GROUP, subMenuGroup));
 		tool.addAction(new SaveAsProgramAction(this, SAVE_GROUP, subMenuGroup));
 
-		DockingAction saveAllAction = new ActionBuilder("Save All Files", getName())
-				.menuPath(ToolConstants.MENU_FILE, "Save All")
-				.description("Save All Programs")
+		DockingAction saveAllAction = new ActionBuilder("保存所有文件", getName())
+				.menuPath(ToolConstants.MENU_FILE, "保存所有")
+				.description("保存所有程序")
 				.menuGroup(SAVE_GROUP, Integer.toString(subMenuGroup++))
 				.enabledWhen(c -> programMgr.hasUnsavedPrograms())
 				.onAction(c -> programSaveMgr.saveChangedPrograms())
@@ -574,8 +572,8 @@ public class ProgramManagerPlugin extends Plugin implements ProgramManager, Opti
 		for (int i = 0; i < names.size(); i++) {
 			String optionName = names.get(i);
 			options[i] = currentProgram.getOptions(optionName);
-			if (optionName.equals("Program Information")) {
-				setPropertyEditor(options[i], "Executable Location");
+			if (optionName.equals("程序信息")) {
+				setPropertyEditor(options[i], "可执行文件位置");
 				options[i].setOptionsHelpLocation(new HelpLocation(getName(), "Program_Options"));
 			}
 		}
@@ -616,7 +614,7 @@ public class ProgramManagerPlugin extends Plugin implements ProgramManager, Opti
 	 */
 	private void startTransaction(Program currentProgram) {
 		if (transactionID < 0) {
-			transactionID = currentProgram.startTransaction("Edit Program Properties");
+			transactionID = currentProgram.startTransaction("编辑程序属性");
 		}
 	}
 
@@ -634,7 +632,7 @@ public class ProgramManagerPlugin extends Plugin implements ProgramManager, Opti
 	private void open() {
 
 		OpenVersionedFileDialog<Program> openDialog =
-			new OpenVersionedFileDialog<>(tool, "Open Program", Program.class);
+			new OpenVersionedFileDialog<>(tool, "打开程序", Program.class);
 
 		DomainFile startFile = null;
 		Program p = getCurrentProgram();
@@ -648,7 +646,7 @@ public class ProgramManagerPlugin extends Plugin implements ProgramManager, Opti
 			DomainFile domainFile = openDialog.getDomainFile();
 			int version = openDialog.getVersion();
 			if (domainFile == null) {
-				openDialog.setStatusText("Please choose a Program");
+				openDialog.setStatusText("请选择一个程序");
 			}
 			else {
 				openDialog.close();
@@ -927,12 +925,12 @@ public class ProgramManagerPlugin extends Plugin implements ProgramManager, Opti
 
 		DomainFile df = projectData.getFile(pathname);
 		if (df == null) {
-			String message = "Can't open program - \"" + pathname + "\"";
+			String message = "无法打开程序 - \"" + pathname + "\"";
 			int version = getVersion(saveState, index);
 			if (version != DomainFile.DEFAULT_VERSION) {
-				message += " version " + version;
+				message += " 版本 " + version;
 			}
-			Msg.showError(this, tool.getToolFrame(), "Program Not Found", message);
+			Msg.showError(this, tool.getToolFrame(), "未找到程序", message);
 		}
 		return df;
 	}
@@ -1088,7 +1086,7 @@ public class ProgramManagerPlugin extends Plugin implements ProgramManager, Opti
 		if (programMgr.contains(program)) {
 			programMgr.releaseProgram(program, owner);
 			Msg.info(ClientUtil.class,
-				"Released program from " + tool.getName() + " tool: " + program.getDomainFile());
+				"从 " + tool.getName() + " 工具释放程序: " + program.getDomainFile());
 		}
 	}
 
