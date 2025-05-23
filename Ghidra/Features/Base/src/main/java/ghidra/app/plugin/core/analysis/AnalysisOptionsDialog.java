@@ -53,16 +53,16 @@ public class AnalysisOptionsDialog extends DialogComponentProvider
 	 * @param programs the set of programs to run analysis on
 	 */
 	AnalysisOptionsDialog(List<Program> programs) {
-		super("Analysis Options");
+		super("分析选项");
 		setHelpLocation(new HelpLocation("AutoAnalysisPlugin", "AnalysisOptions"));
 		panel = new AnalysisPanel(programs, editorStateFactory, this);
 		panel.setToLastUsedAnalysisOptionsIfProgramNotAnalyzed();
-		panel.getAccessibleContext().setAccessibleName("Analysis Options");
+		panel.getAccessibleContext().setAccessibleName("分析选项");
 		addWorkPanel(panel);
 		addOKButton();
 		addCancelButton();
 		addApplyButton();
-		setOkButtonText("Analyze");
+		setOkButtonText("分析");
 
 		// This allows user to press Enter to launch analysis when the dialog is shown.  Without
 		// this, the table takes focus, which consumes Enter key presses.
@@ -82,16 +82,16 @@ public class AnalysisOptionsDialog extends DialogComponentProvider
 			close();
 		}
 		catch (Exception e) {
-			Msg.showError(this, panel, "Error Setting Analysis Options", e.getMessage(), e);
+			Msg.showError(this, panel, "设置分析选项时出错", e.getMessage(), e);
 		}
 	}
 
 	@Override
 	protected void cancelCallback() {
 		if (hasChanges) {
-			int result = OptionDialog.showYesNoCancelDialog(panel, "Save Changes?",
-				"These options are different from what is in the program.\n" +
-					"Do you want to save them to the program?");
+			int result = OptionDialog.showYesNoCancelDialog(panel, "保存更改?",
+				"这些选项与程序中的内容不同。\n" +
+					"您想将它们保存到程序中吗?");
 			if (result == OptionDialog.CANCEL_OPTION) {
 				return;
 			}
