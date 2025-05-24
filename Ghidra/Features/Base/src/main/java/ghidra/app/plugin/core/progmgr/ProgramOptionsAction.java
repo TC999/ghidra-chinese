@@ -25,9 +25,9 @@ import ghidra.program.model.listing.Program;
 public class ProgramOptionsAction extends AbstractProgramNameSwitchingAction {
 
 	public ProgramOptionsAction(ProgramManagerPlugin plugin) {
-		super(plugin, "Program Options");
+		super(plugin, "程序选项");
 		MenuData menuData =
-			new MenuData(new String[] { ToolConstants.MENU_EDIT, "Program Options" });
+			new MenuData(new String[] { ToolConstants.MENU_EDIT, "程序选项" });
 		menuData.setMenuGroup(ToolConstants.TOOL_OPTIONS_MENU_GROUP);
 		menuData.setMenuSubGroup(ToolConstants.TOOL_OPTIONS_MENU_GROUP + "b");
 		setMenuBarData(menuData);
@@ -36,10 +36,10 @@ public class ProgramOptionsAction extends AbstractProgramNameSwitchingAction {
 	@Override
 	protected void programChanged(Program program) {
 		if (program == null) {
-			getMenuBarData().setMenuItemName("Program Options");
+			getMenuBarData().setMenuItemName("程序选项");
 		}
 		else {
-			String menuString = "Options for '%s'".formatted(program.getDomainFile().getName());
+			String menuString = "选项 '%s'".formatted(program.getDomainFile().getName());
 			getMenuBarData().setMenuItemNamePlain(menuString);
 		}
 	}
