@@ -61,14 +61,14 @@ public class ImporterUtilities {
 	 * File extension filter for well known 'loadable' files for GhidraFileChoosers.
 	 */
 	public static final GhidraFileFilter LOADABLE_FILES_FILTER = ExtensionFileFilter.forExtensions(
-		"Loadable files", "exe", "dll", "obj", "drv", "bin", "hex", "o", "a", "so", "class", "lib",
+		"可加载文件", "exe", "dll", "obj", "drv", "bin", "hex", "o", "a", "so", "class", "lib",
 		"dylib");
 
 	/**
 	 * File extension filter for well known 'container' files for GhidraFileChoosers.
 	 */
 	public static final GhidraFileFilter CONTAINER_FILES_FILTER =
-		ExtensionFileFilter.forExtensions("Container files", "zip", "tar", "tgz", "jar", "gz",
+		ExtensionFileFilter.forExtensions("容器文件", "zip", "tar", "tgz", "jar", "gz",
 			"ipsw", "img3", "dmg", "apk", "cpio", "rpm", "lib");
 
 	private static final FileSystemService fsService = FileSystemService.getInstance();

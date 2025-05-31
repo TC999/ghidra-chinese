@@ -37,11 +37,11 @@ public class ProjectTypePanel extends JPanel {
 
 		JPanel innerPanel = new JPanel(new VerticalLayout(10));
 
-		nonSharedRB = new GRadioButton("Non-Shared Project", true);
-		nonSharedRB.setToolTipText("Create a project that is not shared with others");
+		nonSharedRB = new GRadioButton("非共享项目", true);
+		nonSharedRB.setToolTipText("创建一个不与他人共享的项目");
 
-		sharedRB = new GRadioButton("Shared Project");
-		sharedRB.setToolTipText("Create a project that can be shared with others");
+		sharedRB = new GRadioButton("共享项目");
+		sharedRB.setToolTipText("创建一个与他人共享的项目");
 
 		buttonGroup = new ButtonGroup();
 		buttonGroup.add(nonSharedRB);

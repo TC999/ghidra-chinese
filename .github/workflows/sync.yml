@@ -1,0 +1,47 @@
+name: 同步源码
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天运行一次
+  workflow_dispatch:  # 允许手动触发工作流
+    inputs:
+      force_pull:
+        type: boolean
+        description: "强制同步"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      LANG: zh_CN.UTF-8
+
+    steps:
+    - name: 检出
+      uses: actions/checkout@v2
+      with:
+        ref: sync
+        #repository: owner/target-repo
+        #token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: 终端汉化
+      run: sudo apt-get install language-pack-zh-hans
+
+    - name: 设置提交者信息
+      run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "actions-bot"
+
+    - name: 拉取原版仓库并推送
+      run: |
+        git remote add external https://github.com/NationalSecurityAgency/ghidra.git
+        git fetch external
+        git merge external/master --allow-unrelated-histories
+        git push origin sync
+
+    - name: 强制同步
+      if: ${{ inputs.force_pull }} || failure()
+      run: |
+        git remote add upstream https://github.com/NationalSecurityAgency/ghidra.git
+        git fetch upstream
+        git reset --hard upstream/master
+        git push origin sync --force

@@ -41,7 +41,7 @@ import help.HelpService;
  * project views.
  */
 class ProjectDataPanel extends JSplitPane implements ProjectViewListener {
-	private final static String BORDER_PREFIX = "Active Project: ";
+	private final static String BORDER_PREFIX = "激活项目：";
 	private final static String READ_ONLY_BORDER = "READ-ONLY Project Data";
 	private final static int TYPICAL_NUM_VIEWS = 2;
 	private final static int DIVIDER_SIZE = 2;
@@ -74,8 +74,8 @@ class ProjectDataPanel extends JSplitPane implements ProjectViewListener {
 		projectTab.setBorder(BorderFactory.createTitledBorder(BORDER_PREFIX));
 		projectTab.addChangeListener(e -> frontEndPlugin.getTool().contextChanged(null));
 
-		projectTab.addTab("Tree View", activePanel);
-		projectTab.addTab("Table View", tablePanel);
+		projectTab.addTab("树状视图", activePanel);
+		projectTab.addTab("表格视图", tablePanel);
 
 		//
 		// Setup the active data tree panel
@@ -146,7 +146,7 @@ class ProjectDataPanel extends JSplitPane implements ProjectViewListener {
 				readOnlyViews.put(view, dtp);
 			}
 			catch (Exception e) {
-				Msg.showError(this, null, "Error", "Cannot restore project view", e);
+				Msg.showError(this, null, "错误", "无法恢复项目视图", e);
 			}
 		}
 
@@ -203,7 +203,7 @@ class ProjectDataPanel extends JSplitPane implements ProjectViewListener {
 			}
 			catch (Exception e) {
 				projectManager.forgetViewedProject(projectView);
-				Msg.showError(getClass(), tool.getToolFrame(), "Error Adding View", e.toString());
+				Msg.showError(getClass(), tool.getToolFrame(), "添加视图出错", e.toString());
 			}
 			return null;
 		}
@@ -236,8 +236,8 @@ class ProjectDataPanel extends JSplitPane implements ProjectViewListener {
 		}
 		catch (Exception e) {
 			projectManager.forgetViewedProject(projectView);
-			Msg.showError(getClass(), tool.getToolFrame(), "Error Adding View",
-				"Failed to view project/repository: " + e.getMessage(), e);
+			Msg.showError(getClass(), tool.getToolFrame(), "添加视图出错",
+				"查看项目/仓库失败：" + e.getMessage(), e);
 		}
 		finally {
 			validate();
@@ -274,15 +274,15 @@ class ProjectDataPanel extends JSplitPane implements ProjectViewListener {
 	void closeView(URL projectView) {
 		Project activeProject = tool.getProject();
 		if (activeProject == null) {
-			Msg.showError(getClass(), tool.getToolFrame(), "Views Only Allowed With Active Project",
-				"Cannot remove project view: " + projectView);
+			Msg.showError(getClass(), tool.getToolFrame(), "只允许在活动项目中查看",
+				"不能移除项目视图：" + projectView);
 			return;
 		}
 
 		ProjectDataTreePanel dtp = getViewPanel(projectView);
 		if (dtp == null) {
-			Msg.showError(getClass(), tool.getToolFrame(), "Cannot Remove Project Not In View",
-				"Project view: " + projectView + " not found.");
+			Msg.showError(getClass(), tool.getToolFrame(), "无法删除不在视图中的项目",
+				"项目视图：" + projectView + " 未找到。");
 			return;
 		}
 
@@ -350,7 +350,7 @@ class ProjectDataPanel extends JSplitPane implements ProjectViewListener {
 			project.addProjectViewListener(this);
 		}
 		else {
-			tablePanel.setProjectData("No Active Project", null);
+			tablePanel.setProjectData("无激活项目", null);
 		}
 
 		validate();

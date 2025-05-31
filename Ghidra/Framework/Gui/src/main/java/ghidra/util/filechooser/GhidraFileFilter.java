@@ -30,7 +30,7 @@ public interface GhidraFileFilter {
     public final static GhidraFileFilter ALL = new GhidraFileFilter() {
         @Override
 		public String getDescription() {
-            return "All Files (*.*)";
+            return "所有文件 (*.*)";
         }
         @Override
 		public boolean accept(File pathname, GhidraFileChooserModel model) {

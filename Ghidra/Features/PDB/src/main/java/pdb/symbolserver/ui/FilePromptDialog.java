@@ -51,7 +51,7 @@ class FilePromptDialog extends DialogComponentProvider {
 	 * @return the {@link File} the user entered / picked, or null if canceled
 	 */
 	public static File chooseDirectory(String title, String prompt, File initialValue) {
-		return chooseFile(title, prompt, "Choose", null, initialValue,
+		return chooseFile(title, prompt, "选择", null, initialValue,
 			GhidraFileChooserMode.DIRECTORIES_ONLY);
 	}
 
@@ -109,7 +109,7 @@ class FilePromptDialog extends DialogComponentProvider {
 		GHtmlLabel promptLabel = new GHtmlLabel(prompt);
 		promptLabel.getAccessibleContext().setAccessibleName(prompt);
 		filePathTextField = new JTextField(file != null ? file.getPath() : null, 40);
-		filePathTextField.getAccessibleContext().setAccessibleName("File Path");
+		filePathTextField.getAccessibleContext().setAccessibleName("文件路径");
 		filePathTextField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
@@ -128,24 +128,24 @@ class FilePromptDialog extends DialogComponentProvider {
 		});
 		JButton browseButton = new BrowseButton();
 		browseButton.addActionListener(e -> browse());
-		browseButton.getAccessibleContext().setAccessibleName("Browse");
+		browseButton.getAccessibleContext().setAccessibleName("选择");
 		JPanel textFieldWithButtonPanel = new JPanel(new BorderLayout());
 		textFieldWithButtonPanel.getAccessibleContext()
-				.setAccessibleName("File Path Text Field and Browse Button");
+				.setAccessibleName("文件路径文本框和浏览按钮");
 		textFieldWithButtonPanel.add(filePathTextField, BorderLayout.CENTER);
 		textFieldWithButtonPanel.add(browseButton, BorderLayout.EAST);
 
 		JPanel mainPanel = new JPanel(new PairLayout());
 		mainPanel.add(promptLabel);
 		mainPanel.add(textFieldWithButtonPanel);
-		mainPanel.getAccessibleContext().setAccessibleName("File Prompt");
+		mainPanel.getAccessibleContext().setAccessibleName("文件提示词");
 		Dimension size = mainPanel.getPreferredSize();
 		size.width = Math.max(size.width, 500);
 		mainPanel.setPreferredSize(size);
 		mainPanel.setMinimumSize(size);
 		JPanel newMain = new JPanel(new BorderLayout());
 		newMain.add(mainPanel, BorderLayout.CENTER);
-		newMain.getAccessibleContext().setAccessibleName("File Prompt");
+		newMain.getAccessibleContext().setAccessibleName("文件提示词");
 		addWorkPanel(newMain);
 		addOKButton();
 		addCancelButton();

@@ -43,7 +43,7 @@ class VersionInfoPanel extends JPanel {
 		add(textArea, BorderLayout.CENTER);
 
 		JPanel bottomPanel = new JPanel();
-		JButton copyButton = new JButton("Copy");
+		JButton copyButton = new JButton("复制");
 		copyButton.addActionListener(e -> {
 			Clipboard clipboard = GClipboard.getSystemClipboard();
 			clipboard.setContents(new StringSelection(textArea.getText()), null);
@@ -77,12 +77,12 @@ class VersionInfoPanel extends JPanel {
 	 */
 	private void addApplicationInfo(List<String> lines, String def) {
 		ApplicationProperties props = Application.getApplicationLayout().getApplicationProperties();
-		lines.add("Ghidra Version: " + props.getApplicationVersion());
-		lines.add("Ghidra Release: " + props.getApplicationReleaseName());
-		lines.add("Ghidra Build Date: " + props.getApplicationBuildDate());
-		lines.add("Ghidra Revision: " +
+		lines.add("Ghidra 版本：" + props.getApplicationVersion());
+		lines.add("Ghidra 发行：" + props.getApplicationReleaseName());
+		lines.add("Ghidra 编译日期：" + props.getApplicationBuildDate());
+		lines.add("Ghidra 修订：" +
 			props.getProperty(ApplicationProperties.REVISION_PROPERTY_PREFIX + "ghidra", def));
-		lines.add("Ghidra Development Mode: " + SystemUtilities.isInDevelopmentMode());
+		lines.add("Ghidra 开发者模式：" + SystemUtilities.isInDevelopmentMode());
 	}
 
 	/**
@@ -92,9 +92,9 @@ class VersionInfoPanel extends JPanel {
 	 * @param def A default value to use if a piece of information cannot be found
 	 */
 	private void addOperatingSystemInfo(List<String> lines, String def) {
-		lines.add("OS Name: " + System.getProperty("os.name", def));
-		lines.add("OS Arch: " + System.getProperty("os.arch", def));
-		lines.add("OS Version: " + System.getProperty("os.version", def));
+		lines.add("系统名称：" + System.getProperty("os.name", def));
+		lines.add("系统架构：" + System.getProperty("os.arch", def));
+		lines.add("系统版本：" + System.getProperty("os.version", def));
 		if (OperatingSystem.CURRENT_OPERATING_SYSTEM.equals(OperatingSystem.LINUX)) {
 			String prettyName = def;
 			File osReleaseFile = new File("/etc/os-release");
@@ -112,7 +112,7 @@ class VersionInfoPanel extends JPanel {
 			catch (IOException e) {
 				// That's ok, pretty name is optional
 			}
-			lines.add("OS Pretty Name: " + prettyName);
+			lines.add("操作系统美名：" + prettyName);
 		}
 	}
 
@@ -123,8 +123,8 @@ class VersionInfoPanel extends JPanel {
 	 * @param def A default value to use if a piece of information cannot be found
 	 */
 	private void addJavaInfo(List<String> lines, String def) {
-		lines.add("Java Vendor: " + System.getProperty("java.vendor", def));
-		lines.add("Java Version: " + System.getProperty("java.version", def));
-		lines.add("Java Home: " + System.getProperty("java.home"));
+		lines.add("Java 供应商：" + System.getProperty("java.vendor", def));
+		lines.add("Java 版本: " + System.getProperty("java.version", def));
+		lines.add("Java 路径: " + System.getProperty("java.home"));
 	}
 }

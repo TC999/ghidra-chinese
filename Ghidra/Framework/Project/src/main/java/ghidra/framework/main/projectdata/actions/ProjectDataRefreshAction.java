@@ -35,7 +35,7 @@ public class ProjectDataRefreshAction extends FrontendProjectTreeAction {
 	public ProjectDataRefreshAction(String owner, String group) {
 		super("Refresh", owner);
 		setPopupMenuData(new MenuData(new String[] { "Refresh" }, icon, group));
-		setDescription("Refresh folders and files");
+		setDescription("刷新文件（夹）");
 		setKeyBindingData(new KeyBindingData(KeyEvent.VK_F5, 0));
 		setToolBarData(new ToolBarData(icon, group));
 		setHelpLocation(new HelpLocation(owner, "RefreshFolders"));
@@ -48,7 +48,7 @@ public class ProjectDataRefreshAction extends FrontendProjectTreeAction {
 	}
 
 	public void refresh(ProjectData projectData, Component comp) {
-		TaskLauncher.launch(new Task("Refresh folders and files", false, false, true) {
+		TaskLauncher.launch(new Task("刷新文件（夹）", false, false, true) {
 			@Override
 			public void run(TaskMonitor monitor) {
 				projectData.refresh(false);

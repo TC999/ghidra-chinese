@@ -57,7 +57,7 @@ public class LogPanel extends JPanel implements LogListener {
 		panel.setBorder(BorderFactory.createEmptyBorder(8, 4, 4, 2));
 		button = new EmptyBorderButton(new GIcon("icon.console"));
 		label = new GDLabel();
-		label.setName("Details");
+		label.setName("详情");
 		panel.add(label, BorderLayout.CENTER);
 
 		JPanel eastPanel = new JPanel(new HorizontalLayout(0));
@@ -71,7 +71,7 @@ public class LogPanel extends JPanel implements LogListener {
 
 		button.setPreferredSize(new Dimension(24, 24));
 		button.setFocusable(false);
-		button.setToolTipText("Show Console (Refresh Open Console)");
+		button.setToolTipText("显示日志 (刷新当前)");
 		button.addActionListener(e -> {
 			FrontEndTool tool = (FrontEndTool) plugin.getTool();
 			tool.showGhidraUserLogFile();
