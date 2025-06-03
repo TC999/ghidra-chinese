@@ -32,6 +32,7 @@ jobs:
         git config --global user.name "actions-bot"
 
     - name: 拉取原版仓库并推送
+      continue-on-error: true
       run: |
         git remote add external https://github.com/NationalSecurityAgency/ghidra.git
         git fetch external
