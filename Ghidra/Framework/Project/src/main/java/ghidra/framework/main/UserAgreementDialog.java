@@ -47,9 +47,9 @@ public class UserAgreementDialog extends DialogComponentProvider {
 		addWorkPanel(buildWorkPanel());
 		addOKButton();
 		if (showAgreementChoices) {
-			setOkButtonText("I Agree");
+			setOkButtonText("同意");
 			addCancelButton();
-			setCancelButtonText("I Don't Agree");
+			setCancelButtonText("不同意");
 		}
 		else {
 			setOkButtonText("OK");
@@ -59,9 +59,9 @@ public class UserAgreementDialog extends DialogComponentProvider {
 
 	private JComponent buildWorkPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
-		JLabel label = new GDLabel("Ghidra User Agreement", SwingConstants.CENTER);
+		JLabel label = new GDLabel("Ghidra 用户协议", SwingConstants.CENTER);
 		label.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
-		label.getAccessibleContext().setAccessibleName("Ghidra User Agreement");
+		label.getAccessibleContext().setAccessibleName("Ghidra 用户协议");
 		Gui.registerFont(label, FONT_ID);
 		panel.add(label, BorderLayout.NORTH);
 		panel.setBorder(BorderFactory.createEmptyBorder(10, 40, 40, 40));
@@ -80,7 +80,7 @@ public class UserAgreementDialog extends DialogComponentProvider {
 		checkBoxPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 0, 10));
 		checkBoxPanel.getAccessibleContext().setAccessibleName("Checkbox");
 		panel.add(checkBoxPanel, BorderLayout.SOUTH);
-		panel.getAccessibleContext().setAccessibleName("User Agreement");
+		panel.getAccessibleContext().setAccessibleName("用户协议");
 		return panel;
 	}
 
