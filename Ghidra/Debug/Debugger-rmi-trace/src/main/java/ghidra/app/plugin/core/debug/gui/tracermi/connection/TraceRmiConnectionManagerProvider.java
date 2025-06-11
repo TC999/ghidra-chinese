@@ -128,7 +128,7 @@ public class TraceRmiConnectionManagerProvider extends ComponentProviderAdapter 
 	}
 
 	interface CloseConnectionAction {
-		String NAME = "Close";
+		String NAME = "关闭";
 		String DESCRIPTION = "Close a connection or server";
 		String GROUP = GROUP_MAINTENANCE;
 		String HELP_ANCHOR = "close";
@@ -146,7 +146,7 @@ public class TraceRmiConnectionManagerProvider extends ComponentProviderAdapter 
 	}
 
 	interface CloseAllAction {
-		String NAME = "Close All";
+		String NAME = "关闭全部";
 		String DESCRIPTION = "Close all connections and the server";
 		String GROUP = GROUP_MAINTENANCE;
 		String HELP_ANCHOR = "close_all";
