@@ -13,21 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// Turns off function start searching (intended for use with the 
-// headless analyzer as a prescript)
-//@category Search
+package ghidra.app.plugin.core.symtable;
 
-import ghidra.app.script.GhidraScript;
+import java.util.List;
 
-public class TurnOffFuncStartSearch extends GhidraScript {
+import ghidra.app.context.ProgramActionContext;
+import ghidra.program.model.symbol.Reference;
 
-	@Override
-	protected void run() throws Exception {
-		setAnalysisOption(currentProgram, "Function Start Search", "false");
-		setAnalysisOption(currentProgram, "Function Start Search After Code", "false");
-		setAnalysisOption(currentProgram, "Function Start Search After Data", "false");
-		setAnalysisOption(currentProgram, "Function ID", "false");
+public class ReferenceTableContext extends ProgramActionContext {
 
+	private List<Reference> references;
+
+	ReferenceTableContext(ReferenceProvider provider, List<Reference> references) {
+		super(provider, provider.getProgram(), provider.getTable());
+		this.references = references;
 	}
 
+	List<Reference> getSelectedReferences() {
+		return references;
+	}
 }
