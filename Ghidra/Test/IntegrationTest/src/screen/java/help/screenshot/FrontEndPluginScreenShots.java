@@ -240,7 +240,7 @@ public class FrontEndPluginScreenShots extends GhidraScreenShotGenerator {
 		loadDefaultTool();
 
 		waitForSwing();
-		performAction("Connect Tools", "FrontEndPlugin", false);
+		performAction("连接工具", "FrontEndPlugin", false);
 		DialogComponentProvider dialog = getDialog();
 		Object panel = getInstanceField("panel", dialog);
 		final JList<?> consumerList = (JList<?>) getInstanceField("consumerList", panel);
@@ -258,14 +258,14 @@ public class FrontEndPluginScreenShots extends GhidraScreenShotGenerator {
 
 	@Test
 	public void testDeleteProject() {
-		performAction("Delete Project", "FrontEndPlugin", false);
+		performAction("删除项目", "FrontEndPlugin", false);
 		captureDialog(600, 350);
 	}
 
 	@Test
 	public void testEditPluginPath() {
 		Preferences.setPluginPaths(new String[] { "/myJar.jar", "/MyPlugins/classes" });
-		performAction("Edit Plugin Path", "FrontEndPlugin", false);
+		performAction("编辑插件路径", "FrontEndPlugin", false);
 		DialogComponentProvider dialog = getDialog();
 		final JList<?> jList = (JList<?>) getInstanceField("pluginPathsList", dialog);
 		runSwing(() -> {
@@ -309,13 +309,13 @@ public class FrontEndPluginScreenShots extends GhidraScreenShotGenerator {
 
 	@Test
 	public void testNonSharedProjectInfo() {
-		performAction("View Project Info", "FrontEndPlugin", false);
+		performAction("查看项目详细信息", "FrontEndPlugin", false);
 		captureDialog();
 	}
 
 	@Test
 	public void testOpenProject() {
-		performAction("Open Project", "FrontEndPlugin", false);
+		performAction("打开项目", "FrontEndPlugin", false);
 		captureDialog(600, 350);
 	}
 
@@ -396,7 +396,7 @@ public class FrontEndPluginScreenShots extends GhidraScreenShotGenerator {
 		Msg.info(FrontEndService.class, "This is a log message...");// something nice in the status area
 
 		setToolSize(500, 550);
-		showMenuBarMenu("File", "Reopen");
+		showMenuBarMenu("文件", "重新打开");
 		captureComponent(tool.getToolFrame());
 	}
 

@@ -96,10 +96,10 @@ public class FileSystemBrowserPlugin extends Plugin
 	}
 
 	private void setupActions() {
-		openFilesystemAction = new ActionBuilder("Open File System", this.getName())
+		openFilesystemAction = new ActionBuilder("打开文件系统", this.getName())
 				.description(getPluginDescription().getDescription())
 				.enabledWhen(ac -> tool.getProject() != null)
-				.menuPath(ToolConstants.MENU_FILE, "Open File System...")
+				.menuPath(ToolConstants.MENU_FILE, "打开文件系统...")
 				.menuGroup("Import", "z")
 				.keyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK))
 				.onAction(ac -> doOpenFileSystem())
@@ -129,7 +129,7 @@ public class FileSystemBrowserPlugin extends Plugin
 
 	@Override
 	public void openFileSystem(FSRL fsrl) {
-		TaskLauncher.launchModal("Open File System", (monitor) -> {
+		TaskLauncher.launchModal("打开文件系统", (monitor) -> {
 			doOpenFilesystem(fsrl, tool.getActiveWindow(), monitor);
 		});
 	}
@@ -214,7 +214,7 @@ public class FileSystemBrowserPlugin extends Plugin
 			FileSystemRef ref = fsService().probeFileForFilesystem(containerFSRL, monitor,
 				FileSystemProbeConflictResolver.GUI_PICKER);
 			if (ref == null) {
-				Msg.showWarn(this, parent, "Open Filesystem",
+				Msg.showWarn(this, parent, "打开文件系统",
 					"No filesystem provider for " + containerFSRL.getName());
 				return;
 			}
@@ -222,7 +222,7 @@ public class FileSystemBrowserPlugin extends Plugin
 			createNewFileSystemBrowser(ref, true);
 		}
 		catch (IOException | CancelledException e) {
-			FSUtilities.displayException(this, parent, "Open Filesystem Error",
+			FSUtilities.displayException(this, parent, "打开文件系统出错",
 				"Error opening filesystem for " + containerFSRL.getName(), e);
 		}
 	}
@@ -237,26 +237,26 @@ public class FileSystemBrowserPlugin extends Plugin
 
 	private void doOpenFileSystem() {
 		Component parent = getTool().getActiveWindow();
-		openChooser("Select Filesystem Container To Open", "Open", false);
+		openChooser("选择要打开的文件系统容器", "打开", false);
 		chooserOpen.setFileSelectionMode(GhidraFileChooserMode.FILES_AND_DIRECTORIES);
 		File file = chooserOpen.getSelectedFile();
 		if (file == null) {
 			return; // cancelled
 		}
 		else if (!file.exists()) {
-			Msg.showInfo(this, parent, "Open File System Failed",
-				"The specified file does not exist: " + file.getPath());
+			Msg.showInfo(this, parent, "打开文件系统失败",
+				"指定的文件不存在：" + file.getPath());
 			return;
 		}
 
 		if (FileUtilities.isEmpty(file)) {
-			Msg.showInfo(this, parent, "Empty file",
-				"The selected file is 0 bytes long, skipping.");
+			Msg.showInfo(this, parent, "空文件",
+				"所选文件大小为0字节，已跳过。");
 			return;
 		}
 
 		FSRL containerFSRL = fsService().getLocalFSRL(file);
-		TaskLauncher.launchModal("Open File System", (monitor) -> {
+		TaskLauncher.launchModal("打开文件系统", (monitor) -> {
 			doOpenFilesystem(containerFSRL, parent, monitor);
 		});
 	}

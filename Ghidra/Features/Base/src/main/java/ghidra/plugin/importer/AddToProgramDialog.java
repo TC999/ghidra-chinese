@@ -50,7 +50,7 @@ public class AddToProgramDialog extends ImporterDialog {
 	 */
 	protected AddToProgramDialog(PluginTool tool, FSRL fsrl, LoaderMap loaderMap,
 			ByteProvider byteProvider, Program addToProgram) {
-		super("Add To Program:  " + fsrl.getPath(), tool,
+		super("添加至程序：" + fsrl.getPath(), tool,
 			filterSupportedLoaders(loaderMap, addToProgram), byteProvider, null);
 		this.addToProgram = addToProgram;
 		folderNameTextField.setText(getFolderName(addToProgram));
@@ -71,7 +71,7 @@ public class AddToProgramDialog extends ImporterDialog {
 		optionsButton.setEnabled(false);
 		Loader loader = getSelectedLoader();
 		if (loader == null) {
-			setStatusText("Please select a format.");
+			setStatusText("请选择格式。");
 			return false;
 		}
 		optionsButton.setEnabled(true);
@@ -105,7 +105,7 @@ public class AddToProgramDialog extends ImporterDialog {
 		if (options == null) {
 			options = selectedLoader.getDefaultOptions(byteProvider, selectedLoadSpec, null, true);
 		}
-		TaskLauncher.launchNonModal("Import File", monitor -> {
+		TaskLauncher.launchNonModal("导入文件", monitor -> {
 			ImporterUtilities.addContentToProgram(tool, addToProgram, fsrl, selectedLoadSpec,
 				options, monitor);
 		});

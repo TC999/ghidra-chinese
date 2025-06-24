@@ -177,7 +177,7 @@ public class DiffSaveSettingsTest extends DiffApplyTestAdapter {
 		isReplace(sourceMapApplyCB);
 
 		ProgramManagerPlugin pm = getPlugin(tool, ProgramManagerPlugin.class);
-		DockingActionIf closeAllProgramAction = getAction(pm, "Close All");
+		DockingActionIf closeAllProgramAction = getAction(pm, "关闭全部");
 		assertNotNull(closeAllProgramAction);
 		performAction(closeAllProgramAction, new DefaultActionContext(), true);
 

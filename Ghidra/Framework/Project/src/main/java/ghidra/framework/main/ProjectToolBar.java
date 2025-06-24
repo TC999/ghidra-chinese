@@ -39,7 +39,7 @@ class ProjectToolBar extends JToolBar implements ToolChestChangeListener {
 		toolButtonMap = new HashMap<>(TYPICAL_NUM_TOOLS);
 
 		// remove the default etched border
-		setBorder(BorderFactory.createTitledBorder("Tool Chest"));
+		setBorder(BorderFactory.createTitledBorder("工具箱"));
 
 		setActiveProject(plugin.getActiveProject());
 

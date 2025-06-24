@@ -148,7 +148,7 @@ public class ArchivePlugin extends Plugin implements ApplicationLevelOnlyPlugin,
 	 * Sets up the menu actions that this plugin wants to listen for
 	 */
 	private void setupActions() {
-		archiveAction = new DockingAction("Archive Project", getName()) {
+		archiveAction = new DockingAction("存档项目", getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				archiveProject();
@@ -156,18 +156,18 @@ public class ArchivePlugin extends Plugin implements ApplicationLevelOnlyPlugin,
 		};
 
 		ProjectManager projectManager = tool.getProjectManager();
-		String[] archiveMenuPath = { ToolConstants.MENU_FILE, "Archive Current Project..." };
+		String[] archiveMenuPath = { ToolConstants.MENU_FILE, "存档当前项目..." };
 		archiveAction.setMenuBarData(new MenuData(archiveMenuPath, PROJECT_GROUP_C_2));
 		archiveAction.setEnabled(projectManager.getActiveProject() != null);
 		archiveAction.setHelpLocation(new HelpLocation("FrontEndPlugin", "Archive_Project"));
 
-		restoreAction = new DockingAction("Restore Archived Project", getName()) {
+		restoreAction = new DockingAction("取消存档项目", getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				restoreProject();
 			}
 		};
-		String[] restoreMenuPath = { ToolConstants.MENU_FILE, "Restore Project..." };
+		String[] restoreMenuPath = { ToolConstants.MENU_FILE, "恢复项目..." };
 		restoreAction.setMenuBarData(new MenuData(restoreMenuPath, PROJECT_GROUP_C_2));
 		restoreAction.setEnabled(projectManager.getActiveProject() == null);
 		restoreAction.setHelpLocation(new HelpLocation("FrontEndPlugin", "Restore_Project"));
@@ -194,7 +194,7 @@ public class ArchivePlugin extends Plugin implements ApplicationLevelOnlyPlugin,
 		Project activeProject = AppInfo.getActiveProject();
 		if (activeProject.getToolManager().getRunningTools().length > 0) {
 			Msg.showInfo(getClass(), tool.getToolFrame(), TOOL_RUNNING_TITLE,
-				"You must close running tools before starting the archive process.");
+				"在开始存档之前，您必须关闭所有正在运行的工具。");
 			return;
 		}
 
@@ -266,14 +266,14 @@ public class ArchivePlugin extends Plugin implements ApplicationLevelOnlyPlugin,
 		File archiveJar = new File(lastRestoreArchivePathName);
 		try {
 			if (!isJarFormat(archiveJar)) {
-				Msg.showError(this, null, "File Format Error",
-					"Can't read the file: " + lastRestoreArchivePathName);
+				Msg.showError(this, null, "文件格式错误",
+					"无法读取文件：" + lastRestoreArchivePathName);
 				return;
 			}
 		}
 		catch (IOException e) {
-			Msg.showError(this, null, "File Format Error",
-				"Can't read the file: " + lastRestoreArchivePathName, e);
+			Msg.showError(this, null, "文件格式错误",
+				"无法读取文件：" + lastRestoreArchivePathName, e);
 			return;
 		}
 
@@ -371,8 +371,8 @@ public class ArchivePlugin extends Plugin implements ApplicationLevelOnlyPlugin,
 
 		// delete the project at the given project location
 		if (!projectManager.deleteProject(projectLocator)) {
-			Msg.showError(this, null, "All Files in Project not Removed",
-				"Not all files have been deleted from project " + projectLocator.getName());
+			Msg.showError(this, null, "项目中的文件未全部删除。",
+				"没有文件被删除从项目 " + projectLocator.getName());
 		}
 	}
 }

@@ -75,7 +75,7 @@ public class FcgProvider
 	private static final String MENU_GROUP_EXPAND = "A";
 	private static final String MENU_GROUP_GRAPH = "B";
 
-	private static final String NAME = "Function Call Graph";
+	private static final String NAME = "函数调用图";
 
 	private JComponent component;
 	private FunctionCallGraphPlugin plugin;
@@ -221,10 +221,10 @@ public class FcgProvider
 		if (!graphData.hasResults()) {
 			Address address = plugin.getCurrentAddress();
 			if (address == null) {
-				view.showErrorView("No function selected ");
+				view.showErrorView("没有选择函数");
 			}
 			else {
-				view.showErrorView("No function containing " + address);
+				view.showErrorView("没有包含 " + address + " 的函数");
 			}
 			return;
 		}
@@ -386,17 +386,17 @@ public class FcgProvider
 
 		addLayoutAction();
 
-		DockingAction collapseIn = new CollapseAction("Hide Incoming Edges", IN);
-		DockingAction collapseOut = new CollapseAction("Hide Outgoing Edges", OUT);
+		DockingAction collapseIn = new CollapseAction("隐藏传入边", IN);
+		DockingAction collapseOut = new CollapseAction("隐藏传出边", OUT);
 
-		DockingAction expandIn = new ExpandAction("Show Incoming Edges", IN);
-		DockingAction expandOut = new ExpandAction("Show Outgoing Edges", OUT);
+		DockingAction expandIn = new ExpandAction("显示传入边", IN);
+		DockingAction expandOut = new ExpandAction("显示传出边", OUT);
 
-		DockingAction collapseLevelIn = new CollapseLevelAction("Hide Incoming Level Edges", IN);
-		DockingAction collapseLevelOut = new CollapseLevelAction("Hide Outgoing Level Edges", OUT);
+		DockingAction collapseLevelIn = new CollapseLevelAction("隐藏传入层级边", IN);
+		DockingAction collapseLevelOut = new CollapseLevelAction("隐藏传出层级边", OUT);
 
-		DockingAction expandLevelIn = new ExpandLevelAction("Show Incoming Level Edges", IN);
-		DockingAction expandLevelOut = new ExpandLevelAction("Show Outgoing Level Edges", OUT);
+		DockingAction expandLevelIn = new ExpandLevelAction("显示传入层级边", IN);
+		DockingAction expandLevelOut = new ExpandLevelAction("显示传出层级边", OUT);
 
 		// ExpandLevelAction
 
@@ -410,7 +410,7 @@ public class FcgProvider
 		addLocalAction(expandLevelOut);
 
 		navigateIncomingToggleAction =
-			new ToggleDockingAction("Navigate on Incoming Location Changes", plugin.getName()) {
+			new ToggleDockingAction("导航到传入位置变化", plugin.getName()) {
 				@Override
 				public void actionPerformed(ActionContext context) {
 					// handled later as we receive events
@@ -430,15 +430,14 @@ public class FcgProvider
 		navigateIncomingToggleAction.setToolBarData(
 			new ToolBarData(Icons.NAVIGATE_ON_INCOMING_EVENT_ICON, TOOLBAR_GROUP_A));
 		navigateIncomingToggleAction.setDescription(
-			"<html>Incoming Navigation<br><br>Toggle <b>On</b>  - change the graphed " +
-				"function on Listing navigation events" +
-				"<br>Toggled <b>Off</b> - don't change the graph on Listing navigation events");
+			"<html>传入导航<br><br>切换为<b>开启</b> - 在“列表导航事件”时更改图形函数" +
+				"<br>切换为<b>关闭</b> - 不在“列表导航事件”时更改图形");
 		navigateIncomingToggleAction.setHelpLocation(
 			new HelpLocation(plugin.getName(), "Navigation_Incoming"));
 		addLocalAction(navigateIncomingToggleAction);
 
 		DockingAction graphFunctionAction =
-			new DockingAction("Graph Node Function Calls", plugin.getName()) {
+			new DockingAction("图形节点功能调用", plugin.getName()) {
 
 				@Override
 				public void actionPerformed(ActionContext context) {
@@ -461,7 +460,7 @@ public class FcgProvider
 					boolean isEnabled = !function.equals(graphedFunction);
 					if (isEnabled) {
 						setPopupMenuData(
-							new MenuData(new String[] { "Graph '" + function.getName() + "'" },
+							new MenuData(new String[] { "图形 '" + function.getName() + "'" },
 								MENU_GROUP_GRAPH));
 					}
 					return isEnabled;
@@ -469,7 +468,7 @@ public class FcgProvider
 			};
 
 		graphFunctionAction.setPopupMenuData(
-			new MenuData(new String[] { "Graph Function" }, MENU_GROUP_GRAPH));
+			new MenuData(new String[] { "图形函数" }, MENU_GROUP_GRAPH));
 		addLocalAction(graphFunctionAction);
 
 	}
@@ -508,15 +507,15 @@ public class FcgProvider
 	// Layout Methods
 	//==================================================================================================
 
-	/*package*/ static final String RELAYOUT_GRAPH_ACTION_NAME = "Relayout Graph";
+	/*package*/ static final String RELAYOUT_GRAPH_ACTION_NAME = "重新布局图";
 
 	private void addLayoutAction() {
 
-		DockingAction resetGraphAction = new DockingAction("Reset Graph", plugin.getName()) {
+		DockingAction resetGraphAction = new DockingAction("重置图", plugin.getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
-				int choice = OptionDialog.showYesNoDialog(getComponent(), "Reset Graph?",
-					"<html>Erase all vertex position information?");
+				int choice = OptionDialog.showYesNoDialog(getComponent(), "重置图?",
+					"<html>擦除所有顶点位置信息?");
 				if (choice != OptionDialog.YES_OPTION) {
 					return;
 				}
@@ -526,7 +525,7 @@ public class FcgProvider
 		};
 		resetGraphAction.setToolBarData(new ToolBarData(Icons.REFRESH_ICON));
 		resetGraphAction
-				.setDescription("<html>Resets the graph--All positioning will be <b>lost</b>");
+				.setDescription("<html>重置图--所有位置将被<b>丢失</b>");
 		resetGraphAction
 				.setHelpLocation(new HelpLocation("FunctionCallGraphPlugin", "Relayout_Graph"));
 
@@ -842,7 +841,7 @@ public class FcgProvider
 		FunctionEdgeCache edgeCache = graphData.getFunctionEdgeCache();
 
 		// all functions should be registered when the vertices are created
-		SystemUtilities.assertTrue(edgeCache.isTracked(f), "Function not tracked in cache");
+		SystemUtilities.assertTrue(edgeCache.isTracked(f), "缓存中未跟踪功能");
 
 		Set<FunctionEdge> edges = edgeCache.get(f);
 		Iterable<FunctionEdge> filtered =
@@ -857,7 +856,7 @@ public class FcgProvider
 		FunctionEdgeCache edgeCache = graphData.getFunctionEdgeCache();
 
 		// all functions should be registered when the vertices are created
-		SystemUtilities.assertTrue(edgeCache.isTracked(f), "Function not tracked in cache");
+		SystemUtilities.assertTrue(edgeCache.isTracked(f), "缓存中未跟踪功能");
 
 		Set<FunctionEdge> edges = edgeCache.get(f);
 		Iterable<FunctionEdge> filtered =
@@ -975,7 +974,7 @@ public class FcgProvider
 		updater.scheduleViewChangeJob(job);
 		updateTitle();
 
-		String viewName = "Function Call Graph";
+		String viewName = "函数调用图";
 		viewer.setName(viewName);
 		viewer.getAccessibleContext().setAccessibleName(viewName);
 	}

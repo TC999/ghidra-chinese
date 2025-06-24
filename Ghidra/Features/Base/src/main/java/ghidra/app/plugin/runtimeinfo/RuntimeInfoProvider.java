@@ -43,7 +43,7 @@ class RuntimeInfoProvider extends ReusableDialogComponentProvider {
 	 * @param plugin The associated {@link RuntimeInfoPlugin}
 	 */
 	RuntimeInfoProvider(RuntimeInfoPlugin plugin) {
-		super("Runtime Information", false, false, true, false);
+		super("运行信息", false, false, true, false);
 		this.plugin = plugin;
 
 		setHelpLocation(plugin.getRuntimeInfoHelpLocation());
@@ -90,7 +90,7 @@ class RuntimeInfoProvider extends ReusableDialogComponentProvider {
 			}
 		};
 		mainPanel.add(tabbedPane, BorderLayout.CENTER);
-		mainPanel.getAccessibleContext().setAccessibleName("Runtime Info Provider");
+		mainPanel.getAccessibleContext().setAccessibleName("运行信息提供者");
 		return mainPanel;
 	}
 
@@ -101,7 +101,7 @@ class RuntimeInfoProvider extends ReusableDialogComponentProvider {
 	 * a bug report, and provide a button that copies this information to the system clipboard.
 	 */
 	private void addVersionInfoPanel() {
-		tabbedPane.add(new VersionInfoPanel(), "Version");
+		tabbedPane.add(new VersionInfoPanel(), "版本");
 	}
 
 	/**
@@ -112,8 +112,8 @@ class RuntimeInfoProvider extends ReusableDialogComponentProvider {
 	 */
 	private void addMemory() {
 		memoryUsagePanel = new MemoryUsagePanel();
-		memoryUsagePanel.getAccessibleContext().setAccessibleName("Memory Usage");
-		tabbedPane.add(memoryUsagePanel, "Memory");
+		memoryUsagePanel.getAccessibleContext().setAccessibleName("内存用量");
+		tabbedPane.add(memoryUsagePanel, "内存");
 	}
 
 	/**
@@ -125,13 +125,13 @@ class RuntimeInfoProvider extends ReusableDialogComponentProvider {
 	private void addApplicationLayout() {
 		Map<String, String> map = new HashMap<>();
 		map.put("PID", ProcessHandle.current().pid() + "");
-		map.put("Installation Directory", Application.getInstallationDirectory().getAbsolutePath());
-		map.put("Settings Directory", Application.getUserSettingsDirectory().getPath());
-		map.put("Cache Directory", Application.getUserCacheDirectory().getPath());
-		map.put("Temp Directory", Application.getUserTempDirectory().getPath());
-		String name = "Application Layout";
+		map.put("安装文件夹", Application.getInstallationDirectory().getAbsolutePath());
+		map.put("设置文件夹", Application.getUserSettingsDirectory().getPath());
+		map.put("缓存文件夹", Application.getUserCacheDirectory().getPath());
+		map.put("临时文件夹", Application.getUserTempDirectory().getPath());
+		String name = "程序布局";
 		tabbedPane.add(
-			new MapTablePanel<String, String>(name, map, "Name", "Path", 200, true, plugin), name);
+			new MapTablePanel<String, String>(name, map, "名称", "路径", 200, true, plugin), name);
 	}
 
 	/**
@@ -145,9 +145,9 @@ class RuntimeInfoProvider extends ReusableDialogComponentProvider {
 		for (Object key : properties.keySet()) {
 			map.put(key.toString(), properties.getOrDefault(key, "").toString());
 		}
-		String name = "Properties";
+		String name = "属性";
 		tabbedPane.add(
-			new MapTablePanel<String, String>(name, map, "Name", "Value", 400, true, plugin), name);
+			new MapTablePanel<String, String>(name, map, "名称", "值", 400, true, plugin), name);
 	}
 
 	/**
@@ -157,9 +157,9 @@ class RuntimeInfoProvider extends ReusableDialogComponentProvider {
 	 */
 	private void addEnvironment() {
 		Map<String, String> map = System.getenv();
-		String name = "Environment";
+		String name = "环境";
 		tabbedPane.add(
-			new MapTablePanel<String, String>(name, map, "Name", "Value", 400, true, plugin), name);
+			new MapTablePanel<String, String>(name, map, "名称", "值", 400, true, plugin), name);
 	}
 
 	/**
@@ -173,9 +173,9 @@ class RuntimeInfoProvider extends ReusableDialogComponentProvider {
 				.entrySet()
 				.stream()
 				.collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().getModuleRoot()));
-		String name = "Modules";
+		String name = "模块";
 		tabbedPane.add(
-			new MapTablePanel<String, ResourceFile>(name, map, "Name", "Path", 400, true, plugin),
+			new MapTablePanel<String, ResourceFile>(name, map, "名称", "路径", 400, true, plugin),
 			name);
 	}
 
@@ -187,23 +187,23 @@ class RuntimeInfoProvider extends ReusableDialogComponentProvider {
 	 */
 	private void addExtensionPoints() {
 		JTabbedPane epTabbedPane = new JTabbedPane();
-		tabbedPane.add("Extension Points", epTabbedPane);
+		tabbedPane.add("扩展点", epTabbedPane);
 
 		// Discovered Potential Extension Points
 		Map<String, String> map = ClassSearcher.getExtensionPointInfo()
 				.stream()
 				.collect(Collectors.toMap(ClassFileInfo::name, ClassFileInfo::path));
-		String name = "Extension Point Info (%d)".formatted(map.size());
+		String name = "扩展点信息 (%d)".formatted(map.size());
 		epTabbedPane.add(
-			new MapTablePanel<String, String>(name, map, "Name", "Path", 400, true, plugin), name);
+			new MapTablePanel<String, String>(name, map, "名称", "路径", 400, true, plugin), name);
 
 		// Loaded Extension Points
 		map = ClassSearcher.getLoaded()
 				.stream()
 				.collect(Collectors.toMap(ClassFileInfo::name, ClassFileInfo::suffix));
-		name = "Loaded (%d)".formatted(map.size());
+		name = "已加载 (%d)".formatted(map.size());
 		epTabbedPane.add(
-			new MapTablePanel<String, String>(name, map, "Name", "Type", 400, true, plugin), name);
+			new MapTablePanel<String, String>(name, map, "名称", "类型", 400, true, plugin), name);
 
 		// False Positive Extension Points
 		map = ClassSearcher.getFalsePositives()
@@ -211,7 +211,7 @@ class RuntimeInfoProvider extends ReusableDialogComponentProvider {
 				.collect(Collectors.toMap(ClassFileInfo::name, ClassFileInfo::suffix));
 		name = "False Positives (%d)".formatted(map.size());
 		epTabbedPane.add(
-			new MapTablePanel<String, String>(name, map, "Name", "Type", 400, true, plugin), name);
+			new MapTablePanel<String, String>(name, map, "名称", "类型", 400, true, plugin), name);
 	}
 
 	/**
@@ -221,9 +221,9 @@ class RuntimeInfoProvider extends ReusableDialogComponentProvider {
 	 */
 	private void addClasspath() {
 		Map<Integer, String> map = getClasspathMap(GhidraClassLoader.CP);
-		String name = "Classpath";
+		String name = "类别路径";
 		tabbedPane.add(
-			new MapTablePanel<Integer, String>(name, map, "Index", "Path", 40, true, plugin), name);
+			new MapTablePanel<Integer, String>(name, map, "序号", "路径", 40, true, plugin), name);
 	}
 
 	/**
@@ -233,9 +233,9 @@ class RuntimeInfoProvider extends ReusableDialogComponentProvider {
 	 */
 	private void addExtensionsClasspath() {
 		Map<Integer, String> map = getClasspathMap(GhidraClassLoader.CP_EXT);
-		String name = "Extensions Classpath";
+		String name = "扩展类别路径";
 		tabbedPane.add(
-			new MapTablePanel<Integer, String>(name, map, "Index", "Path", 40, true, plugin), name);
+			new MapTablePanel<Integer, String>(name, map, "序号", "路径", 40, true, plugin), name);
 	}
 
 	/**

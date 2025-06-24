@@ -55,7 +55,7 @@ import utilities.util.FileUtilities;
 class AnalysisPanel extends JPanel implements PropertyChangeListener {
 	// create an empty options to represent the defaults of the analyzers
 	private static final Options STANDARD_DEFAULT_OPTIONS =
-		new FileOptions("Standard Defaults");
+		new FileOptions("标准默认值");
 
 	private static final int CURRENT_PROGRAM_OPTIONS_CHOICE_INDEX = 0;
 	private static final int STANDARD_OPTIONS_CHOICE_INDEX = 1;
@@ -123,7 +123,7 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 		// Do a quick check to make sure we have at least one program. If not, we
 		// shouldn't even be here (the menus should be disabled).
 		if (CollectionUtils.isEmpty(programs)) {
-			throw new AssertException("Must provide a program to run analysis");
+			throw new AssertException("必须提供运行分析的程序");
 		}
 		this.programs = programs;
 		this.propertyChangeListener = propertyChangeListener;
@@ -144,7 +144,7 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 	 * @return the non-default options from the program analysis options into a new options object
 	 */
 	private Options getNonDefaultProgramOptions() {
-		FileOptions options = new FileOptions("Current Program Options");
+		FileOptions options = new FileOptions("当前程序选项");
 		List<String> optionNames = analysisOptions.getOptionNames();
 		for (String optionName : optionNames) {
 			if (!analysisOptions.isDefaultValue(optionName)) {
@@ -213,7 +213,7 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 
 	private void buildAnalyzerOptionsPanel() {
 		analyzerOptionsPanel = new JPanel(new BorderLayout());
-		configureBorder(analyzerOptionsPanel, "Options");
+		configureBorder(analyzerOptionsPanel, "选项");
 	}
 
 	private Component buildOptionsComboBoxPanel() {
@@ -228,9 +228,9 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 		optionsComboBox.setPreferredSize(new Dimension(200, preferredSize.height));
 		panel.add(optionsComboBox);
 
-		deleteButton = new JButton("Delete");
+		deleteButton = new JButton("删除");
 		deleteButton.addActionListener(e -> deleteSelectedOptionsConfiguration());
-		deleteButton.setToolTipText("Deletes the currently selected user configuration");
+		deleteButton.setToolTipText("删除当前选定的用户配置");
 		panel.add(deleteButton);
 
 		panel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
@@ -288,15 +288,15 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	private JPanel buildButtonPanel() {
-		JButton selectAllButton = new JButton("Select All");
+		JButton selectAllButton = new JButton("全选");
 		selectAllButton.addActionListener(e -> selectAll());
-		JButton deselectAllButton = new JButton("Deselect All");
+		JButton deselectAllButton = new JButton("全不选");
 		deselectAllButton.addActionListener(e -> deselectAll());
-		JButton resetButton = new JButton("Reset");
-		resetButton.setToolTipText("Resets the editors to the selected options configuration");
+		JButton resetButton = new JButton("重置");
+		resetButton.setToolTipText("重置编辑器为选定的选项配置");
 		resetButton.addActionListener(e -> loadCurrentOptionsIntoEditors());
-		JButton saveButton = new JButton("Save...");
-		saveButton.setToolTipText("Saves the current editor settings to a named configuration");
+		JButton saveButton = new JButton("保存...");
+		saveButton.setToolTipText("将当前编辑器设置保存到命名配置");
 		saveButton.addActionListener(e -> saveCurrentOptionsConfiguration());
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		buttonPanel.add(selectAllButton);
@@ -312,8 +312,8 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 			return;
 		}
 		String configurationName = selectedOptions.getName();
-		int result = OptionDialog.showYesNoDialog(this, "Delete Configuration?",
-			"Are you sure you want to delete options configuration \"" + configurationName + "\"?");
+		int result = OptionDialog.showYesNoDialog(this, "删除配置?",
+			"您确定要删除选项配置 \"" + configurationName + "\" 吗?");
 		if (result != OptionDialog.YES_OPTION) {
 			return;
 		}
@@ -346,8 +346,8 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 			defaultSaveName = selectedOptions.getName();
 		}
 
-		String saveName = OptionDialog.showEditableInputChoiceDialog(this, "Save Configuration",
-			"Options Configuration Name", getSavedChoices(), defaultSaveName,
+		String saveName = OptionDialog.showEditableInputChoiceDialog(this, "保存配置",
+			"选项配置名称", getSavedChoices(), defaultSaveName,
 			OptionDialog.QUESTION_MESSAGE);
 		if (saveName == null) {
 			return;
@@ -358,8 +358,8 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 		}
 		File saveFile = getOptionsSaveFile(saveName);
 		if (saveFile.exists() && OptionDialog.CANCEL_OPTION == OptionDialog
-				.showOptionDialogWithCancelAsDefaultButton(this, "Overwrite Configuration",
-					"Overwrite existing configuration file: " + saveName + " ?", "Overwrite")) {
+				.showOptionDialogWithCancelAsDefaultButton(this, "覆写配置",
+					"是否覆盖现有配置文件: " + saveName + " ?", "覆盖")) {
 			return;
 		}
 		FileOptions currentOptions = getCurrentOptionsAsFileOptions();
@@ -369,7 +369,7 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 			reloadOptionsCombo(currentOptions);
 		}
 		catch (IOException e) {
-			Msg.error(this, "Error saving default options", e);
+			Msg.error(this, "保存默认选项时出错", e);
 		}
 	}
 
@@ -548,7 +548,7 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 	 * analyzed.
 	 */
 	void applyChanges() {
-		int id = programs.get(0).startTransaction("Setting Analysis Options");
+		int id = programs.get(0).startTransaction("设置分析选项");
 		boolean commit = false;
 		try {
 			List<AnalyzerEnablementState> analyzerStates = model.getModelData();
@@ -582,7 +582,7 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 		for (int i = 1; i < programs.size(); i++) {
 			Program program = programs.get(i);
 
-			int id = program.startTransaction("Setting Analysis Options");
+			int id = program.startTransaction("设置分析选项");
 			boolean commit = false;
 			try {
 				copyOptionsTo(program);
@@ -606,7 +606,7 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 		for (String optionName : analysisOptions.getOptionNames()) {
 			Object optionValue = analysisOptions.getObject(optionName, null);
 			if (optionValue == null && !destinationOptions.isRegistered(optionName)) {
-				Msg.warn(this, "Unable to copy null option %s to program %s".formatted(optionName,
+				Msg.warn(this, "无法将空选项 %s 复制到程序 %s".formatted(optionName,
 					program.getName()));
 			}
 			else {
@@ -623,7 +623,7 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 		for (Program program : programs) {
 
 			boolean commit = false;
-			int id = program.startTransaction("Replacing old analysis properties");
+			int id = program.startTransaction("替换旧分析属性");
 			try {
 				doReplaceOldOptions(program);
 				commit = true;
@@ -668,8 +668,8 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 
 			if (!analyzerOptions.contains(newName)) {
 				Msg.error(this,
-					"Found an option replacer without having the new option registered" +
-						"new option: '" + newName + "'; old option: '" + oldName + "'");
+					"找到一个选项替换器，但未注册新选项" +
+						"新选项：'" + newName + "'；旧选项：'" + oldName + "'");
 				continue;
 			}
 
@@ -682,7 +682,7 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 		List<Options> optionGroups = analysisOptions.getChildOptions();
 		noOptionsPanel = new JPanel(new VerticalLayout(5));
 		noOptionsPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
-		noOptionsPanel.add(new GLabel("No options available."));
+		noOptionsPanel.add(new GLabel("没有可用选项。"));
 
 		HelpService help = Help.getHelpService();
 
@@ -787,7 +787,7 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 			}
 
 			boolean commit = false;
-			int id = program.startTransaction("Setting analysis property " + analyzerName);
+			int id = program.startTransaction("设置分析属性 " + analyzerName);
 			try {
 				options.setBoolean(analyzerName, enabled);
 				commit = true;
@@ -853,7 +853,7 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 					list.add(fileOptions);
 				}
 				catch (IOException e) {
-					Msg.error(this, "Error reading saved analysis options", e);
+					Msg.error(this, "读取保存的分析选项时出错", e);
 				}
 			}
 		}
@@ -875,7 +875,7 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 				fileOptions.save(getOptionsSaveFile(name));
 			}
 			catch (IOException e) {
-				Msg.error(this, "Error copying analysis options from previous Ghidra install", e);
+				Msg.error(this, "从以前的 Ghidra 安装复制分析选项时出错", e);
 			}
 		}
 	}
@@ -928,10 +928,9 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 		if (Options.hasSameOptionsAndValues(current, currentNonDefaults)) {
 			return true;
 		}
-		int result = OptionDialog.showYesNoDialog(this, "Loose Changes?",
-			"You have made changes from the current options set. If you change\n" +
-				"the current option set, those changes will be lost.\n" +
-				"Do you want to proceed?");
+		int result = OptionDialog.showYesNoDialog(this, "未保存的更改",
+			"您已修改当前选项配置。若切换其他选项配置，当前修改将不会被保存。\n" +
+				"您想继续吗？");
 		return result == OptionDialog.YES_OPTION;
 	}
 

@@ -191,8 +191,8 @@ public class AutoAnalysisManager {
 				instructionTasks.add(analyzer);
 			}
 			else {
-				Msg.showError(this, null, "Unknown Analysis Type",
-					"Unexpected Analysis type " + type);
+				Msg.showError(this, null, "未知分析类型",
+					"异常分析类型 " + type);
 			}
 		}
 		registerOptions();
@@ -526,7 +526,7 @@ public class AutoAnalysisManager {
 
 					@Override
 					public String getWorkerName() {
-						return "Wait for Analysis";
+						return "等待分析";
 					}
 				}, null, true, monitor);
 			}
@@ -534,7 +534,7 @@ public class AutoAnalysisManager {
 				// ignore
 			}
 			catch (InvocationTargetException e) {
-				Msg.error(this, "Error occurred while waiting for analysis", e);
+				Msg.error(this, "等待分析时发生错误", e);
 			}
 			catch (InterruptedException e) {
 				// ignore
@@ -566,8 +566,9 @@ public class AutoAnalysisManager {
 	 */
 	public boolean setIgnoreChanges(boolean state) {
 		if (analysisThread != Thread.currentThread()) {
-			Msg.warn(this, "AutoAnalysisManager.setIgnoreChanges had no affect " +
-				"since it was not invoked within the analysis thread");
+			//"AutoAnalysisManager.setIgnoreChanges 无效，因为它未在分析线程中调用。"
+			Msg.warn(this, "AutoAnalysisManager.setIgnoreChanges 无效 " +
+				"因为它未在分析线程中调用");
 			return ignoreChanges;
 		}
 		return doSetIgnoreChanges(state);
@@ -668,8 +669,8 @@ public class AutoAnalysisManager {
 					if (msg == null) {
 						msg = "";
 					}
-					Msg.showError(this, null, "Analyzer Error",
-						"Analysis Task: " + task.getName() + " - " + msg, th);
+					Msg.showError(this, null, "分析出错",
+						"分析任务：" + task.getName() + " - " + msg, th);
 				}
 			}
 			long timeDiff = timeAccumulator + (System.currentTimeMillis() - startTime);
@@ -724,7 +725,7 @@ public class AutoAnalysisManager {
 				}
 				if (yield) {
 					if (activeTask == null) {
-						throw new AssertException("Expected active analysis task");
+						throw new AssertException("预期主动分析任务");
 					}
 				}
 				AnalysisTaskWrapper task = getNextTask(limitPriority, monitor);
@@ -860,7 +861,7 @@ public class AutoAnalysisManager {
 	synchronized boolean schedule(BackgroundCommand<Program> cmd, int priority) {
 
 		if (cmd == null) {
-			throw new IllegalArgumentException("Can't schedule a null command");
+			throw new IllegalArgumentException("无法计划空命令");
 		}
 		queue.add(cmd, priority);
 
@@ -1002,14 +1003,14 @@ public class AutoAnalysisManager {
 	}
 
 	private void initializeToolOptions(PluginTool tool) {
-		Options options = tool.getOptions("Auto Analysis");
+		Options options = tool.getOptions("自动分析");
 		options.registerOption(OPTION_NAME_THREAD_USE, analysisSharedThreadPoolSize, null,
 			OPTION_DESCRIPTION_THREAD_USE);
 		analysisSharedThreadPoolSize = getSharedThreadPoolSizeOption(tool);
 	}
 
 	private static int getSharedThreadPoolSizeOption(PluginTool tool) {
-		Options options = tool.getOptions("Auto Analysis");
+		Options options = tool.getOptions("自动分析");
 		return options.getInt(OPTION_NAME_THREAD_USE, analysisSharedThreadPoolSize);
 	}
 
@@ -1027,8 +1028,8 @@ public class AutoAnalysisManager {
 		catch (OptionsVetoException e) {
 // FIXME!! Not good to popup for all use cases
 			// This will only happen if an Analyzer author makes a mistake
-			Msg.showError(this, null, "Invalid Analysis Option",
-				"Invalid Analysis option set during initialization", e);
+			Msg.showError(this, null, "无效分析选项",
+				"在初始化期间设置了无效的分析选项", e);
 		}
 	}
 
@@ -1044,10 +1045,10 @@ public class AutoAnalysisManager {
 	private void registerGlobalAnalyisOptions() {
 		Options options = program.getOptions(Program.PROGRAM_INFO);
 		options.registerOption(Program.ANALYZED_OPTION_NAME, false, null,
-			"Indicates if program has ever been analyzed");
+			"指示程序是否曾经被分析过");
 
 		options.registerOption(Program.ASK_TO_ANALYZE_OPTION_NAME, true, null,
-			"Indicates if user should be prompted to analyze an unanalyzed program when opened");
+			"指示是否在打开未分析的程序时提示用户进行分析");
 
 	}
 
@@ -1063,7 +1064,7 @@ public class AutoAnalysisManager {
 
 	public void restoreDefaultOptions() {
 		boolean commit = false;
-		int id = program.startTransaction("Restore Default Analysis Options");
+		int id = program.startTransaction("恢复默认分析选项");
 		try {
 			Options options = program.getOptions(Program.ANALYSIS_PROPERTIES);
 			for (String propertyName : options.getOptionNames()) {
@@ -1080,7 +1081,7 @@ public class AutoAnalysisManager {
 	boolean askToAnalyze(PluginTool tool) {
 		// This code relies on being called in the swing thread to avoid a race condition
 		// where multiple threads check the flag before either thread has a chance to set it.
-		Swing.assertSwingThread("Asking to analyze must be on the swing thread!");
+		Swing.assertSwingThread("请求进行分析必须在 Swing 线程上！");
 
 		// We only ever want to ask once per session even if they said it is ok to ask again
 		if (alreadyAskedThisSession) {
@@ -1091,9 +1092,9 @@ public class AutoAnalysisManager {
 		if (GhidraProgramUtilities.shouldAskToAnalyze(program)) {
 			String name = HTMLUtilities.escapeHTML(program.getDomainFile().getName());
 			HelpLocation help = new HelpLocation("AutoAnalysisPlugin", "Ask_To_Analyze");
-			int result = OptionDialog.showOptionNoCancelDialog(tool.getToolFrame(), "Analyze?",
-				"<html>" + name + " has not been analyzed. Would you like to analyze it now?",
-				"Yes", "No", "No (Don't ask again)", OptionDialog.QUESTION_MESSAGE, help);
+			int result = OptionDialog.showOptionNoCancelDialog(tool.getToolFrame(), "分析？",
+				"<html>" + name + " 尚未被分析。您现在想要分析它吗？",
+				"是", "否", "否（不再询问）", OptionDialog.QUESTION_MESSAGE, help);
 
 			if (result == OptionDialog.OPTION_THREE) {
 				GhidraProgramUtilities.markProgramNotToAskToAnalyze(program);
@@ -1337,7 +1338,7 @@ public class AutoAnalysisManager {
 
 		if (!SystemUtilities.isInHeadlessMode() && SwingUtilities.isEventDispatchThread()) {
 			throw new UnsupportedOperationException(
-				"AutoAnalysisManager.scheduleWorker may not be invoked from Swing thread");
+				"AutoAnalysisManager.scheduleWorker 不可从 Swing 线程调用");
 		}
 		workerMonitor.checkCancelled();
 
@@ -1356,8 +1357,8 @@ public class AutoAnalysisManager {
 		}
 		else {
 			synchronized (cmd) {
-				workerMonitor.setMessage("Waiting for auto-analysis...");
-				Msg.debug(this, "Scheduling analysis worker (" + cmd.worker.getWorkerName() +
+				workerMonitor.setMessage("等待自动分析...");
+				Msg.debug(this, "调度分析器 (" + cmd.worker.getWorkerName() +
 					"): " + cmd.worker.getClass());
 				schedule(cmd, 0);
 				try {
@@ -1373,7 +1374,7 @@ public class AutoAnalysisManager {
 		}
 
 		workerMonitor.checkCancelled();
-		Msg.debug(this, "Analysis worker completed (" + cmd.worker.getWorkerName() + "): " +
+		Msg.debug(this, "分析器完成 (" + cmd.worker.getWorkerName() + "): " +
 			cmd.worker.getClass());
 
 		InvocationTargetException workerException = cmd.getWorkerException();
@@ -1395,7 +1396,7 @@ public class AutoAnalysisManager {
 		if (title != null) {
 			return title;
 		}
-		return "Analyzing...";
+		return "分析中...";
 	}
 
 //==================================================================================================
@@ -1691,7 +1692,7 @@ public class AutoAnalysisManager {
 					doSetIgnoreChanges(true);
 				}
 
-				Msg.debug(this, "Invoking analysis worker (" + worker.getWorkerName() + "): " +
+				Msg.debug(this, "调用分析器 (" + worker.getWorkerName() + "): " +
 					worker.getClass());
 
 				JointTaskMonitor monitor = new JointTaskMonitor(workerMonitor, analysisMonitor);
@@ -1741,10 +1742,10 @@ public class AutoAnalysisManager {
 			WorkerBlockerTask() {
 				super(fixupTitle(worker.getWorkerName()), workerMonitor.isCancelEnabled(), false,
 					true);
-				Msg.trace(AutoAnalysisManager.this, "Constructor - starting thread...");
+				Msg.trace(AutoAnalysisManager.this, "构造器 - 启动线程...");
 				Thread t = new Thread(this);
 				t.start();
-				Msg.trace(AutoAnalysisManager.this, "\tafter starting thread");
+				Msg.trace(AutoAnalysisManager.this, "\t启动线程后");
 				try {
 					// ensure that terminate can not be invoked
 					// before run method has invoked wait
@@ -1754,7 +1755,7 @@ public class AutoAnalysisManager {
 				}
 				catch (InterruptedException e) {
 					// should not happen
-					Msg.trace(AutoAnalysisManager.this, "await() interrupted!");
+					Msg.trace(AutoAnalysisManager.this, "await() 中断！");
 				}
 			}
 
@@ -1772,7 +1773,7 @@ public class AutoAnalysisManager {
 			@Override
 			public void run(TaskMonitor monitor) {
 				Msg.trace(this, "run(TaskMonitor)");
-				monitor.setMessage("Analyzing...");
+				monitor.setMessage("分析中...");
 				monitor.addCancelledListener(this);
 				try {
 					synchronized (this) {
@@ -1785,7 +1786,7 @@ public class AutoAnalysisManager {
 				}
 				catch (InterruptedException e) {
 					// should not happen
-					Msg.trace(AutoAnalysisManager.this, "wait() interrupted!");
+					Msg.trace(AutoAnalysisManager.this, "wait() 中断！");
 				}
 				finally {
 					Msg.trace(AutoAnalysisManager.this, "finally");

@@ -101,11 +101,11 @@ public class GetDomainObjectTask extends Task {
 			if (immutable && e.isUpgradable()) {
 				String detailMessage =
 					e.getDetailMessage() == null ? "" : "\n" + e.getDetailMessage();
-				String title = "Upgrade " + contentType + " Data? " + domainFile.getName();
-				String message = "The " + contentType + " file you are attempting to open" +
-					" is an older version." + detailMessage + "\n \n" +
-					"Would you like to Upgrade it now?";
-				int rc = OptionDialog.showOptionDialog(null, title, message, "Upgrade",
+				String title = "升级 " + contentType + " 数据? " + domainFile.getName();
+				String message = "此" + contentType + " 文件在旧版本打开。"
+				    + detailMessage + "\n \n" +
+					"您要升级它吗？";
+				int rc = OptionDialog.showOptionDialog(null, title, message, "升级",
 					OptionDialog.QUESTION_MESSAGE);
 				if (rc == OptionDialog.OPTION_ONE) {
 					// try again as read-only
