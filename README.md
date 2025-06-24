@@ -44,8 +44,10 @@ cd ghidra-chinese
 ```
 **注意：** 您也可以克隆 GitHub 仓库代替下载压缩包：`git clone https://github.com/TC999/ghidra-chinese.git`
 
+
 ##### 下载额外构建依赖到源代码仓库：
 **注意：** 如已连接网络且未安装 Gradle，以下 `gradle` 命令可替换为 `./gradle(.bat)`。
+
 ```
 gradle -I gradle/support/fetchDependencies.gradle
 ```
