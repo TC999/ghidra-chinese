@@ -39,8 +39,8 @@ import utilities.util.FileUtilities;
 	status = PluginStatus.RELEASED,
 	packageName = CorePluginPackage.NAME,
 	category = PluginCategoryNames.COMMON,
-	shortDescription = "Tip Of The Day",
-	description = "Display a dialog containing 'Tips of the Day'."
+	shortDescription = "每日提示",
+	description = "显示一个包含“每日提示”的对话框。"
 )
 //@formatter:on
 public class TipOfTheDayPlugin extends Plugin implements ApplicationLevelOnlyPlugin {
@@ -56,13 +56,13 @@ public class TipOfTheDayPlugin extends Plugin implements ApplicationLevelOnlyPlu
 
 	@Override
 	protected void init() {
-		action = new DockingAction("Tips of the day", getName()) {
+		action = new DockingAction("每日提示", getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				dialog.doShow(tool.getToolFrame());
 			}
 		};
-		action.setMenuBarData(new MenuData(new String[] { "Help", "Tip of the Day" },
+		action.setMenuBarData(new MenuData(new String[] { "帮助", "每日提示" },
 			ToolConstants.HELP_CONTENTS_MENU_GROUP));
 
 		action.setEnabled(true);

@@ -114,7 +114,7 @@ public class DebuggerCopyIntoProgramDialog extends ReusableDialogComponentProvid
 
 		public void setBlockName(String blockName) {
 			if (!create) {
-				throw new IllegalStateException("Cannot modify name of existing block");
+				throw new IllegalStateException("无法修改现有块名称。");
 			}
 			this.blockName = blockName;
 		}
@@ -309,7 +309,7 @@ public class DebuggerCopyIntoProgramDialog extends ReusableDialogComponentProvid
 	protected JButton resetButton;
 
 	public DebuggerCopyIntoProgramDialog(PluginTool tool) {
-		super("Copy Into Program", true, true, true, true);
+		super("复制到程序", true, true, true, true);
 
 		tableModel = new RangeTableModel(tool);
 		populateComponents();
@@ -322,11 +322,11 @@ public class DebuggerCopyIntoProgramDialog extends ReusableDialogComponentProvid
 		{
 			JPanel opts = new JPanel();
 			opts.setLayout(new BoxLayout(opts, BoxLayout.Y_AXIS));
-			opts.getAccessibleContext().setAccessibleName("Options");
+			opts.getAccessibleContext().setAccessibleName("选项");
 			{
 				Box progBox = Box.createHorizontalBox();
 				progBox.setBorder(BorderFactory.createEmptyBorder(GAP, GAP, GAP, GAP));
-				progBox.add(new JLabel("Destination:"));
+				progBox.add(new JLabel("目标:"));
 				comboDestination = new JComboBox<>(comboDestinationModel);
 				comboDestination.setBorder(BorderFactory.createEmptyBorder(0, GAP, 0, 0));
 				comboDestination.addActionListener(e -> {
@@ -336,9 +336,9 @@ public class DebuggerCopyIntoProgramDialog extends ReusableDialogComponentProvid
 					syncCbRelocateEnabled(getDestination());
 					reset();
 				});
-				comboDestination.getAccessibleContext().setAccessibleName("Combo Destination");
+				comboDestination.getAccessibleContext().setAccessibleName("目标组合框");
 				progBox.add(comboDestination);
-				progBox.getAccessibleContext().setAccessibleName("Program Box");
+				progBox.getAccessibleContext().setAccessibleName("程序框");
 				opts.add(progBox);
 			}
 
@@ -353,9 +353,9 @@ public class DebuggerCopyIntoProgramDialog extends ReusableDialogComponentProvid
 					}
 					reset();
 				});
-				cbCapture.getAccessibleContext().setAccessibleName("Read Target Memory");
+				cbCapture.getAccessibleContext().setAccessibleName("读取目标内存");
 				inner.add(cbCapture);
-				inner.getAccessibleContext().setAccessibleName("Read Target Memory");
+				inner.getAccessibleContext().setAccessibleName("读取目标内存");
 				opts.add(inner);
 			}
 
@@ -371,9 +371,9 @@ public class DebuggerCopyIntoProgramDialog extends ReusableDialogComponentProvid
 					}
 					reset();
 				});
-				cbRelocate.getAccessibleContext().setAccessibleName("Relocate via Mappings");
+				cbRelocate.getAccessibleContext().setAccessibleName("通过映射重定位");
 				inner.add(cbRelocate);
-				inner.getAccessibleContext().setAccessibleName("Relocate via Mappings");
+				inner.getAccessibleContext().setAccessibleName("通过映射重定位");
 				opts.add(inner);
 			}
 
@@ -388,27 +388,27 @@ public class DebuggerCopyIntoProgramDialog extends ReusableDialogComponentProvid
 					}
 					reset();
 				});
-				cbUseOverlays.getAccessibleContext().setAccessibleName("Use Overlays");
+				cbUseOverlays.getAccessibleContext().setAccessibleName("使用覆盖");
 				inner.add(cbUseOverlays);
-				inner.getAccessibleContext().setAccessibleName("Use Overlays");
+				inner.getAccessibleContext().setAccessibleName("使用覆盖");
 				opts.add(inner);
 			}
 
 			{
 				JPanel panelInclude = new JPanel(new GridLayout(0, 2, GAP, GAP));
-				panelInclude.setBorder(BorderFactory.createTitledBorder("Include:"));
-				JButton buttonSelectNone = new JButton("Select None");
-				buttonSelectNone.getAccessibleContext().setAccessibleName("Select None");
+				panelInclude.setBorder(BorderFactory.createTitledBorder("包含:"));
+				JButton buttonSelectNone = new JButton("选择无");
+				buttonSelectNone.getAccessibleContext().setAccessibleName("选择无");
 				buttonSelectNone.addActionListener(e -> plan.selectNone());
 				panelInclude.add(buttonSelectNone);
-				JButton buttonSelectAll = new JButton("Select All");
-				buttonSelectAll.getAccessibleContext().setAccessibleName("Select All");
+				JButton buttonSelectAll = new JButton("全选");
+				buttonSelectAll.getAccessibleContext().setAccessibleName("全选");
 				buttonSelectAll.addActionListener(e -> plan.selectAll());
 				panelInclude.add(buttonSelectAll);
 				for (Copier copier : plan.getAllCopiers()) {
 					panelInclude.add(plan.getCheckBox(copier));
 				}
-				panelInclude.getAccessibleContext().setAccessibleName("Include All or None");
+				panelInclude.getAccessibleContext().setAccessibleName("包含所有或无");
 				opts.add(panelInclude);
 			}
 			panel.add(opts, BorderLayout.NORTH);
@@ -420,18 +420,18 @@ public class DebuggerCopyIntoProgramDialog extends ReusableDialogComponentProvid
 			table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 			tablePanel.add(new JScrollPane(table));
 			filterPanel = new GhidraTableFilterPanel<>(table, tableModel);
-			filterPanel.getAccessibleContext().setAccessibleName("Filter");
+			filterPanel.getAccessibleContext().setAccessibleName("过滤器");
 			tablePanel.add(filterPanel, BorderLayout.SOUTH);
-			tablePanel.getAccessibleContext().setAccessibleName("Filters");
+			tablePanel.getAccessibleContext().setAccessibleName("过滤器");
 			panel.add(tablePanel, BorderLayout.CENTER);
 		}
 
 		panel.setMinimumSize(new Dimension(600, 600));
-		panel.getAccessibleContext().setAccessibleName("Copy Debugger Into Program");
+		panel.getAccessibleContext().setAccessibleName("复制调试器到程序");
 		addWorkPanel(panel);
 
 		addOKButton();
-		okButton.setText("Copy");
+		okButton.setText("复制");
 		addCancelButton();
 		addResetButton();
 
@@ -443,10 +443,10 @@ public class DebuggerCopyIntoProgramDialog extends ReusableDialogComponentProvid
 	}
 
 	protected void addResetButton() {
-		resetButton = new JButton("Reset");
+		resetButton = new JButton("重置");
 		resetButton.setMnemonic('R');
 		resetButton.setName("Reset");
-		resetButton.getAccessibleContext().setAccessibleName("Reset");
+		resetButton.getAccessibleContext().setAccessibleName("重置");
 		resetButton.addActionListener(e -> resetCallback());
 		addButton(resetButton);
 	}
@@ -456,7 +456,7 @@ public class DebuggerCopyIntoProgramDialog extends ReusableDialogComponentProvid
 		super.okCallback();
 
 		lastTask = new CompletableFuture<>();
-		Task task = new Task("Copy Into Program", true, true, false) {
+		Task task = new Task("复制到程序", true, true, false) {
 			@Override
 			public void run(TaskMonitor monitor) throws CancelledException {
 				try {
@@ -467,8 +467,8 @@ public class DebuggerCopyIntoProgramDialog extends ReusableDialogComponentProvid
 					});
 				}
 				catch (Exception e) {
-					Msg.error(this, "Error copying into program", e);
-					setStatusText("Error: " + e.getMessage());
+					Msg.error(this, "复制到程序时出错", e);
+					setStatusText("错误: " + e.getMessage());
 				}
 			}
 		};
@@ -567,7 +567,7 @@ public class DebuggerCopyIntoProgramDialog extends ReusableDialogComponentProvid
 	public void setCapture(boolean capture) {
 		if (capture && getTargetIfReadsPresent() == null) {
 			throw new IllegalStateException(
-				"Cannot enable capture unless live and reading the present");
+				"只有在实时状态并读取当前数据时才能启用捕获。");
 		}
 		this.cbCapture.setSelected(capture);
 	}
@@ -578,7 +578,7 @@ public class DebuggerCopyIntoProgramDialog extends ReusableDialogComponentProvid
 
 	public void setRelocate(boolean relocate) {
 		if (relocate && !getDestination().isExisting()) {
-			throw new IllegalStateException("Cannot relocate when creating a new program");
+			throw new IllegalStateException("创建新程序时无法重定位。");
 		}
 		this.cbRelocate.setSelected(relocate);
 	}
@@ -591,7 +591,7 @@ public class DebuggerCopyIntoProgramDialog extends ReusableDialogComponentProvid
 	public void setUseOverlays(boolean useOverlays) {
 		if (useOverlays && !getDestination().isExisting()) {
 			// Technically, you can, but why would you?
-			throw new IllegalStateException("Cannot use overlays when creating a new program");
+			throw new IllegalStateException("创建新程序时无法使用覆盖。");
 		}
 		this.cbUseOverlays.setSelected(useOverlays);
 	}

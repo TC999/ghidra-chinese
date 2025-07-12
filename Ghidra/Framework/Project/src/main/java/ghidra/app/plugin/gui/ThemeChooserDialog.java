@@ -33,7 +33,7 @@ public class ThemeChooserDialog extends DialogComponentProvider {
 	private ListPanel<GTheme> listPanel;
 
 	public ThemeChooserDialog(ThemeManager themeManager) {
-		super("Change Theme");
+		super("切换主题");
 		this.themeManager = themeManager;
 
 		addWorkPanel(buildMainPanel());
@@ -85,7 +85,7 @@ public class ThemeChooserDialog extends DialogComponentProvider {
 		listPanel.getAccessibleContext().setAccessibleName("Themes");
 		panel.add(listPanel);
 		listPanel.setDoubleClickActionListener(e -> okCallback());
-		panel.getAccessibleContext().setAccessibleName("Theme Chooser");
+		panel.getAccessibleContext().setAccessibleName("主题选择器");
 		return panel;
 	}
 
