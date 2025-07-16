@@ -344,6 +344,7 @@
 
   <define name="model_datatype_type">
     <attribute name="name"/>
+    <optional><attribute name="maxprimitives"/></optional>
     <optional><attribute name="minsize"/></optional>
     <optional><attribute name="maxsize"/></optional>
     <optional><attribute name="sizes"/></optional>
@@ -404,6 +405,11 @@
         </optional>
         <optional>
           <attribute name="stackspill"/>
+        </optional>
+        <optional>
+          <attribute name="backfill">
+            <ref name="boolean_type"/>
+          </attribute>
         </optional>
       </element>
       <element name="hidden_return">
