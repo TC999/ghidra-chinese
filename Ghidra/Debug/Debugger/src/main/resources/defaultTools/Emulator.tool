@@ -23,7 +23,7 @@
                         <SPLIT_NODE WIDTH="477" HEIGHT="703" DIVIDER_LOCATION="433" ORIENTATION="VERTICAL">
                             <COMPONENT_NODE TOP_INFO="3">
                                 <COMPONENT_INFO NAME="DataTypes Provider" OWNER="DataTypeManagerPlugin" TITLE="Data Type Manager" ACTIVE="true" GROUP="Default" INSTANCE_ID="3622004957652629452" />
-                                <COMPONENT_INFO NAME="Program Tree" OWNER="ProgramTreePlugin" TITLE="Program Trees" ACTIVE="true" GROUP="Default" INSTANCE_ID="3622004460958955487" />
+                                <COMPONENT_INFO NAME="Program Tree" OWNER="ProgramTreePlugin" TITLE="程序树" ACTIVE="true" GROUP="Default" INSTANCE_ID="3622004460958955487" />
                                 <COMPONENT_INFO NAME="Symbol Tree" OWNER="SymbolTreePlugin" TITLE="Symbol Tree" ACTIVE="true" GROUP="Default" INSTANCE_ID="3622004460958955482" />
                                 <COMPONENT_INFO NAME="Debug Console" OWNER="DebuggerConsolePlugin" TITLE="Debug Console" ACTIVE="true" GROUP="Default" INSTANCE_ID="3622004957652629451" />
                             </COMPONENT_NODE>
