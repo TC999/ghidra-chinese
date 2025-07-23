@@ -31,6 +31,7 @@
 |------------------------------------------|--------------------------------------------------------------------------|
 | `gradle -I gradle/support/fetchDependencies.gradle` | 下载非 Maven 依赖项（生成 `dependencies` 目录）                          |
 | `gradle prepdev`                         | 下载 Maven 依赖并初始化开发环境（依赖存放于 `$HOME/.gradle/`）            |
+| `gradle clean`                           | 清理仓库的构建文件。在极少数情况下，在执行 `git pull` 之后，如果出现无法解释的编译错误，可能需要进行此操作以修复问题。 |
 | `gradle cleanEclipse eclipse`            | 生成 Eclipse 项目文件（支持嵌套项目导入）                                |
 | `gradle buildNatives`                    | 构建当前平台的本地组件（需安装本地工具链）                                |
 | `gradle sleighCompile`                   | 手动编译 Sleigh 文件（运行时也会自动编译）                               |
