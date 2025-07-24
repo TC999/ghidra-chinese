@@ -28,8 +28,8 @@ import ghidra.util.HelpLocation;
 	status = PluginStatus.RELEASED,
 	packageName = UtilityPluginPackage.NAME,
 	category = PluginCategoryNames.DIAGNOSTIC,
-	shortDescription = "Runtime Information",
-	description = "Plugin for displaying runtime information"
+	shortDescription = "运行信息",
+	description = "运行信息显示插件"
 )
 //@formatter:on
 public class RuntimeInfoPlugin extends Plugin implements ApplicationLevelOnlyPlugin {
@@ -45,7 +45,7 @@ public class RuntimeInfoPlugin extends Plugin implements ApplicationLevelOnlyPlu
 	public RuntimeInfoPlugin(PluginTool tool) {
 		super(tool);
 
-		String supportedActionName = "Installed Processors";
+		String supportedActionName = "安装处理器";
 		new ActionBuilder(supportedActionName, getName())
 				.onAction(context -> showInstalledProcessors())
 				.enabled(true)
@@ -54,7 +54,7 @@ public class RuntimeInfoPlugin extends Plugin implements ApplicationLevelOnlyPlu
 				.helpLocation(getInstalledProcessorsHelpLocation())
 				.buildAndInstall(tool);
 
-		String runtimeInfoActionName = "Runtime Information";
+		String runtimeInfoActionName = "运行信息";
 		new ActionBuilder(runtimeInfoActionName, getName())
 				.onAction(context -> showRuntimeInfo())
 				.enabled(true)

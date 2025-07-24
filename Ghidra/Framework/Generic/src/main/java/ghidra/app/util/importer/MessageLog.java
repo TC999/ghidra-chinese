@@ -158,15 +158,15 @@ public class MessageLog {
 	 * @param messageHeader the message header that will appear before the log messages
 	 */
 	public void write(Class<?> owner, String messageHeader) {
-		String header = StringUtils.defaultIfBlank(messageHeader, "Log Messages");
+		String header = StringUtils.defaultIfBlank(messageHeader, "日志消息");
 		Msg.info(owner, header + '\n' + toStringWithWarning());
 	}
 
 	private String toStringWithWarning() {
 		StringBuilder output = new StringBuilder();
 		if (count > maxSize) {
-			output.append("There were too many messages to display.\n");
-			output.append((count - maxSize)).append(" messages have been truncated.\n");
+			output.append("显示的消息太多。\n");
+			output.append((count - maxSize)).append(" 条消息已被截断。\n");
 			output.append('\n');
 		}
 
