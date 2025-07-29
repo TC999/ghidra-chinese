@@ -94,7 +94,7 @@ public class SearchTextPlugin extends ProgramPlugin implements OptionsChangeList
 
 	private static final Icon SEARCH_MARKER_ICON = new GIcon("icon.base.search.marker");
 
-	private static final String DESCRIPTION = "Search program text for string";
+	private static final String DESCRIPTION = "搜索程序文本字符串";
 
 	private boolean waitingForSearchAll;
 	private SearchTextDialog searchDialog;
@@ -380,8 +380,8 @@ public class SearchTextPlugin extends ProgramPlugin implements OptionsChangeList
 		String subGroup = "d"; // Memory Search uses groups 'a', 'b', and 'c'
 
 		//@formatter:off
-		new ActionBuilder("Search Text", getName())
-				.menuPath("&Search", "Program &Text...")
+		new ActionBuilder("搜索文本", getName())
+				.menuPath(ToolConstants.MENU_SEARCH, "程序文&本...")
 				.menuGroup("search", subGroup)
 				.keyBinding("ctrl F")
 				.description(DESCRIPTION)
@@ -395,8 +395,8 @@ public class SearchTextPlugin extends ProgramPlugin implements OptionsChangeList
 				})
 				.buildAndInstall(tool);
 
-		new ActionBuilder("Repeat Text Search", getName())
-				.menuPath("&Search", "Repeat Text Search")
+		new ActionBuilder("重复文本搜索", getName())
+				.menuPath(ToolConstants.MENU_SEARCH, "重复文本搜索")
 				.menuGroup("search", subGroup)
 				.description(DESCRIPTION)
 				.helpLocation(new HelpLocation(HelpTopics.SEARCH, "Repeat Text Search"))

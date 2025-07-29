@@ -99,10 +99,10 @@ public class SearchAndReplacePlugin extends ProgramPlugin {
 	}
 
 	private void createActions() {
-		new ActionBuilder("Search And Replace", getName())
-				.menuPath("&Search", "Search And Replace...")
+		new ActionBuilder("搜索和替换", getName())
+				.menuPath(ToolConstants.MENU_SEARCH, "搜索和替换...")
 				.menuGroup("search", "d")
-				.description("Search and replace names of various program elements")
+				.description("搜索和替换各种程序元素的名称")
 				.helpLocation(new HelpLocation(HelpTopics.SEARCH, "Search And Replace"))
 				.withContext(NavigatableActionContext.class, true)
 				.onAction(this::searchAndReplace)
