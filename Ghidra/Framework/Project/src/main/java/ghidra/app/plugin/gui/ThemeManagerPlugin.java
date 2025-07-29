@@ -51,37 +51,37 @@ public class ThemeManagerPlugin extends Plugin implements ApplicationLevelOnlyPl
 		String owner = getName();
 		String group = "theme";
 
-		new ActionBuilder("切换主题", owner).menuPath("编辑", "主题", "切换...")
+		new ActionBuilder("切换主题", owner).menuPath(ToolConstants.MENU_EDIT, "主题", "切换...")
 				.menuGroup(group, "1")
 				.helpLocation(new HelpLocation("Theming", "Switch_Theme"))
 				.onAction(e -> switchTheme())
 				.buildAndInstall(tool);
 
-		new ActionBuilder("配置", owner).menuPath("编辑", "主题", "配置")
+		new ActionBuilder("配置", owner).menuPath(ToolConstants.MENU_EDIT, "主题", "配置")
 				.menuGroup(group, "2")
 				.helpLocation(new HelpLocation("Theming", "Edit_Theme"))
 				.onAction(e -> configure())
 				.buildAndInstall(tool);
 
-		new ActionBuilder("新建主题", owner).menuPath("编辑", "主题", "新建...")
+		new ActionBuilder("新建主题", owner).menuPath(ToolConstants.MENU_EDIT, "主题", "新建...")
 				.menuGroup(group, "3")
 				.helpLocation(new HelpLocation("Theming", "New_Theme"))
 				.onAction(e -> createNewTheme())
 				.buildAndInstall(tool);
 
-		new ActionBuilder("导入主题", owner).menuPath("编辑", "主题", "导入...")
+		new ActionBuilder("导入主题", owner).menuPath(ToolConstants.MENU_EDIT, "主题", "导入...")
 				.menuGroup(group, "4")
 				.helpLocation(new HelpLocation("Theming", "Import_Theme"))
 				.onAction(e -> ThemeUtils.importTheme(themeManager))
 				.buildAndInstall(tool);
 
-		new ActionBuilder("导出主题", owner).menuPath("编辑", "主题", "导出...")
+		new ActionBuilder("导出主题", owner).menuPath(ToolConstants.MENU_EDIT, "主题", "导出...")
 				.menuGroup(group, "5")
 				.helpLocation(new HelpLocation("Theming", "Export_Theme"))
 				.onAction(e -> ThemeUtils.exportTheme(themeManager))
 				.buildAndInstall(tool);
 
-		new ActionBuilder("删除主题", owner).menuPath("编辑", "主题", "删除...")
+		new ActionBuilder("删除主题", owner).menuPath(ToolConstants.MENU_EDIT, "主题", "删除...")
 				.menuGroup(group, "6")
 				.helpLocation(new HelpLocation("Theming", "Delete_Theme"))
 				.onAction(e -> ThemeUtils.deleteTheme(themeManager))
