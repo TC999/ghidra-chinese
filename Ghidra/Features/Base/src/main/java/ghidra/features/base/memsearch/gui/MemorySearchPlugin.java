@@ -84,32 +84,32 @@ public class MemorySearchPlugin extends Plugin implements MemorySearchService {
 	}
 
 	private void createActions() {
-		new ActionBuilder("Memory Search", getName())
-				.menuPath("&Search", "&Memory...")
+		new ActionBuilder("内存搜索", getName())
+				.menuPath(ToolConstants.MENU_SEARCH, "&内存...")
 				.menuGroup("search", "a")
 				.keyBinding("s")
-				.description("Search Memory for byte sequence")
+				.description("搜索内存字节序列")
 				.helpLocation(new HelpLocation(HelpTopics.SEARCH, "Memory Search"))
 				.withContext(NavigatableActionContext.class, true)
 				.onAction(this::showSearchMemoryProvider)
 				.buildAndInstall(tool);
 
-		new ActionBuilder("Repeat Memory Search Forwards", getName())
-				.menuPath("&Search", "Repeat Search &Forwards")
+		new ActionBuilder("重复内存搜索向前", getName())
+				.menuPath(ToolConstants.MENU_SEARCH, "重复搜索向&前")
 				.menuGroup("search", "b")
 				.keyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0))
-				.description("Repeat last memory search fowards once")
+				.description("重复上次内存搜索向前")
 				.helpLocation(new HelpLocation(HelpTopics.SEARCH, "Repeat Search Forwards"))
 				.withContext(NavigatableActionContext.class, true)
 				.enabledWhen(c -> lastByteMatcher != null && c.getAddress() != null)
 				.onAction(c -> searchOnce(c, true))
 				.buildAndInstall(tool);
 
-		new ActionBuilder("Repeat Memory Search Backwards", getName())
-				.menuPath("&Search", "Repeat Search &Backwards")
+		new ActionBuilder("重复内存搜索向后", getName())
+				.menuPath(ToolConstants.MENU_SEARCH, "重复搜索向&后")
 				.menuGroup("search", "c")
 				.keyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_F3, InputEvent.SHIFT_DOWN_MASK))
-				.description("Repeat last memory search backwards once")
+				.description("重复上次内存搜索向后")
 				.helpLocation(new HelpLocation(HelpTopics.SEARCH, "Repeat Search Backwards"))
 				.withContext(NavigatableActionContext.class, true)
 				.enabledWhen(c -> lastByteMatcher != null && c.getAddress() != null)

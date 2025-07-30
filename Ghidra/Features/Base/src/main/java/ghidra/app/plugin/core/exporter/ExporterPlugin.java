@@ -64,7 +64,7 @@ public class ExporterPlugin extends Plugin implements ApplicationLevelPlugin {
 			return; // do not add File menu Export Program action to front-end
 		}
 
-		DockingAction action = new NavigatableContextAction("Export Program", getName()) {
+		DockingAction action = new NavigatableContextAction("导出程序", getName()) {
 
 			@Override
 			protected void actionPerformed(NavigatableActionContext context) {
@@ -75,7 +75,7 @@ public class ExporterPlugin extends Plugin implements ApplicationLevelPlugin {
 			}
 		};
 		MenuData menuData =
-			new MenuData(new String[] { "&File", "Export Program..." }, "Import Export");
+			new MenuData(new String[] { ToolConstants.MENU_FILE, "导出程序..." }, "Import Export");
 		menuData.setMenuSubGroup("z"); // last in the "Save" group
 		action.setMenuBarData(menuData);
 		action.setKeyBindingData(new KeyBindingData(KeyEvent.VK_O, 0));
@@ -98,7 +98,7 @@ public class ExporterPlugin extends Plugin implements ApplicationLevelPlugin {
 			return; // only add project tree actions to front-end
 		}
 
-		DockingAction action = new FrontendProjectTreeAction("Export", getName()) {
+		DockingAction action = new FrontendProjectTreeAction("导出", getName()) {
 
 			@Override
 			protected void actionPerformed(ProjectDataContext context) {
@@ -123,7 +123,7 @@ public class ExporterPlugin extends Plugin implements ApplicationLevelPlugin {
 				return true;
 			}
 		};
-		action.setPopupMenuData(new MenuData(new String[] { "Export..." }, "Export"));
+		action.setPopupMenuData(new MenuData(new String[] { "导出..." }, "Export"));
 		action.setDescription(getPluginDescription().getDescription());
 		action.setHelpLocation(new HelpLocation("ExporterPlugin", "Export"));
 		tool.addAction(action);

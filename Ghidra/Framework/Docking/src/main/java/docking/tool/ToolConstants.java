@@ -26,17 +26,17 @@ public interface ToolConstants extends DockingToolConstants {
 	/**
 	 * Used when placing an action in the "File" menu of the tool
 	 */
-	public static final String MENU_FILE = "&File";
+	public static final String MENU_FILE = "&文件";
 
 	/**
 	 * Used when placing an action in the "Edit" menu of the tool
 	 */
-	public static final String MENU_EDIT = "&Edit";
+	public static final String MENU_EDIT = "&编辑";
 
 	/**
 	 * Used when placing a PluginAction in the "Navigation" menu of the tool
 	 */
-	public static final String MENU_NAVIGATION = "&Navigation";
+	public static final String MENU_NAVIGATION = "&导航";
 
 	/**
 	 * Group name for actions to navigate between windows
@@ -46,37 +46,37 @@ public interface ToolConstants extends DockingToolConstants {
 	/**
 	 * Used when placing an action in the "Search" menu of the tool
 	 */
-	public static final String MENU_SEARCH = "&Search";
+	public static final String MENU_SEARCH = "&搜索";
 
 	/**
 	 * Used when placing an action in the "Selection" menu of the tool
 	 */
-	public static final String MENU_SELECTION = "Se&lect";
+	public static final String MENU_SELECTION = "&选择";
 
 	/**
 	 * Used when placing an action in the "About" menu of the tool
 	 */
-	public static final String MENU_HELP = "&Help";
+	public static final String MENU_HELP = "&帮助";
 
 	/**
 	 * Used when placing an action in the "Analysis" menu of the tool
 	 */
-	public static final String MENU_ANALYSIS = "&Analysis";
+	public static final String MENU_ANALYSIS = "&分析";
 
 	/**
 	 * Used when placing an action in the "Graph" menu of the tool
 	 */
-	public static final String MENU_GRAPH = "&Graph";
+	public static final String MENU_GRAPH = "&图表";
 
 	/**
 	 *  Used when placing an action in the "Project" menu of the tool
 	 */
-	public static final String MENU_PROJECT = "&Project";
+	public static final String MENU_PROJECT = "&项目";
 
 	/**
 	 *  Used when placing an action in the "Tools" menu of the tool
 	 */
-	public static final String MENU_TOOLS = "&Tools";
+	public static final String MENU_TOOLS = "&工具";
 
 	/** A group for actions that link directly to help content */
 	public static final String HELP_CONTENTS_MENU_GROUP = "AAAHelpContents";
@@ -89,7 +89,7 @@ public interface ToolConstants extends DockingToolConstants {
 	/**
 	 * Node name used in the Data tree when a project is not open
 	 */
-	public static final String NO_ACTIVE_PROJECT = "NO ACTIVE PROJECT";
+	public static final String NO_ACTIVE_PROJECT = "无活动项目";
 
 	/**
 	 * This is used when an action has the tool as its owner

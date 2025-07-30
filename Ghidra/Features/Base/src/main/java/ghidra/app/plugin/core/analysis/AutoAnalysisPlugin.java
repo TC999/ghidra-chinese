@@ -105,7 +105,7 @@ public class AutoAnalysisPlugin extends Plugin implements AutoAnalysisManagerLis
 		int subGroupIndex = 0;
 
 		autoAnalyzeAction =
-			new ActionBuilder("自动分析", getName()).menuPath("分析", "自动分析...")
+			new ActionBuilder("自动分析", getName()).menuPath(ToolConstants.MENU_ANALYSIS, "自动分析...")
 					.menuGroup(ANALYZE_GROUP_NAME, "" + subGroupIndex++)
 					.keyBinding("A")
 					.withContext(ListingActionContext.class, true)
