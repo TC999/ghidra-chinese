@@ -129,7 +129,7 @@ public class MnemonicSearchPlugin extends Plugin {
 
 		String group = "search for";
 		String pullRightGroup = "0"; // top of 'search for' group
-		tool.setMenuGroup(new String[] { ToolConstants.MENU_SEARCH, MENU_PULLRIGHT }, group, pullRightGroup);
+		tool.setMenuGroup(new String[] { "搜索", MENU_PULLRIGHT }, group, pullRightGroup);
 
 		HelpLocation helpLocation = new HelpLocation(HelpTopics.SEARCH, "Mnemonic_Search");
 
@@ -151,7 +151,7 @@ public class MnemonicSearchPlugin extends Plugin {
 
 			};
 
-		setSearchMnemonicOpsNoConstAction.setMenuBarData(new MenuData(new String[] { ToolConstants.MENU_SEARCH,
+		setSearchMnemonicOpsNoConstAction.setMenuBarData(new MenuData(new String[] { "搜索",
 			MENU_PULLRIGHT, "包含操作数（除常量）" }, null, group,
 			MenuData.NO_MNEMONIC, "3"));
 		setSearchMnemonicOpsNoConstAction.setHelpLocation(helpLocation);
@@ -175,7 +175,7 @@ public class MnemonicSearchPlugin extends Plugin {
 				}
 			};
 
-		setSearchMnemonicOpsConstAction.setMenuBarData(new MenuData(new String[] { ToolConstants.MENU_SEARCH,
+		setSearchMnemonicOpsConstAction.setMenuBarData(new MenuData(new String[] { "搜索",
 			MENU_PULLRIGHT, "包含操作数" }, null, group, MenuData.NO_MNEMONIC, "2"));
 		setSearchMnemonicOpsConstAction.setHelpLocation(helpLocation);
 		setSearchMnemonicOpsConstAction
@@ -198,7 +198,7 @@ public class MnemonicSearchPlugin extends Plugin {
 				}
 			};
 
-		setSearchMnemonicNoOpsNoConstAction.setMenuBarData(new MenuData(new String[] { ToolConstants.MENU_SEARCH,
+		setSearchMnemonicNoOpsNoConstAction.setMenuBarData(new MenuData(new String[] { "搜索",
 			MENU_PULLRIGHT, "排除操作数" }, null, group, MenuData.NO_MNEMONIC, "1"));
 		setSearchMnemonicNoOpsNoConstAction.setHelpLocation(helpLocation);
 		setSearchMnemonicNoOpsNoConstAction

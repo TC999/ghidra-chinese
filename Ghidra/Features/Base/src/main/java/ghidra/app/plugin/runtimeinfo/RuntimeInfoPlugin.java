@@ -49,7 +49,7 @@ public class RuntimeInfoPlugin extends Plugin implements ApplicationLevelOnlyPlu
 		new ActionBuilder(supportedActionName, getName())
 				.onAction(context -> showInstalledProcessors())
 				.enabled(true)
-				.menuPath(ToolConstants.MENU_HELP, supportedActionName)
+				.menuPath("帮助", supportedActionName)
 				.menuGroup("YYY") // trying to put this just above the last menu entry
 				.helpLocation(getInstalledProcessorsHelpLocation())
 				.buildAndInstall(tool);
@@ -58,7 +58,7 @@ public class RuntimeInfoPlugin extends Plugin implements ApplicationLevelOnlyPlu
 		new ActionBuilder(runtimeInfoActionName, getName())
 				.onAction(context -> showRuntimeInfo())
 				.enabled(true)
-				.menuPath(ToolConstants.MENU_HELP, runtimeInfoActionName)
+				.menuPath("帮助", runtimeInfoActionName)
 				.menuGroup("YYY")
 				.helpLocation(getRuntimeInfoHelpLocation())
 				.buildAndInstall(tool);

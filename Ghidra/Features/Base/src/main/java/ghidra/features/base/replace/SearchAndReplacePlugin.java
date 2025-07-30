@@ -100,7 +100,7 @@ public class SearchAndReplacePlugin extends ProgramPlugin {
 
 	private void createActions() {
 		new ActionBuilder("搜索和替换", getName())
-				.menuPath(ToolConstants.MENU_SEARCH, "搜索和替换...")
+				.menuPath("搜索", "搜索和替换...")
 				.menuGroup("search", "d")
 				.description("搜索和替换各种程序元素的名称")
 				.helpLocation(new HelpLocation(HelpTopics.SEARCH, "Search And Replace"))

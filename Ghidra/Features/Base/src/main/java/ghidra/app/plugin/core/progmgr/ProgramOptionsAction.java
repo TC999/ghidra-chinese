@@ -27,7 +27,7 @@ public class ProgramOptionsAction extends AbstractProgramNameSwitchingAction {
 	public ProgramOptionsAction(ProgramManagerPlugin plugin) {
 		super(plugin, "程序选项");
 		MenuData menuData =
-			new MenuData(new String[] { ToolConstants.MENU_EDIT, "程序选项" });
+			new MenuData(new String[] { "编辑", "程序选项" });
 		menuData.setMenuGroup(ToolConstants.TOOL_OPTIONS_MENU_GROUP);
 		menuData.setMenuSubGroup(ToolConstants.TOOL_OPTIONS_MENU_GROUP + "b");
 		setMenuBarData(menuData);

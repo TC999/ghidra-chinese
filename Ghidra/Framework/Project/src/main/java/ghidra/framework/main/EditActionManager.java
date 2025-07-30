@@ -68,7 +68,7 @@ class EditActionManager {
 // ACTIONS - auto generated
 		editPluginPathAction.setEnabled(true);
 
-		editPluginPathAction.setMenuBarData(new MenuData(new String[] { ToolConstants.MENU_EDIT,
+		editPluginPathAction.setMenuBarData(new MenuData(new String[] { "编辑",
 			"插件路径..." }, "GEdit"));
 
 		editCertPathAction = new DockingAction("设置 PKI 证书", plugin.getName()) {
@@ -80,7 +80,7 @@ class EditActionManager {
 // ACTIONS - auto generated
 		editCertPathAction.setEnabled(true);
 
-		editCertPathAction.setMenuBarData(new MenuData(new String[] { ToolConstants.MENU_EDIT,
+		editCertPathAction.setMenuBarData(new MenuData(new String[] { "编辑",
 			"设置 PKI 证书..." }, "PKI"));
 
 		clearCertPathAction = new DockingAction("清除 PKI 证书", plugin.getName()) {
@@ -92,7 +92,7 @@ class EditActionManager {
 // ACTIONS - auto generated
 		clearCertPathAction.setEnabled(ApplicationKeyManagerFactory.getKeyStore() != null);
 
-		clearCertPathAction.setMenuBarData(new MenuData(new String[] { ToolConstants.MENU_EDIT,
+		clearCertPathAction.setMenuBarData(new MenuData(new String[] { "编辑",
 			"清除 PKI 证书..." }, "PKI"));
 
 		clearCertPathAction.setHelpLocation(new HelpLocation("FrontEndPlugin",

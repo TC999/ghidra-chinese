@@ -381,7 +381,7 @@ public class SearchTextPlugin extends ProgramPlugin implements OptionsChangeList
 
 		//@formatter:off
 		new ActionBuilder("搜索文本", getName())
-				.menuPath(ToolConstants.MENU_SEARCH, "程序文&本...")
+				.menuPath("搜索", "程序文本...")
 				.menuGroup("search", subGroup)
 				.keyBinding("ctrl F")
 				.description(DESCRIPTION)
@@ -396,7 +396,7 @@ public class SearchTextPlugin extends ProgramPlugin implements OptionsChangeList
 				.buildAndInstall(tool);
 
 		new ActionBuilder("重复文本搜索", getName())
-				.menuPath(ToolConstants.MENU_SEARCH, "重复文本搜索")
+				.menuPath("搜索", "重复文本搜索")
 				.menuGroup("search", subGroup)
 				.description(DESCRIPTION)
 				.helpLocation(new HelpLocation(HelpTopics.SEARCH, "Repeat Text Search"))

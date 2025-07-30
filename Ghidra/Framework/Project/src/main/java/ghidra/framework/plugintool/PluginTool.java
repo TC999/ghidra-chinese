@@ -1038,7 +1038,7 @@ public abstract class PluginTool extends AbstractDockingTool {
 		optionsAction.setAddToAllWindows(true);
 		optionsAction.setHelpLocation(
 			new HelpLocation(ToolConstants.FRONT_END_HELP_TOPIC, "工具选项"));
-		MenuData menuData = new MenuData(new String[] { ToolConstants.MENU_EDIT, "&工具选项" },
+		MenuData menuData = new MenuData(new String[] { "编辑", "&工具选项" },
 			null, ToolConstants.TOOL_OPTIONS_MENU_GROUP);
 		menuData.setMenuSubGroup(ToolConstants.TOOL_OPTIONS_MENU_GROUP);
 		optionsAction.setMenuBarData(menuData);

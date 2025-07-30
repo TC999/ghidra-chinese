@@ -85,7 +85,7 @@ public class MemorySearchPlugin extends Plugin implements MemorySearchService {
 
 	private void createActions() {
 		new ActionBuilder("内存搜索", getName())
-				.menuPath(ToolConstants.MENU_SEARCH, "&内存...")
+				.menuPath("搜索", "&内存...")
 				.menuGroup("search", "a")
 				.keyBinding("s")
 				.description("搜索内存字节序列")
@@ -95,7 +95,7 @@ public class MemorySearchPlugin extends Plugin implements MemorySearchService {
 				.buildAndInstall(tool);
 
 		new ActionBuilder("重复内存搜索向前", getName())
-				.menuPath(ToolConstants.MENU_SEARCH, "重复搜索向&前")
+				.menuPath("搜索", "重复搜索向&前")
 				.menuGroup("search", "b")
 				.keyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0))
 				.description("重复上次内存搜索向前")
@@ -106,7 +106,7 @@ public class MemorySearchPlugin extends Plugin implements MemorySearchService {
 				.buildAndInstall(tool);
 
 		new ActionBuilder("重复内存搜索向后", getName())
-				.menuPath(ToolConstants.MENU_SEARCH, "重复搜索向&后")
+				.menuPath("搜索", "重复搜索向&后")
 				.menuGroup("search", "c")
 				.keyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_F3, InputEvent.SHIFT_DOWN_MASK))
 				.description("重复上次内存搜索向后")
