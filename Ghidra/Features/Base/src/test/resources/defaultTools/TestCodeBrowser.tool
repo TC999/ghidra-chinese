@@ -17,7 +17,7 @@
                         <SPLIT_NODE WIDTH="171" HEIGHT="491" DIVIDER_LOCATION="640" ORIENTATION="VERTICAL">
                             <SPLIT_NODE WIDTH="171" HEIGHT="312" DIVIDER_LOCATION="502" ORIENTATION="VERTICAL">
                                 <COMPONENT_NODE TOP_INFO="0">
-                                    <COMPONENT_INFO NAME="Program Tree" OWNER="ProgramTreePlugin" TITLE="Program Trees" ACTIVE="false" GROUP="Default" INSTANCE_ID="3278479758150439853" />
+                                    <COMPONENT_INFO NAME="Program Tree" OWNER="ProgramTreePlugin" TITLE="程序树" ACTIVE="false" GROUP="Default" INSTANCE_ID="3278479758150439853" />
                                 </COMPONENT_NODE>
                                 <COMPONENT_NODE TOP_INFO="0">
                                     <COMPONENT_INFO NAME="Symbol Tree" OWNER="SymbolTreePlugin" TITLE="Symbol Tree" ACTIVE="false" GROUP="Default" INSTANCE_ID="3278479669854049214" />

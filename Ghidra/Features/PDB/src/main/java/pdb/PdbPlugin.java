@@ -75,13 +75,13 @@ public class PdbPlugin extends Plugin {
 	}
 
 	private void createActions() {
-		new ActionBuilder("Load PDB File", this.getName())
+		new ActionBuilder("加载 PDB 文件", this.getName())
 			.withContext(ProgramActionContext.class, true)
 			.validContextWhen(pac -> pac.getProgram() != null &&
 				PdbAnalyzerCommon.canAnalyzeProgram(pac.getProgram()))
 			.menuPath(ToolConstants.MENU_FILE, "Load PDB File...")
 			.menuGroup("Import PDB", "3")
-			.helpLocation(new HelpLocation(PDB_PLUGIN_HELP_TOPIC, "Load PDB File"))
+			.helpLocation(new HelpLocation(PDB_PLUGIN_HELP_TOPIC, "加载 PDB 文件"))
 			.onAction(pac -> loadPDB(pac))
 			.buildAndInstall(tool);
 
@@ -157,7 +157,7 @@ public class PdbPlugin extends Plugin {
 				throw loadPdbTask.getResultException();
 			}
 			else if (loadPdbTask.getResultMessages() != null) {
-				MultiLineMessageDialog dialog = new MultiLineMessageDialog("Load PDB File",
+				MultiLineMessageDialog dialog = new MultiLineMessageDialog("加载 PDB 文件",
 					"There were warnings/errors loading PDB file: " + pdbFile,
 					loadPdbTask.getResultMessages(),
 					MultiLineMessageDialog.WARNING_MESSAGE, false);
