@@ -24,7 +24,9 @@ jobs:
         #token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: 终端汉化
-      run: sudo apt-get install language-pack-zh-hans
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y --fix-missing language-pack-zh-hans
 
     - name: 设置提交者信息
       run: |
@@ -45,4 +47,5 @@ jobs:
         git remote add upstream https://github.com/NationalSecurityAgency/ghidra.git
         git fetch upstream
         git reset --hard upstream/master
+
         git push origin sync --force
