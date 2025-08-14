@@ -80,7 +80,7 @@ public class AbstractSearchAndReplaceTest extends AbstractGhidraHeadedIntegratio
 		dataTypeComments = typesMap.get("Datatype Comments");
 		fieldNames = typesMap.get("Datatype Fields");
 		enumValues = typesMap.get("Enum Values");
-		programTrees = typesMap.get("Program Trees");
+		programTrees = typesMap.get("程序树");
 		categories = typesMap.get("Datatype Categories");
 	}
 
