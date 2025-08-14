@@ -13,18 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package ghidra.app.util.bin.format.dwarf.expression;
 
-apply from: "${rootProject.projectDir}/gradle/javaProject.gradle"
-apply from: "${rootProject.projectDir}/gradle/jacocoProject.gradle"
-apply from: "${rootProject.projectDir}/gradle/javaTestProject.gradle"
-apply from: "${rootProject.projectDir}/gradle/distributableGhidraModule.gradle"
-apply from: "${rootProject.projectDir}/gradle/javadoc.gradle"
+import ghidra.program.model.pcode.Varnode;
 
-apply plugin: 'eclipse'
-eclipse.project.name = 'Debug Debugger-api'
+public class DWARFExpressionTerminalDerefException extends DWARFExpressionUnsupportedOpException {
 
-dependencies {
-	api project(':SoftwareModeling')
-	api project(':Framework-TraceModeling')
-	api project(':Emulation')
+	private Varnode varnode;
+
+	public DWARFExpressionTerminalDerefException(DWARFExpressionInstruction op, Varnode varnode) {
+		super(op);
+		this.varnode = varnode;
+	}
+
+
+	public Varnode getVarnode() {
+		return varnode;
+	}
 }
