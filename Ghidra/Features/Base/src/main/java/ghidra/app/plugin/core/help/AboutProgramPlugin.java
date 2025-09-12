@@ -46,13 +46,13 @@ import ghidra.util.HelpLocation;
 	status = PluginStatus.RELEASED,
 	packageName = CorePluginPackage.NAME,
 	category = PluginCategoryNames.COMMON,
-	shortDescription = "Displays program information",
-	description = "This plugin provides an action that displays information about the currently loaded program"
+	shortDescription = "显示程序信息",
+	description = "此插件提供显示当前加载程序信息的操作"
 )
 //@formatter:on
 public class AboutProgramPlugin extends Plugin implements ApplicationLevelPlugin {
 	public final static String PLUGIN_NAME = "AboutProgramPlugin";
-	public final static String ACTION_NAME = "About Program";
+	public final static String ACTION_NAME = "关于程序";
 
 	private DockingAction aboutAction;
 

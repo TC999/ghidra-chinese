@@ -48,19 +48,19 @@ class MemoryUsagePanel extends JPanel implements Disposable {
 		JLabel totalMem = new GDLabel("00000000000", SwingConstants.RIGHT);
 		JLabel freeMem = new GDLabel("00000000000", SwingConstants.RIGHT);
 		JLabel usedMem = new GDLabel("00000000000", SwingConstants.RIGHT);
-		centerPanel.add(new GLabel("Max Memory:"));
+		centerPanel.add(new GLabel("最大："));
 		centerPanel.add(maxMem);
-		centerPanel.add(new GLabel("Total Memory:"));
+		centerPanel.add(new GLabel("总计："));
 		centerPanel.add(totalMem);
-		centerPanel.add(new GLabel("Free Memory:"));
+		centerPanel.add(new GLabel("空闲："));
 		centerPanel.add(freeMem);
-		centerPanel.add(new GLabel("Used Memory:"));
+		centerPanel.add(new GLabel("已使用："));
 		centerPanel.add(usedMem);
 		add(centerPanel, BorderLayout.CENTER);
 
 		// Bottom panel
 		JPanel bottomPanel = new JPanel();
-		JButton gcButton = new JButton("Collect Garbage");
+		JButton gcButton = new JButton("收集垃圾");
 		gcButton.addActionListener(e -> Runtime.getRuntime().gc());
 		bottomPanel.add(gcButton);
 		add(bottomPanel, BorderLayout.SOUTH);

@@ -48,7 +48,7 @@ public class ViewManagerComponentProvider extends ComponentProviderAdapter
 		viewPanel = new ViewPanel(tool, this);
 		listeners = new ArrayList<>(3);
 
-		setTitle("Program Trees");
+		setTitle("程序树");
 		setHelpLocation(new HelpLocation(owner, getName()));
 		setDefaultWindowPosition(WindowPosition.LEFT);
 

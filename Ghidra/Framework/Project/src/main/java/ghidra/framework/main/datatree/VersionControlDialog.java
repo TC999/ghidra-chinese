@@ -55,11 +55,11 @@ public class VersionControlDialog extends DialogComponentProvider {
 	 * @param addToVersionControl true for adding; false for check-in
 	 */
 	public VersionControlDialog(boolean addToVersionControl) {
-		super(addToVersionControl ? "Add File to Version Control" : "Check In File(s)", true);
+		super(addToVersionControl ? "添加文件至版本控制" : "检入文件", true);
 		this.addToVersionControl = addToVersionControl;
 		addWorkPanel(buildMainPanel());
 
-		allButton = new JButton("Apply to All");
+		allButton = new JButton("全部应用");
 		allButton.getAccessibleContext().setAccessibleName("All");
 		allButton.setMnemonic('A');
 		allButton.addActionListener(e -> {
@@ -142,28 +142,28 @@ public class VersionControlDialog extends DialogComponentProvider {
 
 		JPanel innerPanel = new JPanel();
 		innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
-		innerPanel.getAccessibleContext().setAccessibleName("Version Control");
+		innerPanel.getAccessibleContext().setAccessibleName("版本控制");
 		Icon icon = addToVersionControl ? ADD_ICON : CHECK_IN_ICON;
 
-		descriptionLabel = new GDLabel(addToVersionControl ? "Add comments to describe the file."
-				: "Add comments to describe changes",
+		descriptionLabel = new GDLabel(addToVersionControl ? "添加评论解释文件。"
+				: "添加评论解释更改。",
 			SwingConstants.LEFT);
-		descriptionLabel.getAccessibleContext().setAccessibleName("Description");
+		descriptionLabel.getAccessibleContext().setAccessibleName("介绍");
 		JPanel dPanel = new JPanel(new BorderLayout(10, 0));
 		dPanel.add(new GIconLabel(icon), BorderLayout.WEST);
 		dPanel.add(descriptionLabel, BorderLayout.CENTER);
-		dPanel.getAccessibleContext().setAccessibleName("Description");
+		dPanel.getAccessibleContext().setAccessibleName("介绍");
 
 		JPanel cPanel = new JPanel(new BorderLayout());
-		cPanel.add(new GLabel("Comments:", SwingConstants.LEFT));
-		cPanel.getAccessibleContext().setAccessibleName("Comments");
+		cPanel.add(new GLabel("评论：", SwingConstants.LEFT));
+		cPanel.getAccessibleContext().setAccessibleName("评论");
 		commentsTextArea = new JTextArea(4, 20);
 		JScrollPane sp = new JScrollPane(commentsTextArea);
-		sp.getAccessibleContext().setAccessibleName("Comment");
-		keepCB = new GCheckBox("Keep File Checked Out", true);
+		sp.getAccessibleContext().setAccessibleName("评论");
+		keepCB = new GCheckBox("保持文件已检出", true);
 		JPanel kPanel = new JPanel(new BorderLayout());
 		kPanel.add(keepCB, BorderLayout.WEST);
-		kPanel.getAccessibleContext().setAccessibleName("Keep File");
+		kPanel.getAccessibleContext().setAccessibleName("保持文件");
 
 		innerPanel.add(Box.createVerticalStrut(10));
 		innerPanel.add(dPanel);
@@ -174,17 +174,17 @@ public class VersionControlDialog extends DialogComponentProvider {
 		innerPanel.add(kPanel);
 
 		if (!addToVersionControl) {
-			keepFileCB = new GCheckBox("Create \".keep\" file", false);
+			keepFileCB = new GCheckBox("创建 \".keep\" 文件", false);
 			JPanel kpPanel = new JPanel(new BorderLayout());
 			kpPanel.add(keepFileCB, BorderLayout.WEST);
-			kpPanel.getAccessibleContext().setAccessibleName("Keep File");
+			kpPanel.getAccessibleContext().setAccessibleName("保持文件");
 			innerPanel.add(kpPanel);
 		}
 
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		mainPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		mainPanel.add(innerPanel);
-		mainPanel.getAccessibleContext().setAccessibleName("Version Control");
+		mainPanel.getAccessibleContext().setAccessibleName("版本控制");
 		return mainPanel;
 	}
 
@@ -193,8 +193,8 @@ public class VersionControlDialog extends DialogComponentProvider {
 	 * @param filename the name of the file currently to be added, whose comment we need.
 	 */
 	public void setCurrentFileName(String filename) {
-		String description = addToVersionControl ? "Add comments to describe " + filename + "."
-				: "Add comments to describe changes to " + filename + ".";
+		String description = addToVersionControl ? "添加评论解释 " + filename + "。"
+				: "添加评论解释更改至 " + filename + "。";
 		descriptionLabel.setText(description);
 	}
 }

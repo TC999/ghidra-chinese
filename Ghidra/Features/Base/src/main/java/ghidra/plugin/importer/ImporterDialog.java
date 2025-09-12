@@ -330,7 +330,7 @@ public class ImporterDialog extends DialogComponentProvider {
 	}
 
 	private Component buildOptionsButton() {
-		optionsButton = new JButton("Options...");
+		optionsButton = new JButton("选项...");
 		optionsButton.addActionListener(e -> showOptions());
 		optionsButton.getAccessibleContext().setAccessibleName("Options");
 		return optionsButton;
@@ -347,7 +347,7 @@ public class ImporterDialog extends DialogComponentProvider {
 			options = getOptions(loadSpec);  // make sure you get the options now, before the ByteProvider is closed.
 
 			//@formatter:off
-			new TaskBuilder("Import File", monitor -> {
+			new TaskBuilder("导入文件", monitor -> {
 				ImporterUtilities.importSingleFile(tool, programManager, fsrl, importFolder,
 					loadSpec, programName, options, monitor);
 			})
