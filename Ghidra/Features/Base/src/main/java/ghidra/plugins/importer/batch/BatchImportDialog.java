@@ -57,6 +57,7 @@ public class BatchImportDialog extends DialogComponentProvider {
 
 	private static final String PREF_STRIPCONTAINER = "BATCHIMPORT.STRIPCONTAINER";
 	private static final String PREF_STRIPLEADING = "BATCHIMPORT.STRIPLEADING";
+	private static final String PREF_MIRRORFS = "BATCHIMPORT.MIRRORFS";
 	private static final String LAST_IMPORT_DIR = "LastBatchImportDir";
 
 	/**
@@ -92,7 +93,12 @@ public class BatchImportDialog extends DialogComponentProvider {
 	private ProgramManager programManager;
 	private boolean stripLeading = getBooleanPref(PREF_STRIPLEADING, true);
 	private boolean stripContainer = getBooleanPref(PREF_STRIPCONTAINER, false);
+	private boolean mirrorFs = getBooleanPref(PREF_MIRRORFS, false);
 	private boolean openAfterImporting = false;
+
+	private GCheckBox stripLeadingCb;
+	private GCheckBox stripContainerCb;
+	private GCheckBox mirrorFsCb;
 
 	private BatchImportTableModel tableModel;
 	private GTable table;
@@ -314,18 +320,27 @@ public class BatchImportDialog extends DialogComponentProvider {
 		outputChoicesPanel.setLayout(new BoxLayout(outputChoicesPanel, BoxLayout.LINE_AXIS));
 		outputChoicesPanel.getAccessibleContext().setAccessibleName("输出选项");
 
-		GCheckBox stripLeadingCb = new GCheckBox("去除前导路径", stripLeading);
+
+    stripLeadingCb = new GCheckBox("去除前导路径", stripLeading);
 		stripLeadingCb.addChangeListener(e -> setStripLeading(stripLeadingCb.isSelected()));
 		stripLeadingCb.setToolTipText("导入文件的目标文件夹将不包含源文件的前导路径。");
 		stripLeadingCb.getAccessibleContext().setAccessibleName("去除前导路径");
 
-		GCheckBox stripContainerCb = new GCheckBox("去除容器路径", stripContainer);
+		stripContainerCb = new GCheckBox("去除容器路径", stripContainer);
 		stripContainerCb.addChangeListener(e -> setStripContainer(stripContainerCb.isSelected()));
 		stripContainerCb.setToolTipText(
 			"导入文件的目标文件夹将不会包含任何源路径名称。");
 		stripContainerCb.getAccessibleContext().setAccessibleName("去除容器路径");
 
+		mirrorFsCb = new GCheckBox("Mirror Filesystem", mirrorFs);
+		mirrorFsCb.addChangeListener(e -> setMirrorFs(mirrorFsCb.isSelected()));
+		mirrorFsCb.setToolTipText(
+			"The imported files' project paths will mirror the filesystem rooted at the desination folder");
+		mirrorFsCb.getAccessibleContext().setAccessibleName("Mirror Filesystem");
+		setMirrorFs(mirrorFs); // needed to possibly disable other checkboxes
+
 		GCheckBox openAfterImportCb = new GCheckBox("导入后打开", openAfterImporting);
+
 		openAfterImportCb
 				.addChangeListener(e -> setOpenAfterImporting(openAfterImportCb.isSelected()));
 		openAfterImportCb.setToolTipText("在代码浏览器中打开导入的二进制文件");
@@ -333,6 +348,7 @@ public class BatchImportDialog extends DialogComponentProvider {
 
 		outputChoicesPanel.add(stripLeadingCb);
 		outputChoicesPanel.add(stripContainerCb);
+		outputChoicesPanel.add(mirrorFsCb);
 		if (programManager != null) {
 			outputChoicesPanel.add(openAfterImportCb);
 		}
@@ -462,7 +478,7 @@ public class BatchImportDialog extends DialogComponentProvider {
 	protected void okCallback() {
 		new TaskLauncher(
 			new ImportBatchTask(batchInfo, destinationFolder,
-				openAfterImporting ? programManager : null, stripLeading, stripContainer),
+				openAfterImporting ? programManager : null, stripLeading, stripContainer, mirrorFs),
 			getComponent());
 		close();
 	}
@@ -612,6 +628,13 @@ public class BatchImportDialog extends DialogComponentProvider {
 	private void setStripContainer(boolean stripContainer) {
 		this.stripContainer = stripContainer;
 		setBooleanPref(PREF_STRIPCONTAINER, stripContainer);
+	}
+
+	private void setMirrorFs(boolean mirrorFs) {
+		this.mirrorFs = mirrorFs;
+		setBooleanPref(PREF_MIRRORFS, mirrorFs);
+		stripContainerCb.setEnabled(!mirrorFs);
+		stripContainerCb.setSelected(mirrorFs ? false : stripContainer);
 	}
 
 	private void setMaxDepth(int newMaxDepth) {
