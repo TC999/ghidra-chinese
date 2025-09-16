@@ -70,7 +70,7 @@ import ghidra.util.task.*;
 	status = PluginStatus.RELEASED,
 	packageName = CorePluginPackage.NAME,
 	category = PluginCategoryNames.COMMON,
-	shortDescription = "Import External Files (NEW)",
+	shortDescription = "导入外部文件（新）",
 	description = ImporterPlugin.IMPORTER_PLUGIN_DESC,
 	servicesProvided = { FileImporterService.class },
 	eventsConsumed = { ProgramActivatedPluginEvent.class }
@@ -331,14 +331,14 @@ public class ImporterPlugin extends Plugin
 	}
 
 	private void setupImportAction() {
-		String title = "Import File";
+		String title = "导入文件";
 		importAction = new DockingAction(title, this.getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				doSingleImportAction(getFolderFromContext(context));
 			}
 		};
-		importAction.setMenuBarData(new MenuData(new String[] { "&File", title + "..." }, null,
+		importAction.setMenuBarData(new MenuData(new String[] { "&文件", title + "..." }, null,
 			IMPORT_MENU_GROUP, MenuData.NO_MNEMONIC, "1"));
 		importAction.setKeyBindingData(new KeyBindingData(KeyEvent.VK_I, 0));
 		importAction.setDescription(IMPORTER_PLUGIN_DESC);
@@ -348,7 +348,7 @@ public class ImporterPlugin extends Plugin
 	}
 
 	private void setupBatchImportAction() {
-		String title = "Batch Import";
+		String title = "导入多项";
 		batchImportAction = new DockingAction(title, this.getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
@@ -361,7 +361,7 @@ public class ImporterPlugin extends Plugin
 				return tool.getProject() != null;
 			}
 		};
-		batchImportAction.setMenuBarData(new MenuData(new String[] { "&File", title + "..." }, null,
+		batchImportAction.setMenuBarData(new MenuData(new String[] { "&文件", title + "..." }, null,
 			IMPORT_MENU_GROUP, MenuData.NO_MNEMONIC, "2"));
 		batchImportAction.setDescription(IMPORTER_PLUGIN_DESC);
 		batchImportAction.setHelpLocation(new HelpLocation("ImporterPlugin", title));
@@ -370,7 +370,7 @@ public class ImporterPlugin extends Plugin
 	}
 
 	private void setupImportSelectionAction() {
-		String title = "Extract and Import";
+		String title = "提取并导入";
 		importSelectionAction = new DockingAction(title, this.getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
@@ -401,7 +401,7 @@ public class ImporterPlugin extends Plugin
 	}
 
 	private void setupAddToProgramAction() {
-		String title = "Add To Program";
+		String title = "添加至程序";
 
 		addToProgramAction = new DockingAction(title, this.getName()) {
 			@Override
@@ -409,7 +409,7 @@ public class ImporterPlugin extends Plugin
 				doAddToProgram();
 			}
 		};
-		addToProgramAction.setMenuBarData(new MenuData(new String[] { "&File", title + "..." },
+		addToProgramAction.setMenuBarData(new MenuData(new String[] { "文件", title + "..." },
 			null, IMPORT_MENU_GROUP, MenuData.NO_MNEMONIC, "zz"));
 		addToProgramAction.setDescription(IMPORTER_PLUGIN_DESC);
 		addToProgramAction.setEnabled(false);
@@ -422,7 +422,7 @@ public class ImporterPlugin extends Plugin
 	}
 
 	private void setupLoadLibrariesAction() {
-		String title = "Load Libraries";
+		String title = "加载库";
 
 		loadLibrariesAction = new DockingAction(title, this.getName()) {
 			@Override
@@ -430,7 +430,7 @@ public class ImporterPlugin extends Plugin
 				doLoadLibraries();
 			}
 		};
-		loadLibrariesAction.setMenuBarData(new MenuData(new String[] { "&File", title + "..." },
+		loadLibrariesAction.setMenuBarData(new MenuData(new String[] { "&文件", title + "..." },
 			null, IMPORT_MENU_GROUP, MenuData.NO_MNEMONIC, "zzz"));
 		loadLibrariesAction.setDescription(IMPORTER_PLUGIN_DESC);
 		loadLibrariesAction.setEnabled(false);

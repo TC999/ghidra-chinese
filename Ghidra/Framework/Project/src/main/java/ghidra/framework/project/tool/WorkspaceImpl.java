@@ -89,7 +89,7 @@ class WorkspaceImpl implements Workspace {
 		// painting and attaching to a parent hierarchy) to be processed by the dialog's secondary
 		// Swing queue before returning control back to the caller of this method.
 		//
-		return launchSwing("Launching Tool", () -> {
+		return launchSwing("启动工具中", () -> {
 			PluginTool tool = toolManager.getTool(this, template);
 			if (tool != null) {
 				tool.setVisible(true);

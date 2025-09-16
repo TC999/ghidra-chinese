@@ -41,13 +41,13 @@ import ghidra.util.task.TaskMonitor;
 public class VersionControlAddAction extends VersionControlAction {
 
 	public VersionControlAddAction(Plugin plugin) {
-		super("Add to Version Control", plugin.getName(), plugin.getTool());
+		super("添加至版本控制", plugin.getName(), plugin.getTool());
 		Icon icon = new GIcon("icon.version.control.add");
 		setToolBarData(new ToolBarData(icon, GROUP));
 
-		setPopupMenuData(new MenuData(new String[] { "Add to Version Control..." }, icon, GROUP));
+		setPopupMenuData(new MenuData(new String[] { "添加至版本控制..." }, icon, GROUP));
 
-		setDescription("Add file to Version Control");
+		setDescription("添加文件至版本控制");
 
 		setEnabled(false);
 	}
@@ -91,12 +91,12 @@ public class VersionControlAddAction extends VersionControlAction {
 		List<DomainFile> changedList = new ArrayList<>();
 		for (DomainFile domainFile : unversioned) {
 			if (domainFile.isBusy()) {
-				Msg.showWarn(getClass(), null, "Add To Version Control Failed!",
-					"One or more selected files is currently being modified!");
+				Msg.showWarn(getClass(), null, "添加至版本控制失败！",
+					"一个或多个选定的文件当前正在被修改！");
 				return;
 			}
 			if (!canCloseDomainFile(domainFile)) {
-				tool.setStatusInfo("Add to version control canceled");
+				tool.setStatusInfo("添加至版本控制取消");
 				return;
 			}
 			list.add(domainFile);
@@ -106,9 +106,9 @@ public class VersionControlAddAction extends VersionControlAction {
 		}
 		if (changedList.size() > 0) {
 			ChangedFilesDialog dialog = new ChangedFilesDialog(tool, changedList);
-			dialog.setCancelToolTipText("Cancel Add to Version Control");
+			dialog.setCancelToolTipText("取消添加至版本控制");
 			if (!dialog.showDialog()) { // blocks until the user hits Save or Cancel
-				tool.setStatusInfo("Add to version control canceled");
+				tool.setStatusInfo("添加至版本控制取消");
 				return;
 			}
 			for (int i = 0; i < changedList.size(); i++) {
@@ -131,7 +131,7 @@ public class VersionControlAddAction extends VersionControlAction {
 	private class AddToVersionControlTask extends VersionControlTask {
 
 		AddToVersionControlTask(List<DomainFile> list, PluginTool tool) {
-			super("Add to Version Control", tool, list, tool.getToolFrame());
+			super("添加至版本控制", tool, list, tool.getToolFrame());
 		}
 
 		@Override
@@ -139,7 +139,7 @@ public class VersionControlAddAction extends VersionControlAction {
 			try {
 				for (DomainFile df : list) {
 					String name = df.getName();
-					monitor.setMessage("Adding " + name + " to Version Control");
+					monitor.setMessage("正添加 " + name + " 至版本控制");
 
 					if (actionID != VersionControlDialog.APPLY_TO_ALL) {
 						showDialog(true, df);
@@ -155,10 +155,10 @@ public class VersionControlAddAction extends VersionControlAction {
 				}
 			}
 			catch (CancelledException e) {
-				Msg.info(this, "Add to Version Control was canceled");
+				Msg.info(this, "添加至版本控制被取消");
 			}
 			catch (IOException e) {
-				ClientUtil.handleException(repository, e, "Add to Version Control",
+				ClientUtil.handleException(repository, e, "添加至版本控制",
 					tool.getToolFrame());
 			}
 		}
