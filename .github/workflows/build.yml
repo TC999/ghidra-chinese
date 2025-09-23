@@ -22,6 +22,7 @@ jobs:
       - name: 显示信息
         run: |
           echo "发行: ${{ inputs.release }}"
+          
   Linux:
     name: Linux 编译
     runs-on: ubuntu-latest
