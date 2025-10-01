@@ -100,59 +100,20 @@ can also be used in headless mode with the new `-mirror` command line option.
 ## PyGhidra
 PyGhidra 3.0.0 (compatible with Ghidra 12.0 and later) introduces many new Python-specific API 
 methods with the goal of making the most common Ghidra tasks quick and easy, such as opening a 
-project, getting a program, and running a GhidraScript. Legacy API fuctions such as 
+project, getting a program, and running a GhidraScript. Legacy API functions such as 
 `pyghidra.open_program()` and `pyghidra_run_script()` have been deprecated in favor of the new 
-methods. Below is an example program that showcases some of the new API functionality. See the 
-PyGhidra library README for more information.
-```python
-import os, jpype, pyghidra
-pyghidra.start()
+methods, which are outlined at https://pypi.org/project/pyghidra.
 
-# Open/create a project
-with pyghidra.open_project(os.environ["GHIDRA_PROJECT_DIR"], "ExampleProject", create=True) as project:
-
-    # Walk a Ghidra release zip file, load every decompiler binary, and save them to the project
-    with pyghidra.open_filesystem(f"{os.environ['DOWNLOADS_DIR']}/ghidra_11.4_PUBLIC_20250620.zip") as fs:
-        loader = pyghidra.program_loader().project(project)
-        for f in fs.files(lambda f: "os/" in f.path and f.name.startswith("decompile")):
-            loader = loader.source(f.getFSRL()).projectFolderPath("/" + f.parentFile.name)
-            with loader.load() as load_results:
-                load_results.save(pyghidra.monitor())
-
-    # Analyze the windows decompiler program for a maximum of 10 seconds
-    with pyghidra.program_context(project, "/win_x86_64/decompile.exe") as program:
-        analysis_props = pyghidra.analysis_properties(program)
-        with pyghidra.transaction(program):
-            analysis_props.setBoolean("Non-Returning Functions - Discovered", False)
-        analysis_log = pyghidra.analyze(program, pyghidra.monitor(10))
-        program.save("Analyzed", pyghidra.monitor())
-    
-    # Walk the project and set a property in each decompiler program
-    def set_property(domain_file, program):
-        with pyghidra.transaction(program):
-            program_info = pyghidra.program_info(program)
-            program_info.setString("PyGhidra Property", "Set by PyGhidra!")
-        program.save("Setting property", pyghidra.monitor())
-    pyghidra.walk_programs(project, set_property, program_filter=lambda f, p: p.name.startswith("decompile"))
-
-    # Load some bytes as a new program
-    ByteArrayCls = jpype.JArray(jpype.JByte)
-    my_bytes = ByteArrayCls(b"\xaa\xbb\xcc\xdd\xee\xff")
-    loader = pyghidra.program_loader().project(project).source(my_bytes).name("my_bytes")
-    loader = loader.loaders("BinaryLoader").language("DATA:LE:64:default")
-    with loader.load() as load_results:
-        load_results.save(pyghidra.monitor())
-
-    # Run a GhidraScript
-    pyghidra.ghidra_script(f"{os.environ['GHIDRA_SCRIPTS_DIR']}/HelloWorldScript.java", project)
-```
+The default Python scripting engine has been changed in Ghidra 12.0 from Jython to PyGhidra.
+Existing Jython scripts will need to include the `# @runtime Jython` script header in order to
+continue running within the Jython environment.
 
 ## Z3 Concolic Emulation and Symbolic Summary
-We've added an experimental Z3-based symbolic emulator, which runs as an "auxilliary" domain to the 
+We've added an experimental Z3-based symbolic emulator, which runs as an "auxiliary" domain to the 
 concrete emulator, effectively constructing what is commonly called a "concolic" emulator. The 
 symbolic emulator creates Z3 expressions and branching constraints, but it only follows the path 
 determined by concrete emulation. This is most easily accessed by installing the "SymbolicSummaryZ3"
-extension (**File** &rarr; **Install Extensions**) and then enabling the `Z3SummaryPlugin` in the 
+extension (**File** -> **Install Extensions**) and then enabling the `Z3SummaryPlugin` in the 
 Debugger or Emulator tool, which includes a GUI for viewing and sorting through the results. The Z3
 emulator requires z3-4.13.0, available from https://github.com/Z3Prover/z3. Other versions may work,
 but our current test configuration uses 4.13.0. Depending on the release and your platform, the
