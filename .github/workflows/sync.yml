@@ -9,6 +9,10 @@ on:
         type: boolean
         description: "强制同步"
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -49,3 +53,31 @@ jobs:
         git reset --hard upstream/master
 
         git push origin sync --force
+
+    - name: 检查 sync 是否领先 main
+      id: check_ahead
+      run: |
+        # 确保获取到 origin/main 的最新引用
+        git fetch origin main
+        ahead=$(git rev-list --count origin/main..HEAD || echo 0)
+        echo "sync 分支相对于 origin/main 的领先提交数: $ahead"
+        if [ "$ahead" -gt 0 ]; then
+          echo "ahead=true" >> $GITHUB_OUTPUT
+        else
+          echo "ahead=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: 创建合并到 main 的拉取请求
+      if: steps.check_ahead.outputs.ahead == 'true'
+      uses: peter-evans/create-pull-request@v4
+      with:
+        #token: ${{ secrets.GITHUB_TOKEN }}
+        base: main
+        head: sync
+        title: "自动同步: 将 sync 合并到 main (来自上游更新)"
+        body: |
+          此拉取请求由自动同步工作流创建。
+          分支 sync 包含领先 main 的提交（来自 NationalSecurityAgency/ghidra 上游仓库）。
+          请审查并合并。
+        assignees: TC999
+        labels: automated,sync
