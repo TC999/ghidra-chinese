@@ -75,7 +75,7 @@ public class ConfigPdbDialog extends DialogComponentProvider {
 	private boolean configChanged;
 
 	public ConfigPdbDialog() {
-		super("Configure Symbol Server Search", true, false, true, true);
+		super("配置符号服务器搜索", true, false, true, true);
 
 		build();
 
@@ -197,11 +197,11 @@ public class ConfigPdbDialog extends DialogComponentProvider {
 			}
 
 			int opt =
-				OptionDialog.showOptionDialog(rootPanel, "Create Local Symbol Storage Directory?",
-					"<html>Symbol storage directory<br>" +
+				OptionDialog.showOptionDialog(rootPanel, "创建本地符号存储字典？", // Create Local Symbol Storage Directory?
+					"<html>符号存储字典<br>" +
 						HTMLUtilities.escapeHTML(symbolStorageDir.getPath()) +
-						"<br>does not exist.  Create?",
-					"Yes", OptionDialog.QUESTION_MESSAGE);
+						"<br>不存在。创建？",
+					"是", OptionDialog.QUESTION_MESSAGE);
 			if (opt == OptionDialog.CANCEL_OPTION) {
 				return;
 			}
@@ -209,24 +209,24 @@ public class ConfigPdbDialog extends DialogComponentProvider {
 				FileUtilities.checkedMkdirs(symbolStorageDir);
 			}
 			catch (IOException e) {
-				Msg.showError(this, rootPanel, "Failure",
-					"Failed to create symbol storage directory %s: %s".formatted(symbolStorageDir,
+				Msg.showError(this, rootPanel, "失败",
+					"创建符号存储字典失败 %s: %s".formatted(symbolStorageDir,
 						e.getMessage()));
 				return;
 			}
 		}
 
 		if (allowGUIPrompt && isEmptyDirectory(symbolStorageDir)) {
-			if (OptionDialog.showYesNoDialog(rootPanel, "Initialize Symbol Storage Directory?",
-				"<html>Initialize new directory as Microsoft symbol storage directory?<br>" +
-					"(Answer <b>No</b> to leave as unorganized storage directory)") == OptionDialog.YES_OPTION) {
+			if (OptionDialog.showYesNoDialog(rootPanel, "初始化符号存储字典？",
+				"<html>将新目录初始化为 Microsoft 符号存储目录？<br>" +
+					"（回答 <b>否</b> 以保留为无组织的存储目录）") == OptionDialog.YES_OPTION) {
 				try {
 					LocalSymbolStore.create(symbolStorageDir,
 						1 /* level1 MS symbol storage directory */);
 				}
 				catch (IOException e) {
-					Msg.showError(this, rootPanel, "Initialize Failure",
-						"Failed to initialize symbol storage directory " + symbolStorageDir, e);
+					Msg.showError(this, rootPanel, "初始化失败",
+						"初始化符号存储字典 " + symbolStorageDir + " 失败", e);
 				}
 			}
 		}
@@ -298,20 +298,20 @@ public class ConfigPdbDialog extends DialogComponentProvider {
 
 			DockingWindowManager.getHelpService()
 					.registerHelp(this,
-						new HelpLocation(PdbPlugin.PDB_PLUGIN_HELP_TOPIC, "Symbol Server Config"));
+						new HelpLocation(PdbPlugin.PDB_PLUGIN_HELP_TOPIC, "符号服务器配置")); // Symbol Server Config
 		}
 
 		private void build() {
 			setLayout(new BorderLayout());
-			setBorder(BorderFactory.createTitledBorder("Symbol Server Search Config"));
+			setBorder(BorderFactory.createTitledBorder("符号服务器搜索配置")); // Symbol Server Search Config
 
 			buildSymbolStorageLocationPanel();
 			JPanel tableButtonPanel = buildButtonPanel();
 			JScrollPane tableScrollPane = buildTable();
 			defaultConfigNotice = new JPanel();
 			GHtmlLabel label = new GHtmlLabel("<html><center><font color=\"" +
-				Messages.ERROR.toHexString() + "\"><br>Missing / invalid configuration.<br><br>" +
-				"Using default search location:<br>Program's Import Location<br>");
+				Messages.ERROR.toHexString() + "\"><br>丢失 / 无效配置。<br><br>" +
+				"使用默认搜索位置：<br>程序导入位置<br>");
 			label.setHorizontalAlignment(SwingConstants.CENTER);
 			defaultConfigNotice.add(label);
 			defaultConfigNotice.setPreferredSize(tableScrollPane.getPreferredSize());
@@ -340,16 +340,16 @@ public class ConfigPdbDialog extends DialogComponentProvider {
 		}
 
 		void refreshSymbolServerLocationStatus(boolean trustedOnly) {
-			executeMonitoredRunnable("Refresh Symbol Server Location Status", true, true, 0,
+			executeMonitoredRunnable("刷新符号服务器位置状态", true, true, 0, // Refresh Symbol Server Location Status
 				monitor -> {
 					List<SymbolServerRow> rowsCopy = new ArrayList<>(tableModel.getModelData());
-					monitor.initialize(rowsCopy.size(), "Refreshing symbol server status");
+					monitor.initialize(rowsCopy.size(), "刷新中..."); // Refreshing...
 					try {
 						for (SymbolServerRow row : rowsCopy) {
 							if (monitor.isCancelled()) {
 								break;
 							}
-							monitor.setMessage("Checking " + row.getSymbolServer().getName());
+							monitor.setMessage("检查 " + row.getSymbolServer().getName());
 							monitor.incrementProgress();
 
 							SymbolServer symbolServer = row.getSymbolServer();
@@ -381,7 +381,7 @@ public class ConfigPdbDialog extends DialogComponentProvider {
 		private JPanel buildButtonPanel() {
 
 			refreshSearchLocationsStatusButton = createImageButton(Icons.REFRESH_ICON,
-				"Refresh Status", "SymbolServerConfig Refresh Status");
+				"刷新状态", "SymbolServerConfig Refresh Status");
 			refreshSearchLocationsStatusButton.addActionListener(
 				e -> refreshSymbolServerLocationStatus(false /* query all */));
 

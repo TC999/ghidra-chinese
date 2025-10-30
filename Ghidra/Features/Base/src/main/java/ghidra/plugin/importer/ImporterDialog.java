@@ -352,7 +352,7 @@ public class ImporterDialog extends DialogComponentProvider {
 	}
 
 	private Component buildOptionsButton() {
-		optionsButton = new JButton("Options...");
+		optionsButton = new JButton("选项...");
 		optionsButton.addActionListener(e -> showOptions());
 		optionsButton.getAccessibleContext().setAccessibleName("Options");
 		return optionsButton;

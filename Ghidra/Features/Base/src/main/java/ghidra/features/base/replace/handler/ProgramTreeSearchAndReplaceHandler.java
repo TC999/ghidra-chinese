@@ -36,7 +36,7 @@ import ghidra.util.task.TaskMonitor;
 public class ProgramTreeSearchAndReplaceHandler extends SearchAndReplaceHandler {
 
 	public ProgramTreeSearchAndReplaceHandler() {
-		addType(new SearchType(this, "Program Trees",
+		addType(new SearchType(this, "程序树",
 			"Search and replace program tree module and fragment names"));
 	}
 
