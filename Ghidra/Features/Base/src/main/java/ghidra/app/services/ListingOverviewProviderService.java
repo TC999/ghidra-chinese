@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ghidra.program.model.util;
+package ghidra.app.services;
 
-public enum ProcessorSymbolType {
-	CODE, CODE_PTR;
+import ghidra.app.util.viewer.listingpanel.ListingOverviewProvider;
 
-	public static ProcessorSymbolType getType(String string) {
-		if (string == null) {
-			return null;
-		}
-		String lowerCase = string.toLowerCase();
-		if (lowerCase.equals("code")) {
-			return CODE;
-		}
-		if (lowerCase.equals("code_ptr")) {
-			return CODE_PTR;
-		}
-		// NOTE: This should have been prevented by relax grammar spec
-		throw new IllegalArgumentException("unsupported symbol type: " + string);
-	}
+public interface ListingOverviewProviderService {
+
+	/**
+	 * Creates a new overview provider.
+	 * @return the provider
+	 */
+	public ListingOverviewProvider createOverviewProvider();
+
+	/**
+	 * True if this service is the owner of the given provider.
+	 * @param provider the provider to check
+	 * @return true if the owner
+	 */
+	public boolean isOwner(ListingOverviewProvider provider);
 }
