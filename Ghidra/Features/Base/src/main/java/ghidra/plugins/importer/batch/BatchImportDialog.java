@@ -136,7 +136,7 @@ public class BatchImportDialog extends DialogComponentProvider {
 
 		};
 		table = new GTable(tableModel);
-		table.getAccessibleContext().setAccessibleName("Batch Content");
+		table.getAccessibleContext().setAccessibleName("多项内容");
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -179,18 +179,18 @@ public class BatchImportDialog extends DialogComponentProvider {
 		JPanel filesPanel = new JPanel();
 		filesPanel.setLayout(new BorderLayout());
 		filesPanel.add(scrollPane, BorderLayout.CENTER);
-		filesPanel.setBorder(createTitledBorder("Files to Import", true));
+		filesPanel.setBorder(createTitledBorder("导入文件", true));
 
 		JPanel sourceListPanel = new JPanel();
 		sourceListPanel.setLayout(new BorderLayout());
-		sourceListPanel.setBorder(createTitledBorder("Import Sources", false));
-		sourceListPanel.getAccessibleContext().setAccessibleName("Source List");
+		sourceListPanel.setBorder(createTitledBorder("导入源", false));
+		sourceListPanel.getAccessibleContext().setAccessibleName("源列表");
 
 		sourceListModel = new SourcesListModel();
 
 		JList<String> sourceList = new JList<>(sourceListModel);
 		sourceList.setName("batch.import.source.list");
-		sourceList.getAccessibleContext().setAccessibleName("Batch Import Source List");
+		sourceList.getAccessibleContext().setAccessibleName("多项导入源列表");
 		sourceList.addListSelectionListener(e -> {
 			if (!e.getValueIsAdjusting()) {
 				boolean hasSelection = sourceList.getSelectedIndices().length > 0;
@@ -199,19 +199,18 @@ public class BatchImportDialog extends DialogComponentProvider {
 		});
 		JScrollPane sourceListScrollPane = new JScrollPane(sourceList);
 		sourceListPanel.add(sourceListScrollPane, BorderLayout.CENTER);
-		sourceListScrollPane.getAccessibleContext().setAccessibleName("Source List Scroll");
+		sourceListScrollPane.getAccessibleContext().setAccessibleName("源列表滚动");
 
 		JPanel sourceOptionsPanel = new JPanel();
-		sourceOptionsPanel.getAccessibleContext().setAccessibleName("Source Options");
+		sourceOptionsPanel.getAccessibleContext().setAccessibleName("源选项");
 
 		// some padding before the files table
 		sourceOptionsPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 		sourceListPanel.add(sourceOptionsPanel, BorderLayout.SOUTH);
 
 		JPanel maxDepthPanel = new JPanel();
-		JLabel maxDepthLabel = new GDLabel("Depth limit:");
-		String maxDepthTip = "Maximum container (ie. nested zip, tar, etc) depth in the " +
-			"source file to recursively descend into";
+		JLabel maxDepthLabel = new GDLabel("深度限制：");
+		String maxDepthTip = "源文件中递归解析的最大容器深度（例如嵌套的 zip、tar 等）。";
 		maxDepthLabel.setToolTipText(maxDepthTip);
 		maxDepthPanel.add(maxDepthLabel);
 
@@ -219,9 +218,9 @@ public class BatchImportDialog extends DialogComponentProvider {
 			new SpinnerNumberModel(batchInfo.getMaxDepth(), 0, 99, 1);
 		maxDepthSpinner = new JSpinner(spinnerNumberModel);
 		maxDepthSpinner.setToolTipText(maxDepthTip);
-		rescanButton = new JButton("Rescan");
+		rescanButton = new JButton("重新");
 		rescanButton.setToolTipText(
-			"Clear Files to Import list and rescan Import Sources for applications to import");
+			"清空文件导入列表并重新扫描导入源以导入应用程序。");
 
 		spinnerNumberModel.addChangeListener(e -> {
 			rescanButton.setEnabled(
@@ -241,13 +240,13 @@ public class BatchImportDialog extends DialogComponentProvider {
 
 		JPanel sourceListButtonsPanel = new JPanel();
 		sourceListButtonsPanel.setLayout(new BorderLayout());
-		sourceListButtonsPanel.getAccessibleContext().setAccessibleName("Source List Buttons");
+		sourceListButtonsPanel.getAccessibleContext().setAccessibleName("源列表按钮");
 
-		JButton addSourceButton = new JButton("Add");
-		addSourceButton.getAccessibleContext().setAccessibleName("Add Source");
-		this.removeSourceButton = new JButton("Remove");
+		JButton addSourceButton = new JButton("添加");
+		addSourceButton.getAccessibleContext().setAccessibleName("添加源");
+		this.removeSourceButton = new JButton("移除");
 		removeSourceButton.setEnabled(false);
-		removeSourceButton.getAccessibleContext().setAccessibleName("Remove");
+		removeSourceButton.getAccessibleContext().setAccessibleName("移除");
 
 		addSourceButton.addActionListener(e -> {
 			addSources();
@@ -295,13 +294,13 @@ public class BatchImportDialog extends DialogComponentProvider {
 		});
 
 		JPanel outputOptionsPanel = buildOutputOptionsPanel();
-		outputOptionsPanel.getAccessibleContext().setAccessibleName("Output Options");
+		outputOptionsPanel.getAccessibleContext().setAccessibleName("输出选项");
 
 		Box box = Box.createVerticalBox();
 		box.add(sourceListPanel);
 		box.add(filesPanel);
 		box.add(outputOptionsPanel);
-		box.getAccessibleContext().setAccessibleName("Batch Import");
+		box.getAccessibleContext().setAccessibleName("多项导入");
 
 		addOKButton();
 		addCancelButton();
@@ -319,19 +318,19 @@ public class BatchImportDialog extends DialogComponentProvider {
 
 		JPanel outputChoicesPanel = new JPanel();
 		outputChoicesPanel.setLayout(new BoxLayout(outputChoicesPanel, BoxLayout.LINE_AXIS));
-		outputChoicesPanel.getAccessibleContext().setAccessibleName("Output Choices");
+		outputChoicesPanel.getAccessibleContext().setAccessibleName("输出选项");
 
-		stripLeadingCb = new GCheckBox("Strip leading path", stripLeading);
+
+    stripLeadingCb = new GCheckBox("去除前导路径", stripLeading);
 		stripLeadingCb.addChangeListener(e -> setStripLeading(stripLeadingCb.isSelected()));
-		stripLeadingCb.setToolTipText("The destination folder for imported files will not " +
-			"include the source file's leading path");
-		stripLeadingCb.getAccessibleContext().setAccessibleName("Strip Leading Path");
+		stripLeadingCb.setToolTipText("导入文件的目标文件夹将不包含源文件的前导路径。");
+		stripLeadingCb.getAccessibleContext().setAccessibleName("去除前导路径");
 
-		stripContainerCb = new GCheckBox("Strip container paths", stripContainer);
+		stripContainerCb = new GCheckBox("去除容器路径", stripContainer);
 		stripContainerCb.addChangeListener(e -> setStripContainer(stripContainerCb.isSelected()));
 		stripContainerCb.setToolTipText(
-			"The destination folder for imported files will not include any source path names");
-		stripContainerCb.getAccessibleContext().setAccessibleName("Strip Container Paths");
+			"导入文件的目标文件夹将不会包含任何源路径名称。");
+		stripContainerCb.getAccessibleContext().setAccessibleName("去除容器路径");
 
 		mirrorFsCb = new GCheckBox("Mirror Filesystem", mirrorFs);
 		mirrorFsCb.addChangeListener(e -> setMirrorFs(mirrorFsCb.isSelected()));
@@ -340,11 +339,12 @@ public class BatchImportDialog extends DialogComponentProvider {
 		mirrorFsCb.getAccessibleContext().setAccessibleName("Mirror Filesystem");
 		setMirrorFs(mirrorFs); // needed to possibly disable other checkboxes
 
-		GCheckBox openAfterImportCb = new GCheckBox("Open after import", openAfterImporting);
+		GCheckBox openAfterImportCb = new GCheckBox("导入后打开", openAfterImporting);
+
 		openAfterImportCb
 				.addChangeListener(e -> setOpenAfterImporting(openAfterImportCb.isSelected()));
-		openAfterImportCb.setToolTipText("Open imported binaries in Code Browser");
-		openAfterImportCb.getAccessibleContext().setAccessibleName("Open After Import");
+		openAfterImportCb.setToolTipText("在代码浏览器中打开导入的二进制文件");
+		openAfterImportCb.getAccessibleContext().setAccessibleName("导入后打开");
 
 		outputChoicesPanel.add(stripLeadingCb);
 		outputChoicesPanel.add(stripContainerCb);
@@ -365,10 +365,10 @@ public class BatchImportDialog extends DialogComponentProvider {
 			};
 
 		JPanel outputOptionsPanel = new JPanel(new BorderLayout());
-		outputOptionsPanel.setBorder(createTitledBorder("Import Options", true));
+		outputOptionsPanel.setBorder(createTitledBorder("导入选项", true));
 		outputOptionsPanel.add(outputChoicesPanel, BorderLayout.NORTH);
 		outputOptionsPanel.add(destPanel, BorderLayout.SOUTH);
-		outputOptionsPanel.getAccessibleContext().setAccessibleName("Output Options");
+		outputOptionsPanel.getAccessibleContext().setAccessibleName("输出选项");
 		return outputOptionsPanel;
 	}
 
@@ -426,8 +426,8 @@ public class BatchImportDialog extends DialogComponentProvider {
 
 		GhidraFileChooser chooser = new GhidraFileChooser(getComponent());
 		chooser.setMultiSelectionEnabled(true);
-		chooser.setTitle("Choose File to Batch Import");
-		chooser.setApproveButtonText("Select files");
+		chooser.setTitle("选择文件批量导入");
+		chooser.setApproveButtonText("选择文件");
 		chooser.setFileSelectionMode(GhidraFileChooserMode.FILES_AND_DIRECTORIES);
 		chooser.addFileFilter(ImporterUtilities.LOADABLE_FILES_FILTER);
 		chooser.addFileFilter(ImporterUtilities.CONTAINER_FILES_FILTER);
@@ -464,8 +464,8 @@ public class BatchImportDialog extends DialogComponentProvider {
 				sb.append(fsrl.getPath());
 			}
 
-			Msg.showWarn(this, getComponent(), "Skipping " + badFiles.size() + " file(s)",
-				"Program encountered while adding files to batch: " + sb.toString());
+			Msg.showWarn(this, getComponent(), "跳过 " + badFiles.size() + " 文件",
+				"将文件添加到批处理中时遇到程序：" + sb.toString());
 
 		}
 
@@ -498,7 +498,7 @@ public class BatchImportDialog extends DialogComponentProvider {
 				comboBox.removeAllItems();
 
 				BatchGroup rowVal = tableModel.getRowObject(row);
-				comboBox.addItem("" + rowVal.size() + " files...");
+				comboBox.addItem("" + rowVal.size() + " 文件...");
 
 				for (BatchLoadConfig batchLoadConfig : rowVal.getBatchLoadConfig()) {
 					comboBox.addItem(batchLoadConfig.getPreferredFileName());
@@ -517,7 +517,7 @@ public class BatchImportDialog extends DialogComponentProvider {
 			public Component getTableCellRendererComponent(GTableCellRenderingData data) {
 
 				JLabel renderer = (JLabel) super.getTableCellRendererComponent(data);
-				renderer.setToolTipText("Click to view the files");
+				renderer.setToolTipText("点击查看文件");
 				return renderer;
 			}
 
@@ -525,7 +525,7 @@ public class BatchImportDialog extends DialogComponentProvider {
 			protected String getText(Object value) {
 				BatchGroup batchGroup = (BatchGroup) value;
 				if (batchGroup != null) {
-					return batchGroup.size() + " files...";
+					return batchGroup.size() + " 文件...";
 				}
 				return "";
 			}
@@ -567,7 +567,7 @@ public class BatchImportDialog extends DialogComponentProvider {
 			@Override
 			public Component getTableCellRendererComponent(GTableCellRenderingData data) {
 				JLabel renderer = (JLabel) super.getTableCellRendererComponent(data);
-				renderer.setToolTipText("Click to set language");
+				renderer.setToolTipText("点击设置语言");
 				return renderer;
 			}
 
