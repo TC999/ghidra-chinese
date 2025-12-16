@@ -1,0 +1,83 @@
+name: 同步源码
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天运行一次
+  workflow_dispatch:  # 允许手动触发工作流
+    inputs:
+      force_pull:
+        type: boolean
+        description: "强制同步"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      LANG: zh_CN.UTF-8
+
+    steps:
+    - name: 检出
+      uses: actions/checkout@v2
+      with:
+        ref: sync
+        #repository: owner/target-repo
+        #token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: 终端汉化
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y --fix-missing language-pack-zh-hans
+
+    - name: 设置提交者信息
+      run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "actions-bot"
+
+    - name: 拉取原版仓库并推送
+      continue-on-error: true
+      run: |
+        git remote add external https://github.com/NationalSecurityAgency/ghidra.git
+        git fetch external
+        git merge external/master --allow-unrelated-histories
+        git push origin sync
+
+    - name: 强制同步
+      if: ${{ inputs.force_pull }} || failure()
+      run: |
+        git remote add upstream https://github.com/NationalSecurityAgency/ghidra.git
+        git fetch upstream
+        git reset --hard upstream/master
+
+        git push origin sync --force
+
+    - name: 检查 sync 是否领先主分支
+      id: check_ahead
+      run: |
+        # 确保获取到 origin/chinese 的最新引用
+        git fetch origin chinese
+        ahead=$(git rev-list --count origin/chinese..HEAD || echo 0)
+        echo "sync 分支相对于 origin/chinese 的领先提交数: $ahead"
+        if [ "$ahead" -gt 0 ]; then
+          echo "ahead=true" >> $GITHUB_OUTPUT
+        else
+          echo "ahead=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: 创建合并到主分支的拉取请求
+      if: steps.check_ahead.outputs.ahead == 'true'
+      uses: peter-evans/create-pull-request@v4
+      with:
+        #token: ${{ secrets.GITHUB_TOKEN }}
+        base: chinese
+        head: sync
+        title: "自动同步: 将 sync 合并到 chinese (来自上游更新)"
+        body: |
+          此拉取请求由自动同步工作流创建。
+          分支 sync 包含领先 chinese 的提交（来自 NationalSecurityAgency/ghidra 上游仓库）。
+          请审查并合并。
+        assignees: TC999
+        labels: automated,sync

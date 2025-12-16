@@ -1,109 +1,110 @@
-Ghidra provides context sensitive help on menu items, dialogs, buttons, and tool windows.  To access the help, press F1 or Help on any menu item or dialog.  If specific help is not available for an item, this page will be displayed.
-In sortable tables you can sort on multiple columns by clicking on a column and then Control-clicking additional columns.
-You can add and remove table columns as desired by right-clicking on a table header.
-You can change the look and feel of your tools by using the "Edit->Options" command.
-You can UNDO and REDO using the curved arrows on the menu bar.
-You can have more than one program open in the same tool. Click on the tabs to switch between them.
+Ghidra 为菜单项、对话框、按钮和工具窗口提供上下文敏感帮助。要访问帮助，请在任何菜单项或对话框上按 F1 或 Help。如果某项没有特定帮助，将显示此页面。
 
-You can bring a new program into Ghidra by selecting File->Import File from either the front end manager or any tool.
-You can import programs by dragging them onto the Ghidra Front End Manager.
+在可排序的表格中，点击某一列后再按住 Ctrl 点击其他列，可以按多列排序。
+您可以通过右键点击表头，自由添加或移除表格列。
+您可以通过使用“编辑->选项”命令更改工具的外观和风格。
+您可以使用菜单栏上的弯箭头来撤消（UNDO）和重做（REDO）操作。
+您可以在同一个工具中打开多个程序，点击标签页可以在它们之间切换。
 
-You can assign keybindings to actions, highlight an action and click the F4 key.
+您可以通过在前端管理器或任意工具中选择“文件->导入文件”将新程序导入 Ghidra。
+您也可以将程序拖到 Ghidra 前端管理器上进行导入。
 
-The Program Tree is an organizational view of the program that is initialized with the same organization as the memory map. Changes to the Program Tree only change your view of the program, not the Memory Map.
+您可以为操作分配快捷键，选中一个操作后按 F4 键即可。
 
-The Program Tree allows a program to be organized into a hierarchy of folders and fragments. You can have multiple Program Trees.
-You can add memory overlays to your program using the Memory Map dialog.
-Did you know that you can create and edit structures from the Decompiler?
-Did you know that you can apply the local variables, parameters, and return values that the Decompiler figures out? Just right click on them and choose Apply Locals or Apply Params/Return to get them all for a particular function. You can also run the Decompiler Parameter ID analysis option to apply the Decompiler parameters when the program is initially being analyzed or choose Analysis-One Shot->Decompiler Parameter ID to do it after analysis.
-Did you know that you can run various analyzers separately and after the initial analysis run? See Analysis->One Shot for a list of them. 
+程序树（Program Tree）是程序的组织视图，其初始化结构与内存映射一致。对程序树的更改只会影响您对程序的查看方式，不会更改内存映射。
 
-Did you know that you can right-click on the marker margin to learn the meaning of each color.
+程序树允许将程序组织为文件夹和片段的层次结构。您可以拥有多个程序树。
+您可以通过内存映射（Memory Map）对话框为程序添加内存覆盖（Memory Overlay）。
+您知道可以在反编译器（Decompiler）中创建和编辑结构体吗？
+您知道可以应用反编译器推断的局部变量、参数和返回值吗？只需右键点击它们，选择“应用局部变量”或“应用参数/返回值”即可为特定函数全部应用。您还可以在程序首次分析时运行“反编译器参数标识”分析选项，或在分析后选择“分析->一次性分析->反编译器参数标识”来应用反编译器参数。
+您知道您可以单独运行不同的分析器，并且可以在初始分析后再次运行吗？详见“分析->一次性分析”。
 
-The largest diamond that was ever found was 3106.75 carats.
+您知道您可以右键点击标记边距来了解每种颜色的含义吗？
 
-You can edit program bytes using the byte viewer provided those bytes are not disassembled.
+有史以来发现的最大钻石重 3106.75 克拉。
 
-You can add URLs to your comments to link to other documents. Hit F1 while making a comment to learn how.
-You can embed links to other program locations in your comments.
+只要字节尚未反汇编，您可以用字节查看器编辑程序字节。
 
-A cubic yard of air weighs about 2 pounds.
+您可以在注释中添加 URL，以链接到其他文档。注释时按 F1 键可了解如何操作。
+您可以在注释中嵌入指向程序其它位置的链接。
 
-You can create structures, unions, and enums using the Ghidra data type manager.
-Use enums (not equates) to get constant names to appear in the decompiler. Enums are also listed in the Equates menu if you want to make one an equate in the Listing.   
-To edit a row in the datatype (eg structure) editor, double-click on the "DataType" column.
-Ghidra can extract datatype and function signatures from C header files using the CParser.
-You can drag datatypes from the datatype manager and drop them into the browser to apply at address.
-You can apply multiple copies of a data type by making a selection and then dragging that data type from the Data Type Manager onto the selection.
+一立方码空气约重 2 磅。
 
-You can find view information about your current program by selecting "Help->About {program name}...".
-You can edit program information and analysis options by selecting "Edit->Options for {program name}".
-You can compare any two Ghidra programs (or Ghidra versions of a program) using the "Open Diff View" action from the Listing's toolbar.
-Did you know that Ghidra does version tracking? It includes data version tracking as well as function version tracking. It also has numerous algorithms for finding matches. Use the "Footprint" tool to get started. 
+您可以通过 Ghidra 数据类型管理器创建结构体、联合体和枚举类型。
+要让常量名在反编译器中出现，请使用枚举（而非等值（equate））。枚举也会在等值菜单中列出，如果您想在列表中把它作为等值。
+要编辑数据类型（如结构体）编辑器中的某一行，双击“DataType”列。
+Ghidra 可使用 CParser 从 C 头文件中提取数据类型和函数签名。
+您可以将数据类型从数据类型管理器拖放到浏览器指定地址处进行应用。
+您可以选择一段区域，然后将某个数据类型从数据类型管理器拖到选区上，一次应用多个副本。
 
-Did you know that you don't have to remember a whole label to navigate to it? Simply type 'g' to bring up the Goto dialog and type in a partial label then a '*'. If there are more than one matches it will bring up a navigable list of matches.
-New processor languages can be added to Ghidra using the Sleigh language syntax and compiler.
-You can bring up an online processor manual (for most processors) by right mousing on an instruction and choosing Processor Manual.
-You can have snapshot (disconnected) views of the Listing, Byte Viewer, and Decompiler.  Click the camera icon to create a snapshot.
+您可以通过选择“帮助->关于{程序名}...”查看当前程序的信息。
+您可以通过选择“编辑->{程序名}选项”编辑程序信息和分析选项。
+您可以通过列表工具栏的“打开差异视图”操作比较任意两个 Ghidra 程序（或同一程序的不同版本）。
+您知道 Ghidra 支持版本跟踪吗？它包括数据版本跟踪和函数版本跟踪，还有多种算法用于查找匹配项。使用“Footprint”工具即可开始。
 
-Windows within a Ghidra tool can be moved, stacked, resized, and undocked to suit your layout preferences.
+您知道导航标签时不必记住整个标签名吗？只需按“g”调出转到对话框，输入部分标签并加上“*”。如果有多个匹配项，会弹出可导航的匹配项列表。
+您可以用 Sleigh 语言语法和编译器为 Ghidra 添加新的处理器语言。
+您可以通过右键点击指令并选择“处理器手册”来打开在线处理器手册（大多数处理器支持）。
+您可以为列表、字节查看器、反编译器创建快照（断开连接的视图），点击相机图标即可创建快照。
 
-Did you know there is a Call Tree Window that shows calls to and from a given function? Click on the green arrow in the icon bar or choose References->Show Call Trees.
-A jiffy is an actual unit of time for 1/100th of a second. Thus the saying, I will be there in a jiffy.
-Did you know that all searches and selections work on the current selection? 
-Did you know that you can restore your last Selection if you accidentally clear it by choosing Select->Restore Selection?
-Did you know you can make a table from a selection? See Select->Create Table from Selection.
-Did you know that you can make a selection from a table? Simply highlight one or more rows in the table and right mouse choose Make Selection. 
-Ghidra provides many customizable tool options, see Edit->Tool Options. 
+Ghidra 工具窗口可按照您的布局偏好进行移动、堆叠、调整大小和取消停靠。
 
-You can add symbol information to your comments that automatically update when your symbols change. Hit F1 while making a comment to learn how.
+您知道有调用树窗口可以显示某个函数的调用关系吗？点击图标栏上的绿色箭头，或选择“引用->显示调用树”。
+Jiffy 是实际时间单位，等于 1/100 秒，因此有 “一眨眼工夫” 的说法。
+您知道所有搜索和选择操作都基于当前选择吗？
+您知道如果不小心清除了选择，可以通过“选择->还原选择”恢复上次选择吗？
+您知道可以从选择区创建表格吗？详见“选择->从选择区创建表格”。
+您知道可以通过高亮表格中的一行或多行后右键选择“创建选择区”从表格生成选择区吗？
+Ghidra 提供了众多可定制的工具选项，详见“编辑->工具选项”。
 
-Bamboo plants can grow up to 36 inches in a day.
+您可以在注释中添加符号信息，符号变更时注释会自动更新。注释时按 F1 键可了解如何操作。
 
-To change direction of the "Next/Previous Code Unit" buttons, use the UP or DOWN arrow in the toolbar.
-You can use the Byte Viewer to display bytes not just in hex, but also octal, decimal, ascii, etc.
-You can use the Byte Viewer to edit bytes. If you want to edit in hex use the hex view. If you want to edit in ascii, use the ascii view, etc...
-You can have more than one label at the same location.
+竹子一天可以生长 36 英寸。
 
-In 1890, there was no sunshine for the whole month of December in Westminster, London.
+要更改“下一个/上一个代码单元”按钮的方向，请用工具栏上的上/下箭头。
+您可以用字节查看器显示字节内容，不仅限于十六进制，还可用八进制、十进制、ASCII 等格式。
+您可以用字节查看器编辑字节。如果想用十六进制编辑，请用 hex 视图；想用 ASCII 编辑，请用 ascii 视图等等。
+同一位置可以有多个标签。
 
-You can change the representation of scalars (hex, char, decimal, octal, etc) by using the right mouse Convert command.
-You can clean up those pesky runs of cc's, ff's, 90's, and/or 00's by placing the cursor on the byte value you wish to condense and running the CondenseAllRepeatingBytes script.
+1890 年 12 月，伦敦威斯敏斯特整个月都没有阳光。
 
-In 1992, the Antarctic Ozone hole was larger than the continent of North America.
-Did you know you can see where a register is initialized in its current scope by clicking on it with the middle mouse button? All instances of the register in the current scope will highlight in bright yellow. The mustard yellow one is where it is initialized in the current scope. 
-You can perform a program memory search using a regular expression (regex).
-If a Windows executable contains Icons or Bitmap Resources, they are displayed in the CodeBrowser. Do a Search->Program Text on Labels for "Rsrc_Icon*" and "Rsrc_Bitmap*" to find them.
+您可以通过右键转换命令改变标量的显示格式（十六进制、字符、十进制、八进制等）。
+您可以通过将光标放在想要合并的字节值上，然后运行 CondenseAllRepeatingBytes 脚本，清理那些恼人的连续 cc、ff、90 或 00 字节。
 
-The average temperature on Earth is 15 degrees Celsius.
+1992 年，南极臭氧洞面积比北美洲大陆还大。
+您知道可以通过中键点击寄存器，查看其在当前作用域的初始化位置吗？当前作用域所有寄存器实例都会高亮，亮黄色为初始化位置。
+您可以用正则表达式（regex）进行程序内存搜索。
+如果 Windows 可执行文件包含图标或位图资源，会在代码浏览器中显示。可在标签上进行“搜索->程序文本”，查找“Rsrc_Icon*”和“Rsrc_Bitmap*”。
 
-If you hover on a reference in the XREF or operand fields, a popup with the reference code or data will appear.
-If you hover on a data type in the CodeBrowser or Data Type Manager, a popup with the data type definition will appear.
-You can add your own references just about anywhere and you can have more than one of them on an item. See the right mouse References options.
+地球的平均温度为 15 摄氏度。
 
-You can write Ghidra scripts using Java or Python.
-You can open Ghidra scripts in Eclipse from the Script Manager. Install the GhidraDev plugin for Eclipse to get started!
+如果您将鼠标悬停在 XREF 或操作数字段上的引用，会弹出显示引用的代码或数据。
+如果您将鼠标悬停在代码浏览器或数据类型管理器的数据类型上，会弹出显示数据类型定义。
+您几乎可以在任何地方添加自己的引用，每个项目还可以有多个引用。详见右键菜单中的引用选项。
 
-Double-clicking on addresses and labels in the console will navigate to them.
-Double-clicking on the "function" area of the tool status bar will navigate to the function signature.
-Selection by flow can be configured to follow computed and conditional calls and jumps.
+您可以用 Java 或 Python 编写 Ghidra 脚本。
+您可以在脚本管理器中用 Eclipse 打开 Ghidra 脚本。安装 GhidraDev 插件即可开始！
 
-You can reconfigure the browser display by adding / removing / moving / resizing fields. (Be sure to save your tool!)
+双击控制台内的地址或标签可直接跳转。
+双击工具状态栏的“function”区域可跳转到函数签名。
+按流程选择可配置为跟踪计算和条件分支跳转。
 
-Did you know that you can run Ghidra from the command line without invoking the user interface?  (See analyzeHeadlessREADME.html in the {Install Dir}/support folder.
+您可以通过添加/移除/移动/调整字段来重新配置浏览器显示（记得保存您的工具！）。
 
-You can use the following keys with an open menu or popup menu to quickly move through the menu: Page Up/Down, Home, End, and number keys 1-9.
+您知道可以在不启动界面的情况下命令行运行 Ghidra 吗？详见 {安装目录}/support 文件夹下的 analyzeHeadlessREADME.html。
 
-Did you know Ghidra supports a Dark Mode? You can change the theme via Edit->Theme->Switch...
+用 Page Up/Down、Home、End 和数字键 1-9，可在打开的菜单或弹出菜单中快速移动。
 
-Ghidra allows full customization of all colors, fonts and icons via Edit->Theme->Configure.
+您知道 Ghidra 支持暗黑模式吗？可通过“编辑->主题->切换...”更换主题。
 
-You can quickly change the font size of the Listing, Decompiler or the Bytes windows by pressing Ctrl-+ or Ctrl-- while inside of those windows.
+Ghidra 允许通过“编辑->主题->配置”对所有颜色、字体和图标进行完全自定义。
 
-You can quickly control the font size from the Theme Editor dialog's toolbar via Edit->Theme->Configure.
+您可以在列表、反编译器或字节窗口内按 Ctrl-+ 或 Ctrl-- 快速调整字体大小。
 
-You can create a table whose rows correspond to the address ranges in a selection via Select->Create Table From Ranges.
+您也可以通过“编辑->主题->配置”主题编辑器对话框工具栏快速控制字体大小。
 
-The tab and title of any Search Results window can be renamed by right-clicking and choosing 'Rename'.
+您可以通过“选择->从区间创建表格”创建一个以选择区地址范围为行的表格。
 
-This is the last tip.  You can turn them off now.
+任意搜索结果窗口的标签和标题都可通过右键选择“重命名”进行重命名。
+
+这是最后一个提示。您现在可以关闭它们了。

@@ -32,9 +32,9 @@ import ghidra.util.HelpLocation;
 	status = PluginStatus.RELEASED,
 	packageName = UtilityPluginPackage.NAME,
 	category = PluginCategoryNames.FRAMEWORK,
-	shortDescription = "Manages themes for the Ghidra GUI",
-	description = "Adds actions and options to manage Themes within Ghidra. " +
-			"This plugin is available only in the Ghidra Project Window."
+	shortDescription = "管理 Ghidra GUI 主题",
+	description = "添加用于管理 Ghidra 中主题的操作和选项。" +
+			"此插件仅在 Ghidra 项目窗口中可用。"
 )
 //@formatter:on
 public class ThemeManagerPlugin extends Plugin implements ApplicationLevelOnlyPlugin {
@@ -51,37 +51,37 @@ public class ThemeManagerPlugin extends Plugin implements ApplicationLevelOnlyPl
 		String owner = getName();
 		String group = "theme";
 
-		new ActionBuilder("Switch Theme", owner).menuPath("Edit", "Theme", "Switch...")
+		new ActionBuilder("切换主题", owner).menuPath("编辑", "主题", "切换...")
 				.menuGroup(group, "1")
 				.helpLocation(new HelpLocation("Theming", "Switch_Theme"))
 				.onAction(e -> switchTheme())
 				.buildAndInstall(tool);
 
-		new ActionBuilder("Configure", owner).menuPath("Edit", "Theme", "Configure")
+		new ActionBuilder("配置", owner).menuPath("编辑", "主题", "配置")
 				.menuGroup(group, "2")
 				.helpLocation(new HelpLocation("Theming", "Edit_Theme"))
 				.onAction(e -> configure())
 				.buildAndInstall(tool);
 
-		new ActionBuilder("New Theme", owner).menuPath("Edit", "Theme", "New...")
+		new ActionBuilder("新建主题", owner).menuPath("编辑", "主题", "新建...")
 				.menuGroup(group, "3")
 				.helpLocation(new HelpLocation("Theming", "New_Theme"))
 				.onAction(e -> createNewTheme())
 				.buildAndInstall(tool);
 
-		new ActionBuilder("Import Theme", owner).menuPath("Edit", "Theme", "Import...")
+		new ActionBuilder("导入主题", owner).menuPath("编辑", "主题", "导入...")
 				.menuGroup(group, "4")
 				.helpLocation(new HelpLocation("Theming", "Import_Theme"))
 				.onAction(e -> ThemeUtils.importTheme(themeManager))
 				.buildAndInstall(tool);
 
-		new ActionBuilder("Export Theme", owner).menuPath("Edit", "Theme", "Export...")
+		new ActionBuilder("导出主题", owner).menuPath("编辑", "主题", "导出...")
 				.menuGroup(group, "5")
 				.helpLocation(new HelpLocation("Theming", "Export_Theme"))
 				.onAction(e -> ThemeUtils.exportTheme(themeManager))
 				.buildAndInstall(tool);
 
-		new ActionBuilder("Delete Theme", owner).menuPath("Edit", "Theme", "Delete...")
+		new ActionBuilder("删除主题", owner).menuPath("编辑", "主题", "删除...")
 				.menuGroup(group, "6")
 				.helpLocation(new HelpLocation("Theming", "Delete_Theme"))
 				.onAction(e -> ThemeUtils.deleteTheme(themeManager))
@@ -100,7 +100,7 @@ public class ThemeManagerPlugin extends Plugin implements ApplicationLevelOnlyPl
 		}
 
 		CreateThemeDialog dialog = new CreateThemeDialog(themeManager);
-		GTheme newTheme = dialog.getNewTheme(tool, "New Theme");
+		GTheme newTheme = dialog.getNewTheme(tool, "新主题");
 		if (newTheme != null) {
 			themeManager.addTheme(newTheme);
 			themeManager.setTheme(newTheme);
