@@ -762,8 +762,10 @@ public class EncodedStringsDialog extends DialogComponentProvider {
 		}
 	}
 
-	private void createStringsHelper(TaskMonitor monitor) {
+	private void createStringsHelper(Runnable followupAction, TaskMonitor monitor) {
 		int count = 0;
+		List<ProgramLocation> newStrings = new ArrayList<>();
+
 		setStatusText("Creating strings...");
 		int txId = program.startTransaction("Create Strings");
 		boolean success = false;
@@ -780,7 +782,6 @@ public class EncodedStringsDialog extends DialogComponentProvider {
 			monitor.initialize(stringsToCreate.size());
 			monitor.setMessage("Creating strings...");
 			Settings settings = currentOptions.settings();
-			List<ProgramLocation> newStrings = new ArrayList<>();
 			for (EncodedStringsRow row : stringsToCreate) {
 				if (monitor.isCancelled()) {
 					break;
@@ -811,26 +812,28 @@ public class EncodedStringsDialog extends DialogComponentProvider {
 				// See table listener for the other end of this
 				rowToSelect.set(selectedRowNums[0]);
 			}
-			StringTranslationService sts = getSelectedStringTranslationService(true);
-			if (sts != null) {
-				Swing.runLater(
-					() -> sts.translate(program, newStrings, new TranslateOptions(true)));
-			}
 			success = true;
 		}
 		finally {
 			program.endTransaction(txId, success);
 		}
+
+		StringTranslationService sts = getSelectedStringTranslationService(true);
+
+		if (followupAction != null) {
+			followupAction.run();
+		}
+		if (success && sts != null && !newStrings.isEmpty()) {
+			sts.translate(program, newStrings, new TranslateOptions(true));
+		}
 	}
 
 	private void createStrings(TaskMonitor monitor) {
-		createStringsHelper(monitor);
-		Swing.runLater(() -> setActionItemEnablement(true));
+		createStringsHelper(() -> setActionItemEnablement(true), monitor);
 	}
 
 	private void createStringsAndClose(TaskMonitor monitor) {
-		createStringsHelper(monitor);
-		Swing.runLater(this::close);
+		createStringsHelper(this::close, monitor);
 	}
 
 	private void setCreateButtonInfo(int rowCount, int selectedRowCount) {
@@ -1103,9 +1106,11 @@ public class EncodedStringsDialog extends DialogComponentProvider {
 	}
 
 	private static String makeTitleString(AddressSetView addrs) {
-		return "Search For Encoded Strings - %s (%s - %s)".formatted(
-			formatLength(addrs.getNumAddresses(), "addresses"), addrs.getMinAddress(),
-			addrs.getMaxAddress());
+		String addrRangeStr = !addrs.isEmpty()
+				? "(%s - %s)".formatted(addrs.getMinAddress(), addrs.getMaxAddress())
+				: "";
+		return "Search For Encoded Strings - %s %s"
+				.formatted(formatLength(addrs.getNumAddresses(), "addresses"), addrRangeStr);
 	}
 
 	private static boolean charsetExists(String charsetName) {
