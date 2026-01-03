@@ -35,9 +35,9 @@ import ghidra.util.exception.InvalidInputException;
 public class SpecifyCPrototypeAction extends AbstractDecompilerAction {
 
 	public SpecifyCPrototypeAction() {
-		super("Edit Function Signature");
+		super("编辑函数签名");
 		setHelpLocation(new HelpLocation(HelpTopics.DECOMPILER, "ActionEditSignature"));
-		setPopupMenuData(new MenuData(new String[] { "Edit Function Signature" }, "Decompile"));
+		setPopupMenuData(new MenuData(new String[] { "编辑函数签名" }, "Decompile"));
 	}
 
 	/**
