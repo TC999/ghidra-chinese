@@ -66,7 +66,7 @@ public class SetFunctionNameCmd implements Command<Program> {
 
 	@Override
 	public String getName() {
-		return "Rename Function";
+		return "重命名函数";
 	}
 
 	@Override

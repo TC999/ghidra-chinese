@@ -2154,7 +2154,7 @@ public class DecompilerClangTest extends AbstractDecompilerTest {
 	}
 
 	private void renameFunction(String newName) {
-		DockingActionIf action = getAction(decompiler, "Rename Function");
+		DockingActionIf action = getAction(decompiler, "重命名函数");
 		performAction(action, provider.getActionContext(null), false);
 
 		AddEditDialog dialog = waitForDialogComponent(AddEditDialog.class);

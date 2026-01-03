@@ -1029,7 +1029,7 @@ public class Function1Test extends AbstractGhidraHeadedIntegrationTest {
 		assertTrue(cb.goToField(addr("0x1006420"), "Function Signature", 0, 0));
 		assertEquals("undefined entry()", cb.getCurrentFieldText());
 
-		DockingActionIf rename = getAction(fp, "Rename Function");
+		DockingActionIf rename = getAction(fp, "重命名函数");
 		assertEquals("Rename Function...", rename.getPopupMenuData().getMenuPath()[1]);
 		performAction(rename, cb.getProvider(), false);
 		waitForBusyTool();
@@ -1230,7 +1230,7 @@ public class Function1Test extends AbstractGhidraHeadedIntegrationTest {
 
 		assertTrue(cb.goToField(addr("0x1002318"), OperandFieldFactory.FIELD_NAME, 0, 10));
 		assertEquals("FUN_010059a3", cb.getCurrentFieldText());
-		DockingActionIf rename = getAction(fp, "Rename Function");
+		DockingActionIf rename = getAction(fp, "重命名函数");
 		assertTrue(rename.isEnabledForContext(cb.getProvider().getActionContext(null)));
 
 		performAction(rename, cb.getProvider(), false);

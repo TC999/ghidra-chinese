@@ -34,10 +34,10 @@ import ghidra.util.UndefinedFunction;
 public class RenameFunctionAction extends AbstractDecompilerAction {
 
 	public RenameFunctionAction() {
-		super("Rename Function");
+		super("重命名函数");
 		setHelpLocation(new HelpLocation(HelpTopics.DECOMPILER, "ActionRenameFunction"));
 		setKeyBindingData(new KeyBindingData(KeyEvent.VK_L, 0));
-		setPopupMenuData(new MenuData(new String[] { "Rename Function" }, "Decompile"));
+		setPopupMenuData(new MenuData(new String[] { "重命名函数" }, "Decompile"));
 	}
 
 	@Override
