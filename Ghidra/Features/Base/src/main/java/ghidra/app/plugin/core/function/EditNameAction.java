@@ -39,7 +39,7 @@ class EditNameAction extends ListingContextAction {
 	private boolean isFunction;
 
 	EditNameAction(boolean isFunction, FunctionPlugin plugin) {
-		super(isFunction ? "Rename Function" : "Rename Variable", plugin.getName());
+		super(isFunction ? "重命名函数" : "Rename Variable", plugin.getName());
 		this.functionPlugin = plugin;
 		this.isFunction = isFunction;
 		setKeyBindingData(new KeyBindingData(KeyEvent.VK_L, 0));

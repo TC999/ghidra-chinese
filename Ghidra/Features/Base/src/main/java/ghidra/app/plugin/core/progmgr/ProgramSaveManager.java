@@ -273,10 +273,10 @@ class ProgramSaveManager {
 
 		}
 
-		int result = OptionDialog.showOptionDialog(tool.getToolFrame(), "Save Program?",
+		int result = OptionDialog.showOptionDialog(tool.getToolFrame(), "保存程序？",
 			HTMLUtilities.lineWrapWithHTMLLineBreaks("<html>" + HTMLUtilities.escapeHTML(filename) +
-				" has changed.\nDo you want to save it?"),
-			"&Save", "Do&n't Save", OptionDialog.QUESTION_MESSAGE);
+				" 已被修改。\n是否保存它？"),
+			"保存", "不保存", OptionDialog.QUESTION_MESSAGE);
 
 		if (result == OptionDialog.CANCEL_OPTION) {
 			return false;

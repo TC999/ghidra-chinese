@@ -55,8 +55,8 @@ import ghidra.util.task.TaskLauncher;
 	status = PluginStatus.RELEASED,
 	packageName = CorePluginPackage.NAME,
 	category = PluginCategoryNames.ANALYSIS,
-	shortDescription = "Manages auto-analysis",
-	description = "Provides coordination and a service for All Auto Analysis tasks.",
+	shortDescription = "管理自动分析",
+	description = "提供所有自动分析任务的协调和服务。",
 	eventsConsumed = { ProgramOpenedPluginEvent.class, ProgramClosedPluginEvent.class, ProgramActivatedPluginEvent.class, ProgramPostActivatedPluginEvent.class }
 )
 //@formatter:on
@@ -81,8 +81,7 @@ public class AutoAnalysisPlugin extends Plugin implements AutoAnalysisManagerLis
 		// get the option so that an owner is associated with it, otherwise
 		// it will not show up in the Options dialog for the tool.
 		Options options = tool.getOptions(GhidraOptions.CATEGORY_AUTO_ANALYSIS);
-		String description = "This option forces the analysis options" +
-			" dialog to appear whenever auto-analysis action is invoked.";
+		String description = "启用此选项后，执行自动分析操作时将强制弹出分析设置对话框。";
 
 		helpLocation = new HelpLocation("AutoAnalysisPlugin", "AnalysisOptions");
 		options.setOptionsHelpLocation(helpLocation);
@@ -106,7 +105,7 @@ public class AutoAnalysisPlugin extends Plugin implements AutoAnalysisManagerLis
 		int subGroupIndex = 0;
 
 		autoAnalyzeAction =
-			new ActionBuilder("Auto Analyze", getName()).menuPath("&Analysis", "&Auto Analyze...")
+			new ActionBuilder("自动分析", getName()).menuPath("分析", "自动分析...")
 					.menuGroup(ANALYZE_GROUP_NAME, "" + subGroupIndex++)
 					.keyBinding("A")
 					.withContext(ListingActionContext.class, true)
@@ -121,14 +120,14 @@ public class AutoAnalysisPlugin extends Plugin implements AutoAnalysisManagerLis
 			return ac instanceof ListingActionContext;
 		});
 
-		new ActionBuilder("Analyze All Open", getName())
-				.menuPath("&Analysis", "Analyze All &Open...")
+		new ActionBuilder("分析所有打开的", getName())
+				.menuPath("分析", "分析所有打开的...")
 				.menuGroup(ANALYZE_GROUP_NAME, "" + subGroupIndex++)
 				.withContext(ListingActionContext.class, true)
 				.onAction(c -> analyzeAllCallback())
 				.buildAndInstall(tool);
 
-		tool.setMenuGroup(new String[] { "Analysis", "One Shot" }, ANALYZE_GROUP_NAME);
+		tool.setMenuGroup(new String[] { "分析", "一次性" }, ANALYZE_GROUP_NAME);
 
 	}
 
@@ -139,7 +138,7 @@ public class AutoAnalysisPlugin extends Plugin implements AutoAnalysisManagerLis
 			programName = listingContext.getProgram().getDomainFile().getName();
 		}
 		MenuData menuBarData = autoAnalyzeAction.getMenuBarData();
-		menuBarData.setMenuItemName("&Auto Analyze '" + programName + "'...");
+		menuBarData.setMenuItemName("&自动分析 '" + programName + "'...");
 	}
 
 	private void analyzeCallback(ActionContext context) {
@@ -204,15 +203,15 @@ public class AutoAnalysisPlugin extends Plugin implements AutoAnalysisManagerLis
 	}
 
 	public static String getDescription() {
-		return "Provides coordination and a service for All Auto Analysis tasks";
+		return "提供所有自动分析任务的协调和服务";
 	}
 
 	public static String getDescriptiveName() {
-		return "AutoAnalysisManager";
+		return "自动分析管理器";
 	}
 
 	public static String getCategory() {
-		return "Analysis";
+		return "分析";
 	}
 
 	protected void programClosed(Program program) {
@@ -264,7 +263,7 @@ public class AutoAnalysisPlugin extends Plugin implements AutoAnalysisManagerLis
 	private void programActivated(Program program) {
 		program.getOptions(StoredAnalyzerTimes.OPTIONS_LIST)
 				.registerOption(StoredAnalyzerTimes.OPTION_NAME, OptionType.CUSTOM_TYPE, null, null,
-					"Cumulative analysis task times",
+					"累积分析任务时间",
 					() -> new StoredAnalyzerTimesPropertyEditor());
 
 	}
@@ -287,7 +286,7 @@ public class AutoAnalysisPlugin extends Plugin implements AutoAnalysisManagerLis
 		if (!showDialog) {
 			return true;
 		}
-		int id = program.startTransaction("Analysis Options");
+		int id = program.startTransaction("分析选项");
 		try {
 			AnalysisOptionsDialog dialog = new AnalysisOptionsDialog(program);
 			tool.showDialog(dialog);
@@ -303,13 +302,13 @@ public class AutoAnalysisPlugin extends Plugin implements AutoAnalysisManagerLis
 		MessageLog log = manager.getMessageLog();
 		if (log.hasMessages()) {
 
-			log.write(AutoAnalysisManager.class, "Analysis Log Messages");
+			log.write(AutoAnalysisManager.class, "分析日志消息");
 
-			String shortMessage = "There were warnings/errors issued during analysis.";
+			String shortMessage = "在分析过程中发出警告/错误.";
 			String detailedMessage =
-				"(These messages are also written to the application log file)\n\n" +
+				"(这些消息也会写入应用程序日志文件)\n\n" +
 					log.toString();
-			MultiLineMessageDialog dialog = new MultiLineMessageDialog("Auto Analysis Summary",
+			MultiLineMessageDialog dialog = new MultiLineMessageDialog("自动分析摘要",
 				shortMessage, detailedMessage, MultiLineMessageDialog.WARNING_MESSAGE, false);//modal?
 			DockingWindowManager.showDialog(null, dialog);
 		}
@@ -323,7 +322,7 @@ public class AutoAnalysisPlugin extends Plugin implements AutoAnalysisManagerLis
 		public OneShotAnalyzerAction(Analyzer analyzer) {
 			super(analyzer.getName(), AutoAnalysisPlugin.this.getName());
 			this.analyzer = analyzer;
-			setMenuBarData(new MenuData(new String[] { "Analysis", "One Shot", analyzer.getName() },
+			setMenuBarData(new MenuData(new String[] { "分析", "一次性", analyzer.getName() },
 				null, ANALYZE_GROUP_NAME));
 			setHelpLocation(new HelpLocation("AutoAnalysisPlugin", "Auto_Analyzers"));
 
@@ -355,7 +354,7 @@ public class AutoAnalysisPlugin extends Plugin implements AutoAnalysisManagerLis
 				new OneShotAnalysisCommand(analyzer, set, analysisMgr.getMessageLog()),
 				analyzer.getPriority().priority());
 
-			tool.setStatusInfo("Analysis scheduled: " + analyzer.getName());
+			tool.setStatusInfo("分析已调度：" + analyzer.getName());
 		}
 
 		@Override

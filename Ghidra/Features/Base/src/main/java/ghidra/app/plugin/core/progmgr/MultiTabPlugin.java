@@ -110,7 +110,7 @@ public class MultiTabPlugin extends Plugin
 				.buildAndInstall(tool);
 
 		new ActionBuilder("Close All Programs", getName())
-				.popupMenuPath("Close All")
+				.popupMenuPath("关闭全部")
 				.helpLocation(new HelpLocation("ProgramManagerPlugin", "Close_All"))
 				.withContext(ProgramTabActionContext.class)
 				.onAction(c -> progService.closeAllPrograms(false))
