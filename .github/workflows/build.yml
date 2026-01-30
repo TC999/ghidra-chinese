@@ -17,7 +17,7 @@ on:
 jobs:
   Show-Info:
     name: 显示信息
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - name: 显示信息
         run: |
