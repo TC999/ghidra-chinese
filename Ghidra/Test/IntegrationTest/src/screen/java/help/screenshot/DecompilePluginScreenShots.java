@@ -181,7 +181,7 @@ public class DecompilePluginScreenShots extends GhidraScreenShotGenerator {
 		ComponentProvider provider = getProvider("Decompiler");
 		showProvider(provider.getClass());
 		waitForSwing();
-		performAction("Edit Function Signature", "DecompilePlugin", provider, false);
+		performAction("编辑函数签名", "DecompilePlugin", provider, false);
 		captureDialog();
 	}
 

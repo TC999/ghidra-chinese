@@ -180,7 +180,7 @@ public abstract class AbstractEditFunctionSignatureDialog extends DialogComponen
 		mainPanel.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
 		mainPanel.add(buildSignaturePanel());
 		mainPanel.add(buildAttributePanel());
-		mainPanel.getAccessibleContext().setAccessibleName("Edit Function Signature");
+		mainPanel.getAccessibleContext().setAccessibleName("编辑函数签名");
 		if (allowCallFixup) {
 			JPanel callFixupPanel = buildCallFixupPanel();
 			mainPanel.add(callFixupPanel != null ? callFixupPanel : buildSpacerPanel());

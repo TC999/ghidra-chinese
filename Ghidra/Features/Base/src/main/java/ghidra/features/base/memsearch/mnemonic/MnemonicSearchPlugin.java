@@ -55,7 +55,7 @@ import ghidra.util.Msg;
 //@formatter:on
 public class MnemonicSearchPlugin extends Plugin {
 
-	static final String MENU_PULLRIGHT = "For Matching Instructions";
+	static final String MENU_PULLRIGHT = "匹配指令搜索";
 	static final String POPUP_MENU_GROUP = "Search";
 
 	// Actions (accessible via Tools menu)
@@ -97,8 +97,8 @@ public class MnemonicSearchPlugin extends Plugin {
 		//       so it's more obvious to the user why the operation is invalid.
 		if (selection.getNumAddressRanges() > 1) {
 			Msg.showInfo(this, context.getComponentProvider().getComponent(),
-				"Mnemonic Search Error",
-				"Multiple selected regions are not allowed; please limit to one.");
+				"助记符搜索错误",
+				"不允许多个选定区域；请限制为一个。");
 			return;
 		}
 
@@ -129,7 +129,7 @@ public class MnemonicSearchPlugin extends Plugin {
 
 		String group = "search for";
 		String pullRightGroup = "0"; // top of 'search for' group
-		tool.setMenuGroup(new String[] { "&Search", MENU_PULLRIGHT }, group, pullRightGroup);
+		tool.setMenuGroup(new String[] { "搜索", MENU_PULLRIGHT }, group, pullRightGroup);
 
 		HelpLocation helpLocation = new HelpLocation(HelpTopics.SEARCH, "Mnemonic_Search");
 
@@ -137,7 +137,7 @@ public class MnemonicSearchPlugin extends Plugin {
 		// ACTION 1: Search for instructions, excluding constants. 
 		//
 		setSearchMnemonicOpsNoConstAction =
-			new NavigatableContextAction("Include Operands (except constants)", getName()) {
+			new NavigatableContextAction("包含操作数（除常量）", getName()) {
 
 				@Override
 				public void actionPerformed(NavigatableActionContext context) {
@@ -151,8 +151,8 @@ public class MnemonicSearchPlugin extends Plugin {
 
 			};
 
-		setSearchMnemonicOpsNoConstAction.setMenuBarData(new MenuData(new String[] { "&Search",
-			MENU_PULLRIGHT, "Include Operands (except constants)" }, null, group,
+		setSearchMnemonicOpsNoConstAction.setMenuBarData(new MenuData(new String[] { "搜索",
+			MENU_PULLRIGHT, "包含操作数（除常量）" }, null, group,
 			MenuData.NO_MNEMONIC, "3"));
 		setSearchMnemonicOpsNoConstAction.setHelpLocation(helpLocation);
 		setSearchMnemonicOpsNoConstAction
@@ -162,7 +162,7 @@ public class MnemonicSearchPlugin extends Plugin {
 		// ACTION 2: Search for instructions, including operands. 
 		//
 		setSearchMnemonicOpsConstAction =
-			new NavigatableContextAction("Include Operands", getName()) {
+			new NavigatableContextAction("包含操作数", getName()) {
 
 				@Override
 				public void actionPerformed(NavigatableActionContext context) {
@@ -175,8 +175,8 @@ public class MnemonicSearchPlugin extends Plugin {
 				}
 			};
 
-		setSearchMnemonicOpsConstAction.setMenuBarData(new MenuData(new String[] { "&Search",
-			MENU_PULLRIGHT, "Include Operands" }, null, group, MenuData.NO_MNEMONIC, "2"));
+		setSearchMnemonicOpsConstAction.setMenuBarData(new MenuData(new String[] { "搜索",
+			MENU_PULLRIGHT, "包含操作数" }, null, group, MenuData.NO_MNEMONIC, "2"));
 		setSearchMnemonicOpsConstAction.setHelpLocation(helpLocation);
 		setSearchMnemonicOpsConstAction
 				.addToWindowWhen(NavigatableActionContext.class);
@@ -185,7 +185,7 @@ public class MnemonicSearchPlugin extends Plugin {
 		// ACTION 3: Search for instructions, excluding constants. 
 		//
 		setSearchMnemonicNoOpsNoConstAction =
-			new NavigatableContextAction("Exclude Operands", getName()) {
+			new NavigatableContextAction("排除操作数", getName()) {
 
 				@Override
 				public void actionPerformed(NavigatableActionContext context) {
@@ -198,8 +198,8 @@ public class MnemonicSearchPlugin extends Plugin {
 				}
 			};
 
-		setSearchMnemonicNoOpsNoConstAction.setMenuBarData(new MenuData(new String[] { "&Search",
-			MENU_PULLRIGHT, "Exclude Operands" }, null, group, MenuData.NO_MNEMONIC, "1"));
+		setSearchMnemonicNoOpsNoConstAction.setMenuBarData(new MenuData(new String[] { "搜索",
+			MENU_PULLRIGHT, "排除操作数" }, null, group, MenuData.NO_MNEMONIC, "1"));
 		setSearchMnemonicNoOpsNoConstAction.setHelpLocation(helpLocation);
 		setSearchMnemonicNoOpsNoConstAction
 				.addToWindowWhen(NavigatableActionContext.class);

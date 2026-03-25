@@ -23,7 +23,7 @@ A created .PDB.XML file will be placed in the same location as the corresponding
 
 _NOTES_
 * There is also a Ghidra GUI-based version of createPdbXmlFiles.bat. It is available from the GUI's
-Script Manager (see the "Load PDB File" section of Ghidra Help for more details).  
+Script Manager (see the "加载 PDB 文件" section of Ghidra Help for more details).  
 
 * The createPdbXmlFiles.bat script may not work when operating on files that are located on a mounted
 drive or remote server. For best results, please make sure the PDB files or directories you are using

@@ -46,7 +46,7 @@
                                         </COMPONENT_NODE>
                                     </SPLIT_NODE>
                                     <COMPONENT_NODE TOP_INFO="0">
-                                        <COMPONENT_INFO NAME="Program Tree" OWNER="ProgramTreePlugin" TITLE="Program Trees" ACTIVE="false" GROUP="Default" INSTANCE_ID="3592304123427987730" />
+                                        <COMPONENT_INFO NAME="Program Tree" OWNER="ProgramTreePlugin" TITLE="程序树" ACTIVE="false" GROUP="Default" INSTANCE_ID="3592304123427987730" />
                                     </COMPONENT_NODE>
                                 </SPLIT_NODE>
                                 <SPLIT_NODE WIDTH="1293" HEIGHT="590" DIVIDER_LOCATION="785" ORIENTATION="VERTICAL">

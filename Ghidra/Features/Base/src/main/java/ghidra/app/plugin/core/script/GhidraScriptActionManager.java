@@ -262,20 +262,20 @@ class GhidraScriptActionManager {
 			return (contextObject instanceof GTable) || (contextObject instanceof ResourceFile);
 		};
 
-		new ActionBuilder("Ghidra API Help", plugin.getName()).popupMenuPath("Ghidra API Help")
+		new ActionBuilder("Ghidra API帮助", plugin.getName()).popupMenuPath("Ghidra API帮助")
 				.popupMenuIcon(icon)
 				.popupWhen(test)
 				.toolBarIcon(icon)
 				.toolBarGroup(null)
-				.description("Help")
+				.description("帮助")
 				.helpLocation(new HelpLocation(plugin.getName(), "Help"))
 				.enabledWhen(test)
 				.onAction(context -> showGhidraScriptJavadoc())
 				.buildAndInstallLocal(provider);
 
-		new ActionBuilder("Ghidra API Help", plugin.getName())
+		new ActionBuilder("Ghidra API帮助", plugin.getName())
 				.menuGroup(ToolConstants.HELP_CONTENTS_MENU_GROUP)
-				.menuPath(ToolConstants.MENU_HELP, "Ghidra API Help")
+				.menuPath(ToolConstants.MENU_HELP, "Ghidra API帮助")
 				.helpLocation(new HelpLocation("Misc", "Welcome_to_Ghidra_Help"))
 				.inWindow(ActionBuilder.When.ALWAYS)
 				.onAction(context -> showGhidraScriptJavadoc())
@@ -311,7 +311,7 @@ class GhidraScriptActionManager {
 
 		if (SystemUtilities.isInDevelopmentMode()) {
 			Msg.showWarn(GhidraScriptActionManager.this, provider.getComponent(),
-				"Error Unzipping Javadoc File", "Cannot view Ghidra API Help in development mode.");
+				"解压Javadoc文件错误", "无法在开发模式下查看Ghidra API帮助。");
 			return;
 		}
 		File zipFile = new File(Application.getInstallationDirectory().getFile(false),

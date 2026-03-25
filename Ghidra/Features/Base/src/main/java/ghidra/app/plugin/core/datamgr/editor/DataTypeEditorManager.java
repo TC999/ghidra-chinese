@@ -536,7 +536,7 @@ public class DataTypeEditorManager implements EditorListener {
 	private void editFunctionSignature(Category category, FunctionDefinition functionDefinition) {
 		PluginTool tool = plugin.getTool();
 		DTMEditFunctionSignatureDialog editSigDialog = new DTMEditFunctionSignatureDialog(
-			plugin.getTool(), "Edit Function Signature", category, functionDefinition);
+			plugin.getTool(), "编辑函数签名", category, functionDefinition);
 		editSigDialog
 				.setHelpLocation(new HelpLocation("DataTypeManagerPlugin", "Function_Definition"));
 		tool.showDialog(editSigDialog);

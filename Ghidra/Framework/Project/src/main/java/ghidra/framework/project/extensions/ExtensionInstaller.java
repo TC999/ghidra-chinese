@@ -63,17 +63,17 @@ public class ExtensionInstaller {
 	 */
 	public static boolean install(File file) {
 
-		log.trace("Installing extension file " + file);
+		log.trace("安装扩展文件 " + file);
 
 		if (file == null) {
-			log.error("Install file cannot be null");
+			log.error("安装文件不能为空");
 			return false;
 		}
 
 		ExtensionDetails extension = ExtensionUtils.getExtension(file, false);
 		if (extension == null) {
-			Msg.showError(ExtensionInstaller.class, null, "Error Installing Extension",
-				file.getAbsolutePath() + " does not point to a valid ghidra extension");
+			Msg.showError(ExtensionInstaller.class, null, "安装扩展错误",
+				file.getAbsolutePath() + " 不是一个有效的 Ghidra 扩展");
 			return false;
 		}
 
@@ -93,16 +93,16 @@ public class ExtensionInstaller {
 		}
 
 		AtomicBoolean installed = new AtomicBoolean(false);
-		TaskLauncher.launchModal("Installing Extension", (monitor) -> {
+		TaskLauncher.launchModal("安装扩展中", (monitor) -> {
 			installed.set(ExtensionUtils.install(extension, file, monitor));
 		});
 
 		boolean success = installed.get();
 		if (success) {
-			log.trace("Finished installing " + file);
+			log.trace("成功安装扩展 " + file);
 		}
 		else {
-			log.trace("Failed to install " + file);
+			log.trace("安装扩展失败 " + file);
 		}
 
 		return success;
@@ -115,13 +115,13 @@ public class ExtensionInstaller {
 	 */
 	public static boolean installExtensionFromArchive(ExtensionDetails extension) {
 		if (extension == null) {
-			log.error("Extension to install cannot be null");
+			log.error("要安装的扩展不能为空");
 			return false;
 		}
 
 		String archivePath = extension.getArchivePath();
 		if (archivePath == null) {
-			log.error("Cannot install from archive; extension is missing archive path");
+			log.error("无法从归档安装；扩展缺少归档路径");
 			return false;
 		}
 
@@ -157,12 +157,12 @@ public class ExtensionInstaller {
 			return true;
 		}
 
-		String message = "Extension version mismatch.\nName: " + extension.getName() +
-			"Extension version: " + extVersion + ".\nGhidra version: " + appVersion + ".";
+		String message = "扩展版本不匹配。\n名称: " + extension.getName() +
+			"扩展版本: " + extVersion + ".\nGhidra 版本: " + appVersion + ".";
 		int choice = OptionDialog.showOptionDialogWithCancelAsDefaultButton(null,
-			"Extension Version Mismatch", message, "Install Anyway");
+			"扩展版本不匹配", message, "安装");
 		if (choice != OptionDialog.OPTION_ONE) {
-			log.info(removeNewlines(message + " Did not install"));
+			log.info(removeNewlines(message + " 不安装"));
 			return false;
 		}
 		return true;
@@ -176,15 +176,15 @@ public class ExtensionInstaller {
 			Extensions extensions) {
 
 		String name = newExtension.getName();
-		log.trace("Checking for duplicate extensions for '" + name + "'");
+		log.trace("检查名称为 '" + name + "' 的重复扩展");
 
 		List<ExtensionDetails> matches = extensions.getMatchingExtensions(newExtension);
 		if (matches.isEmpty()) {
-			log.trace("No matching extensions installed");
+			log.trace("没有安装名称为 '" + name + "' 的匹配扩展");
 			return false;
 		}
 
-		log.trace("Duplicate extensions found by name '" + name + "'");
+		log.trace("找到名称为 '" + name + "' 的重复扩展");
 
 		if (matches.size() > 1) {
 			reportMultipleDuplicateExtensionsWhenInstalling(newExtension, matches);
@@ -193,17 +193,17 @@ public class ExtensionInstaller {
 
 		ExtensionDetails installedExtension = matches.get(0);
 		String message =
-			"Attempting to install an extension matching the name of an existing extension.\n" +
-				"New extension version: " + newExtension.getVersion() + ".\n" +
-				"Installed extension version: " + installedExtension.getVersion() + ".\n\n" +
-				"To install, click 'Remove Existing', restart Ghidra, then install again.";
+			"尝试安装一个与已安装扩展名称匹配的扩展。\n" +
+				"新扩展版本: " + newExtension.getVersion() + ".\n" +
+				"已安装扩展版本: " + installedExtension.getVersion() + ".\n\n" +
+				"要安装，请点击 '移除现有'，重新启动 Ghidra，然后再次安装。";
 		int choice = OptionDialog.showOptionDialogWithCancelAsDefaultButton(null,
-			"Duplicate Extension", message, "Remove Existing");
+			"重复扩展", message, "移除现有");
 
 		String installPath = installedExtension.getInstallPath();
 		if (choice != OptionDialog.OPTION_ONE) {
 			log.info(removeNewlines(message +
-				" Skipping installation. Original extension still installed: " + installPath));
+				" 跳过安装。原始扩展仍安装在: " + installPath));
 			return true;
 		}
 
@@ -212,8 +212,7 @@ public class ExtensionInstaller {
 		// the existing extension, as it may be in use; mark it for removal.
 		//
 		log.info(removeNewlines(
-			message + " Installing new extension. Existing extension will be removed after " +
-				"restart: " + installPath));
+			message + " 安装新扩展。安装后，原始扩展将在重启后被移除: " + installPath));
 		installedExtension.markForUninstall();
 		return true;
 	}
@@ -222,16 +221,15 @@ public class ExtensionInstaller {
 			List<ExtensionDetails> matches) {
 
 		StringBuilder buffy = new StringBuilder();
-		buffy.append("Found multiple duplicate extensions while trying to install '")
+		buffy.append("尝试安装扩展时发现多个重复扩展 '")
 				.append(extension.getName())
 				.append("'\n");
 		for (ExtensionDetails otherExtension : matches) {
-			buffy.append("Duplicate: " + otherExtension.getInstallPath()).append('\n');
+			buffy.append("重复扩展: " + otherExtension.getInstallPath()).append('\n');
 		}
-		buffy.append("Please close Ghidra and manually remove from these extensions from the " +
-			"filesystem.");
+		buffy.append("请关闭 Ghidra 并手动从文件系统中移除这些扩展。");
 
-		Msg.showInfo(ExtensionInstaller.class, null, "Duplicate Extensions Found",
+		Msg.showInfo(ExtensionInstaller.class, null, "发现重复扩展",
 			buffy.toString());
 	}
 
@@ -239,11 +237,11 @@ public class ExtensionInstaller {
 			Extensions extensions) {
 
 		String name = newExtension.getName();
-		log.trace("Checking for duplicate dev mode extensions for '" + name + "'");
+		log.trace("检查名称为 '" + name + "' 的重复开发模式扩展");
 
 		List<ExtensionDetails> matches = extensions.getMatchingExtensions(newExtension);
 		if (matches.isEmpty()) {
-			log.trace("No matching extensions installed");
+			log.trace("没有安装名称为 '" + name + "' 的匹配扩展");
 			return false;
 		}
 
@@ -251,14 +249,13 @@ public class ExtensionInstaller {
 
 			if (extension.isInstalledInInstallationFolder()) {
 
-				String message = "Attempting to install an extension that conflicts with an " +
-					"extension located in the Ghidra installation folder.\nYou must manually " +
-					"remove the existing extension to install the new extension.\nExisting " +
-					"extension: " + extension.getInstallDir();
+				String message = "尝试安装一个与已安装扩展名称匹配的扩展，该扩展位于 Ghidra 安装文件夹中。\n" +
+					"您必须手动移除现有扩展才能安装新扩展。\n" +
+					"现有扩展: " + extension.getInstallDir();
 
 				log.trace(removeNewlines(message));
 
-				OkDialog.showError("Duplicate Extensions Found", message);
+				OkDialog.showError("发现重复扩展", message);
 				return true;
 			}
 		}

@@ -44,14 +44,14 @@ class ToolActionManager implements ToolChestChangeListener {
 	private final static int TYPICAL_NUM_TOOLS_IN_TOOLCHEST = 5;
 	private final static int NEWTOOL_ACCELERATOR = KeyEvent.VK_T;
 
-	private static final String MENU_ITEM_CREATE_TOOL = "&Create Tool..."; // Group: ATools	
-	private static final String MENU_ITEM_RUN_TOOL = "&Run Tool"; // Group: BTools	
-	private static final String MENU_ITEM_DELETE_TOOL = "Delete Tool"; // Group: CTools	
-	private static final String MENU_ITEM_IMPORT_TOOL = "&Import Tool..."; // Group: DTools
-	private static final String MENU_ITEM_IMPORT_DEFAULT_TOOLS = "Import &Default Tools...";
-	private static final String MENU_ITEM_EXPORT_TOOL = "&Export Tool";
-	private static final String MENU_ITEM_CONNECT_TOOLS = "Connect &Tools..."; // Group: ETools     
-	private static final String MENU_ITEM_SET_DEFAULT_TOOL = "&Set As Default"; // Group: FTools 
+	private static final String MENU_ITEM_CREATE_TOOL = "&创建工具..."; // Group: ATools	
+	private static final String MENU_ITEM_RUN_TOOL = "&运行工具"; // Group: BTools	
+	private static final String MENU_ITEM_DELETE_TOOL = "删除工具"; // Group: CTools	
+	private static final String MENU_ITEM_IMPORT_TOOL = "&导入工具..."; // Group: DTools
+	private static final String MENU_ITEM_IMPORT_DEFAULT_TOOLS = "导入&默认工具...";
+	private static final String MENU_ITEM_EXPORT_TOOL = "&导出工具";
+	private static final String MENU_ITEM_CONNECT_TOOLS = "连接&工具..."; // Group: ETools     
+	private static final String MENU_ITEM_SET_DEFAULT_TOOL = "&设为默认"; // Group: FTools 
 
 	private FrontEndPlugin plugin;
 	private FrontEndTool tool;
@@ -127,7 +127,7 @@ class ToolActionManager implements ToolChestChangeListener {
 
 		tool.addAction(createToolAction);
 
-		importAction = new DockingAction("Import Tool", plugin.getName()) {
+		importAction = new DockingAction("导入工具", plugin.getName()) {
 			@Override
 			public void actionPerformed(ActionContext e) {
 				importTool();
@@ -136,12 +136,12 @@ class ToolActionManager implements ToolChestChangeListener {
 		importAction.setMenuBarData(new MenuData(
 			new String[] { ToolConstants.MENU_TOOLS, MENU_ITEM_IMPORT_TOOL }, null, "DTools"));
 		importAction.setHelpLocation(
-			new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "Import Tool"));
+			new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "导入工具"));
 		importAction.setEnabled(false);
 
 		tool.addAction(importAction);
 
-		importDefaultToolsAction = new DockingAction("Import Ghidra Tools", plugin.getName()) {
+		importDefaultToolsAction = new DockingAction("导入 Ghidra 工具", plugin.getName()) {
 			@Override
 			public void actionPerformed(ActionContext e) {
 				addDefaultTools();
@@ -151,11 +151,11 @@ class ToolActionManager implements ToolChestChangeListener {
 			new MenuData(new String[] { ToolConstants.MENU_TOOLS, MENU_ITEM_IMPORT_DEFAULT_TOOLS },
 				null, "DTools"));
 		importDefaultToolsAction.setHelpLocation(
-			new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "Import Ghidra Tools"));
+			new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "导入 Ghidra 工具"));
 		importDefaultToolsAction.setEnabled(false);
 		tool.addAction(importDefaultToolsAction);
 
-		connectToolsAction = new DockingAction("Connect Tools", plugin.getName()) {
+		connectToolsAction = new DockingAction("连接工具", plugin.getName()) {
 			@Override
 			public void actionPerformed(ActionContext e) {
 				connectTools();
@@ -166,7 +166,7 @@ class ToolActionManager implements ToolChestChangeListener {
 		connectToolsAction.setEnabled(false);
 		tool.addAction(connectToolsAction);
 
-		setToolAssociationsAction = new DockingAction("Set Tool Associations", plugin.getName()) {
+		setToolAssociationsAction = new DockingAction("设置工具关联", plugin.getName()) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				showToolAssociationsDialog();
@@ -174,11 +174,11 @@ class ToolActionManager implements ToolChestChangeListener {
 		};
 		setToolAssociationsAction.setEnabled(false);
 		setToolAssociationsAction.setMenuBarData(new MenuData(
-			new String[] { ToolConstants.MENU_TOOLS, "Set Tool Associations..." }, null, "FTools"));
+			new String[] { ToolConstants.MENU_TOOLS, "设置工具关联..." }, null, "FTools"));
 		tool.addAction(setToolAssociationsAction);
 
 		setToolAssociationsAction.setHelpLocation(
-			new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "Set Tool Associations"));
+			new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "设置工具关联"));
 
 		tool.setMenuGroup(new String[] { ToolConstants.MENU_TOOLS, MENU_ITEM_RUN_TOOL }, "BTools");
 		tool.setMenuGroup(new String[] { ToolConstants.MENU_TOOLS, MENU_ITEM_DELETE_TOOL },
@@ -220,7 +220,7 @@ class ToolActionManager implements ToolChestChangeListener {
 			addToolTemplate(is, filename);
 		}
 		catch (Exception e) {
-			Msg.showError(this, null, "Error", "Error loading default tool: " + filename, e);
+			Msg.showError(this, null, "错误", "加载默认工具出错：" + filename, e);
 		}
 	}
 
@@ -366,7 +366,7 @@ class ToolActionManager implements ToolChestChangeListener {
 	private void createPlaceHolderActions() {
 		String owner = plugin.getName();
 
-		DockingAction action = new DockingAction("Run Tool", owner) {
+		DockingAction action = new DockingAction("运行工具", owner) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				// no-op; placeholder action
@@ -374,13 +374,13 @@ class ToolActionManager implements ToolChestChangeListener {
 		};
 		action.setMenuBarData(new MenuData(
 			new String[] { ToolConstants.MENU_TOOLS, MENU_ITEM_RUN_TOOL }, null, "BTools"));
-		action.setHelpLocation(new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "Run Tool"));
+		action.setHelpLocation(new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "运行工具"));
 		action.setEnabled(false);
 
 		tool.addAction(action);
 		runToolActionMap.put(action.getName(), action);
 
-		action = new DockingAction("Delete Tool", owner) {
+		action = new DockingAction("删除工具", owner) {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				// no-op; placeholder action
@@ -388,7 +388,7 @@ class ToolActionManager implements ToolChestChangeListener {
 		};
 		action.setMenuBarData(new MenuData(
 			new String[] { ToolConstants.MENU_TOOLS, MENU_ITEM_DELETE_TOOL }, null, "CTools"));
-		action.setHelpLocation(new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "Delete Tool"));
+		action.setHelpLocation(new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "删除工具"));
 		action.setEnabled(false);
 
 		tool.addAction(action);
@@ -402,7 +402,7 @@ class ToolActionManager implements ToolChestChangeListener {
 		};
 		action.setMenuBarData(new MenuData(
 			new String[] { ToolConstants.MENU_TOOLS, MENU_ITEM_EXPORT_TOOL }, null, "DTools"));
-		action.setHelpLocation(new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "Export Tool"));
+		action.setHelpLocation(new HelpLocation(ToolConstants.TOOL_HELP_TOPIC, "导出工具"));
 		action.setEnabled(false);
 
 		exportToolActionMap.put(action.getName(), action);
@@ -417,9 +417,9 @@ class ToolActionManager implements ToolChestChangeListener {
 
 		GhidraFileChooser fileChooser = new GhidraFileChooser(tool.getToolFrame());
 		fileChooser.setFileFilter(
-			new ExtensionFileFilter(new String[] { "tool", "tcd" }, "Tools"));
-		fileChooser.setTitle("Import Tool");
-		fileChooser.setApproveButtonText("Import");
+			new ExtensionFileFilter(new String[] { "tool", "tcd" }, "工具"));
+		fileChooser.setTitle("导入工具");
+		fileChooser.setApproveButtonText("导入");
 
 		String importDir = Preferences.getProperty(Preferences.LAST_TOOL_IMPORT_DIRECTORY);
 		if (importDir != null) {
@@ -438,8 +438,8 @@ class ToolActionManager implements ToolChestChangeListener {
 		}
 
 		if (!selectedFile.exists()) {
-			Msg.showError(this, null, "Error",
-				"Tool " + selectedFile.getName() + " doesn't exist!");
+			Msg.showError(this, null, "错误",
+				"工具 " + selectedFile.getName() + " 不存在！");
 		}
 		Preferences.setProperty(Preferences.LAST_TOOL_IMPORT_DIRECTORY, selectedFile.getParent());
 		try {
@@ -447,8 +447,8 @@ class ToolActionManager implements ToolChestChangeListener {
 				selectedFile.getAbsolutePath());
 		}
 		catch (Exception e) {
-			Msg.showError(this, tool.getToolFrame(), "Error Creating Input Stream",
-				"Error creating input stream for\n" + selectedFile.getAbsolutePath() + ": " + e, e);
+			Msg.showError(this, tool.getToolFrame(), "创建输入流时出错",
+				"创建输入流时出错\n" + selectedFile.getAbsolutePath() + ": " + e, e);
 		}
 	}
 
@@ -463,15 +463,15 @@ class ToolActionManager implements ToolChestChangeListener {
 			ToolTemplate template = new GhidraToolTemplate(root, path);
 			if (plugin.getActiveProject().getLocalToolChest().addToolTemplate(template)) {
 				Msg.info(this,
-					"Successfully added " + template.getName() + " to project tool chest.");
+					"成功添加 " + template.getName() + " 至项目工具箱。");
 			}
 			else {
-				Msg.warn(this, "Could not add " + template.getName() + " to project tool chest.");
+				Msg.warn(this, "不能添加 " + template.getName() + " 至项目工具箱。");
 			}
 		}
 		catch (Exception e) {
-			Msg.showError(getClass(), tool.getToolFrame(), "Error Reading Tool",
-				"Could not read tool: " + e, e);
+			Msg.showError(getClass(), tool.getToolFrame(), "读取工具出错",
+				"不能读取工具：" + e, e);
 		}
 	}
 
@@ -503,7 +503,7 @@ class ToolActionManager implements ToolChestChangeListener {
 			@Override
 			public void actionPerformed(ActionContext context) {
 				String name = getName();
-				if (!plugin.confirmDelete(name + " from the project tool chest?")) {
+				if (!plugin.confirmDelete(name + " 从项目工具箱？")) {
 					return;
 				}
 				ToolChest toolChest = plugin.getActiveProject().getLocalToolChest();
@@ -525,7 +525,7 @@ class ToolActionManager implements ToolChestChangeListener {
 			public void actionPerformed(ActionContext context) {
 				String name = getName();
 				ToolChest toolChest = plugin.getActiveProject().getLocalToolChest();
-				plugin.exportToolConfig(toolChest.getToolTemplate(name), "Tool Menu");
+				plugin.exportToolConfig(toolChest.getToolTemplate(name), "工具目录");
 			}
 		};
 		exportToolAction.setEnabled(true);
