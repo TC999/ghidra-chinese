@@ -1,37 +1,56 @@
 <img src="Ghidra/Features/Base/src/main/resources/images/GHIDRA_3.png" width="400">
 
-这是 Ghidra 的社区汉化版，原版请访问[NationalSecurityAgency/ghidra](https://github.com/NationalSecurityAgency/ghidra)
+# Ghidra Software Reverse Engineering Framework
+Ghidra is a software reverse engineering (SRE) framework created and maintained by the 
+[National Security Agency][nsa] Research Directorate. This framework includes a suite of 
+full-featured, high-end software analysis tools that enable users to analyze compiled code on a 
+variety of platforms including Windows, macOS, and Linux. Capabilities include disassembly, 
+assembly, decompilation, graphing, and scripting, along with hundreds of other features. Ghidra 
+supports a wide variety of processor instruction sets and executable formats and can be run in both 
+user-interactive and automated modes. Users may also develop their own Ghidra extension components 
+and/or scripts using Java or Python.
 
-# Ghidra 软件逆向工程框架
-Ghidra 是由[美国国家安全局][nsa]研究部门创建和维护的软件逆向工程（SRE）框架。该框架包含一套功能齐全的高端软件分析工具，使用户能够分析多种平台（包括 Windows、macOS 和 Linux）上的编译代码。其功能涵盖反汇编、汇编、反编译、图形化分析和脚本编写，以及数百项其他特性。Ghidra 支持广泛的处理器指令集和可执行格式，并可在用户交互模式和自动化模式下运行。用户还可使用 Java 或 Python 开发自己的 Ghidra 扩展组件和/或脚本。
+In support of NSA's Cybersecurity mission, Ghidra was built to solve scaling and teaming problems 
+on complex SRE efforts, and to provide a customizable and extensible SRE research platform. NSA has 
+applied Ghidra SRE capabilities to a variety of problems that involve analyzing malicious code and 
+generating deep insights for SRE analysts who seek a better understanding of potential 
+vulnerabilities in networks and systems.
 
-为支持 NSA 的网络安全使命，Ghidra 旨在解决复杂 SRE 项目中的规模化和团队协作问题，并提供可定制、可扩展的 SRE 研究平台。NSA 已将 Ghidra 的 SRE 能力应用于各类涉及恶意代码分析的任务，并为寻求深入理解网络和系统潜在漏洞的 SRE 分析师提供深度洞察。
+If you are a U.S. citizen interested in projects like this, to develop Ghidra and other 
+cybersecurity tools for NSA to help protect our nation and its allies, consider applying for a 
+[career with us][career].
 
-如果您是美国公民，并对开发 Ghidra 及其他网络安全工具以帮助保护美国及其盟友的项目感兴趣，请考虑申请[加入我们][career]。
+## Security Warning
+**WARNING:** There are known security vulnerabilities within certain versions of Ghidra.  Before 
+proceeding, please read through Ghidra's [Security Advisories][security] for a better understanding 
+of how you might be impacted.
 
-## 安全警告
-**警告：** 某些版本的 Ghidra 存在已知安全漏洞。在继续操作前，请仔细阅读 Ghidra 的[安全公告][security]，以了解可能受到的影响。
+## Install
+To install an official pre-built multi-platform Ghidra release:  
+* Install [JDK 21 64-bit][jdk]
+* Download a Ghidra [release file][releases]
+  - **NOTE:** The official multi-platform release file is named 
+    `ghidra_<version>_<release>_<date>.zip` which can be found under the "Assets" drop-down.
+    Downloading either of the files named "Source Code" is not correct for this step.
+* Extract the Ghidra release file
+  - **NOTE:** Do not extract on top of an existing installation
+* Launch Ghidra: `./ghidraRun` (`ghidraRun.bat` for Windows)
+  - or launch [PyGhidra][pyghidra]: `./support/pyGhidraRun` (`support\pyGhidraRun.bat` for Windows)
 
-## 安装
-要安装官方预构建的多平台 Ghidra 版本：
-* 安装 [JDK 21 64 位版][jdk]
-* 下载 Ghidra [发行文件][releases]
-  - **注意：** 官方多平台发行文件名为 `ghidra_<版本>_<发行版>_<日期>.zip`，可在 "Assets" 下拉列表中找到。此步骤不应下载任何标记为 "Source Code" 的文件。
-* 解压 Ghidra 发行文件
-* 启动 Ghidra：`./ghidraRun`（Windows 使用 `ghidraRun.bat`）
-  - 或启动 [PyGhidra][pyghidra]：`./support/pyGhidraRun`（Windows 使用 `support\pyGhidraRun.bat`）
+For additional information and troubleshooting tips about installing and running a Ghidra release, 
+please refer to the [Getting Started][gettingstarted] document which can be found at the root of a 
+Ghidra installation directory. 
 
-有关安装和运行 Ghidra 版本的更多信息及故障排除提示，请参阅 Ghidra 安装目录根目录下的[入门指南][gettingstarted]。
+## Build
+To create the latest development build for your platform from this source repository:
 
-## 构建
-从源代码仓库创建适用于您平台的最新开发构建：
-
-##### 安装构建工具：
-* [JDK 21 64 位版][jdk]
-* [Gradle 8.5+][gradle]（如有网络连接可使用附带的 Gradle 包装器）
-* [Python3][python3]（3.9 至 3.13 版本）含内置 pip
-* make、gcc/g++ 或 clang（仅限 Linux/macOS）
-* [Microsoft Visual Studio][vs] 2017+ 或安装以下组件的 [Microsoft C++ 生成工具][vcbuildtools]（仅限 Windows）：
+##### Install build tools:
+* [JDK 21 64-bit][jdk]
+* [Gradle 8.5+][gradle] (or provided Gradle wrapper if Internet connection is available)
+* [Python3][python3] (version 3.9 to 3.14) with bundled pip
+* GCC or Clang, and make (Linux/macOS-only)
+* [Microsoft Visual Studio][vs] 2017+ or [Microsoft C++ Build Tools][vcbuildtools] with the
+  following components installed (Windows-only):
   - MSVC
   - Windows SDK
   - C++ ATL
@@ -47,6 +66,11 @@ cd ghidra-chinese
 
 ##### 下载额外构建依赖到源代码仓库：
 **注意：** 如已连接网络且未安装 Gradle，以下 `gradle` 命令可替换为 `./gradle(.bat)`。
+
+##### Download additional build dependencies into source repository:
+**NOTE:** If an Internet connection is available and you did not install Gradle, the 
+`./gradlew` (or `gradlew.bat`) command may be used in place of the `gradle` command in the following
+instructions.
 
 ```
 gradle -I gradle/support/fetchDependencies.gradle
